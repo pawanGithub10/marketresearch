@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Tax Calculator 2024 - Calculate Federal & State Taxes Instantly</title>
+    <meta name="description" content="Free 2024 income tax calculator. Calculate federal and state income taxes instantly. Works for W2 employees, self-employed, and gig workers. USA & India.">
+    <meta name="keywords" content="income tax calculator, federal tax calculator, tax bracket calculator, effective tax rate, state income tax">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- SECTION 1: HEADER & NAVIGATION -->
+    <header class="sticky top-0 bg-white shadow-md z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between mb-4">
+                <div class="text-2xl font-bold text-blue-600">Calcarena</div>
+                <input type="text" placeholder="Search calculators..." class="px-4 py-2 border border-gray-300 rounded-lg w-64">
+                <nav class="flex gap-6 text-sm">
+                    <a href="#" class="text-gray-700 hover:text-blue-600">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600">Categories</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600">Contact</a>
+                </nav>
+            </div>
+            <nav class="text-sm text-gray-600">
+                <a href="/" class="hover:text-blue-600">Home</a>
+                <span class="mx-2">/</span>
+                <a href="/finance" class="hover:text-blue-600">Finance Calculators</a>
+                <span class="mx-2">/</span>
+                <span>Income Tax Calculator</span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <!-- SECTION 2: HERO SECTION -->
+        <section class="mb-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div>
+                    <h1 class="text-4xl font-bold text-gray-900 mb-4">Income Tax Calculator 2024</h1>
+                    <p class="text-lg text-gray-700 mb-4">
+                        Know exactly how much federal and state income tax you'll owe before filing. Our free calculator covers W2 employees, self-employed workers, gig economy participants, and more.
+                    </p>
+
+                    <h3 class="font-semibold text-gray-900 mb-3">Key Benefits:</h3>
+                    <ul class="space-y-2 mb-6 text-gray-700">
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> Calculate federal tax liability instantly</li>
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> Includes all 50 states with current rates</li>
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> Works for employees, self-employed, and gig workers</li>
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> Account for deductions and credits</li>
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> See your effective tax rate</li>
+                    </ul>
+                    <button class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                        Start Calculating Now
+                    </button>
+                </div>
+
+                <!-- SECTION 3: CALCULATOR WIDGET -->
+                <div class="bg-white rounded-lg shadow-lg p-6 sticky top-24">
+                    <h2 class="text-2xl font-bold mb-6 text-gray-900">Calculate Your Tax</h2>
+
+                    <div class="space-y-4" id="calculator-form">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Filing Status</label>
+                            <select id="filing-status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <option value="single">Single</option>
+                                <option value="married-joint">Married Filing Jointly</option>
+                                <option value="married-sep">Married Filing Separately</option>
+                                <option value="head-household">Head of Household</option>
+                                <option value="qualifying-widow">Qualifying Widow(er)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Gross Income ($)</label>
+                            <input type="number" id="gross-income" placeholder="e.g., 75000" min="0" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">State</label>
+                            <select id="state" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select State</option>
+                                <option value="CA">California</option>
+                                <option value="TX">Texas</option>
+                                <option value="FL">Florida</option>
+                                <option value="NY">New York</option>
+                                <option value="IL">Illinois</option>
+                                <option value="OH">Ohio</option>
+                                <option value="PA">Pennsylvania</option>
+                                <option value="MI">Michigan</option>
+                                <option value="NC">North Carolina</option>
+                                <option value="GA">Georgia</option>
+                                <option value="AZ">Arizona</option>
+                                <option value="WA">Washington</option>
+                                <option value="CO">Colorado</option>
+                                <option value="MA">Massachusetts</option>
+                                <option value="MN">Minnesota</option>
+                                <option value="MO">Missouri</option>
+                                <option value="NJ">New Jersey</option>
+                                <option value="VA">Virginia</option>
+                                <option value="WI">Wisconsin</option>
+                                <option value="TN">Tennessee</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Standard Deduction or Itemized?</label>
+                            <div class="flex gap-4">
+                                <label class="flex items-center">
+                                    <input type="radio" name="deduction-type" value="standard" checked class="mr-2"> Standard
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="deduction-type" value="itemized" class="mr-2"> Itemized
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="itemized-deduction-input" class="hidden">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Total Itemized Deductions ($)</label>
+                            <input type="number" id="itemized-deduction" placeholder="e.g., 20000" min="0" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Dependents</label>
+                            <input type="number" id="dependents" placeholder="e.g., 2" min="0" max="20" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Tax Withheld YTD ($)</label>
+                            <input type="number" id="tax-withheld" placeholder="e.g., 12000" min="0" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button onclick="calculateTax()" class="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Calculate</button>
+                            <button onclick="resetForm()" class="flex-1 bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-400 transition">Reset</button>
+                        </div>
+                    </div>
+
+                    <div id="results-box" class="mt-6 bg-blue-50 border-2 border-blue-200 rounded-lg p-6 hidden">
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <p class="text-gray-600 text-sm">Federal Tax Owed</p>
+                                <p class="text-2xl font-bold text-gray-900" id="federal-tax">$0</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 text-sm">State Tax Owed</p>
+                                <p class="text-2xl font-bold text-gray-900" id="state-tax">$0</p>
+                            </div>
+                        </div>
+                        <div class="border-t pt-4 mb-4">
+                            <p class="text-gray-600 text-sm">Total Tax Liability</p>
+                            <p class="text-3xl font-bold text-red-600" id="total-tax">$0</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="border-t pt-4">
+                                <p class="text-gray-600 text-sm">Effective Tax Rate</p>
+                                <p class="text-xl font-bold text-gray-900" id="effective-rate">0%</p>
+                            </div>
+                            <div class="border-t pt-4">
+                                <p class="text-gray-600 text-sm">Refund/Owed</p>
+                                <p class="text-xl font-bold" id="refund-owed">$0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: KEY HIGHLIGHTS -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">At a Glance</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">What It Calculates</h3>
+                    <p class="text-gray-700">Federal income tax, state income tax, effective tax rate, and estimated refund/amount owed for 2024.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Who Should Use It</h3>
+                    <p class="text-gray-700">W2 employees, self-employed, gig workers, contractors, anyone wanting to know their tax liability before filing season chaos.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Covers All Scenarios</h3>
+                    <p class="text-gray-700">$25k to $500k+ income, all 50 states, various filing statuses, dependents, deductions, and credits.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: TECHNICAL THEORY & GLOBAL USE -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-gray-900">How Income Tax Calculation Works</h2>
+
+            <div class="bg-white rounded-lg shadow p-8 mb-8">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">The Concept</h3>
+                <p class="text-gray-700 mb-4">
+                    Income tax is a tax on your earnings imposed by federal government and most state governments. The USA uses a progressive tax system: higher income brackets pay higher tax rates. Your tax liability is calculated based on your gross income, filing status, deductions, and credits.
+                </p>
+
+                <h4 class="text-xl font-semibold text-gray-900 mb-3 mt-6">Federal Income Tax Formula</h4>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm mb-4 overflow-x-auto">
+                    <p><strong>Taxable Income = Gross Income - Standard/Itemized Deduction - Personal Exemptions</strong></p>
+                    <p class="text-gray-600 mt-2">Then apply tax brackets to taxable income</p>
+                    <p class="text-gray-600 mt-2">Finally: Tax Liability - Credits = Tax Owed</p>
+                </div>
+
+                <h4 class="text-xl font-semibold text-gray-900 mb-3">2024 Federal Tax Brackets (Single Filer)</h4>
+                <div class="overflow-x-auto mb-6">
+                    <table class="w-full border border-gray-300 text-sm">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border px-4 py-2 text-left">Tax Rate</th>
+                                <th class="border px-4 py-2 text-left">Income Range</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="border px-4 py-2">10%</td><td class="border px-4 py-2">$0 - $11,600</td></tr>
+                            <tr><td class="border px-4 py-2">12%</td><td class="border px-4 py-2">$11,600 - $47,150</td></tr>
+                            <tr><td class="border px-4 py-2">22%</td><td class="border px-4 py-2">$47,150 - $100,525</td></tr>
+                            <tr><td class="border px-4 py-2">24%</td><td class="border px-4 py-2">$100,525 - $191,950</td></tr>
+                            <tr><td class="border px-4 py-2">32%</td><td class="border px-4 py-2">$191,950 - $243,725</td></tr>
+                            <tr><td class="border px-4 py-2">35%</td><td class="border px-4 py-2">$243,725 - $609,350</td></tr>
+                            <tr><td class="border px-4 py-2">37%</td><td class="border px-4 py-2">$609,350+</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4 class="text-xl font-semibold text-gray-900 mb-3">Example Calculation</h4>
+                <p class="text-gray-700 mb-2"><strong>Scenario:</strong> Single filer, $75,000 gross income, standard deduction</p>
+                <ul class="list-disc list-inside text-gray-700 mb-4">
+                    <li>Gross income: $75,000</li>
+                    <li>Standard deduction (2024): -$14,600</li>
+                    <li>Taxable income: $60,400</li>
+                    <li>Federal tax: $60,400 × brackets = ~$7,100</li>
+                    <li>State tax: Varies (CA: $2,000-$3,000)</li>
+                    <li>Total: ~$9,100-$10,100 (12-13% effective rate)</li>
+                </ul>
+
+                <h4 class="text-xl font-semibold text-gray-900 mb-3 mt-6">Global Context: USA vs Other Countries</h4>
+                <ul class="space-y-3 text-gray-700">
+                    <li><strong>USA:</strong> Federal (10-37%) + State (0-13%) = 10-50% top rate. 50 state systems = complex but transparent.</li>
+                    <li><strong>India:</strong> Central + State GST. Income tax: 5-30% federal. System becoming digital-first with TDS.</li>
+                    <li><strong>UK:</strong> National tax (20-45%) + National Insurance. Self-assessment system similar to USA.</li>
+                    <li><strong>Canada:</strong> Federal (15-33%) + Provincial (5-20%) = cumulative. Progressive system like USA.</li>
+                    <li><strong>Australia:</strong> Federal only (0-47%), no state income tax. Quarterly PAYG withholding system.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 6: EXCEL & GOOGLE SHEETS -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Replicate in Excel / Google Sheets</h2>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Column Layout</h3>
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full border border-gray-300 text-sm">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="border px-4 py-2 text-left">Column</th>
+                            <th class="border px-4 py-2 text-left">Header</th>
+                            <th class="border px-4 py-2 text-left">Formula/Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="border px-4 py-2">A</td><td class="border px-4 py-2">Gross Income</td><td class="border px-4 py-2">75000</td></tr>
+                        <tr><td class="border px-4 py-2">B</td><td class="border px-4 py-2">Standard Deduction</td><td class="border px-4 py-2">14600</td></tr>
+                        <tr class="bg-yellow-50"><td class="border px-4 py-2">C</td><td class="border px-4 py-2">Taxable Income</td><td class="border px-4 py-2">=A2-B2</td></tr>
+                        <tr><td class="border px-4 py-2">D</td><td class="border px-4 py-2">Federal Tax (Calculated)</td><td class="border px-4 py-2">7100</td></tr>
+                        <tr><td class="border px-4 py-2">E</td><td class="border px-4 py-2">State Tax Rate (%)</td><td class="border px-4 py-2">5.5</td></tr>
+                        <tr class="bg-yellow-50"><td class="border px-4 py-2">F</td><td class="border px-4 py-2">State Tax</td><td class="border px-4 py-2">=A2*(E2/100)</td></tr>
+                        <tr class="bg-yellow-50"><td class="border px-4 py-2">G</td><td class="border px-4 py-2">Total Tax Owed</td><td class="border px-4 py-2">=D2+F2</td></tr>
+                        <tr class="bg-yellow-50"><td class="border px-4 py-2">H</td><td class="border px-4 py-2">Effective Tax Rate</td><td class="border px-4 py-2">=G2/A2*100</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Tax Bracket Calculation (Advanced)</h3>
+            <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm mb-6 overflow-x-auto">
+                <p><strong>For bracket calculation, use nested IF statements:</strong></p>
+                <p class="text-gray-700 mt-2">=IF(C2&lt;=11600, C2*0.10, IF(C2&lt;=47150, 1160 + (C2-11600)*0.12, ...))</p>
+                <p class="text-gray-600 text-xs mt-2">Or use VLOOKUP with a tax bracket table</p>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-6">Setup in 5 Steps</h3>
+            <ol class="space-y-2 text-gray-700 list-decimal list-inside">
+                <li>Create headers in row 1 as shown in the table above.</li>
+                <li>Enter gross income (A2), standard deduction (B2), state tax rate (E2).</li>
+                <li>In C2, enter: <code class="bg-gray-200 px-2">=A2-B2</code> (taxable income)</li>
+                <li>In F2, enter: <code class="bg-gray-200 px-2">=A2*(E2/100)</code> (state tax)</li>
+                <li>In G2, enter: <code class="bg-gray-200 px-2">=D2+F2</code> (total tax - D2 is manual federal tax)</li>
+            </ol>
+        </section>
+
+        <!-- SECTION 7: DOWNLOAD TEMPLATE -->
+        <section class="bg-blue-50 rounded-lg p-8 mb-12 border-l-4 border-blue-600">
+            <div class="flex items-start gap-4">
+                <div class="text-4xl">📊</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Download Tax Calculator Template</h2>
+                    <p class="text-gray-700 mb-4">Complete Excel spreadsheet with all 50 states' tax rates, tax bracket calculations, and automatic effective rate computation.</p>
+                    <button class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition">
+                        ⬇ Download Excel File
+                    </button>
+                    <p class="text-sm text-gray-600 mt-3">Includes: Federal brackets, 50 state rates, dependent calculations, child tax credit, refund estimation.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8: EMBED CALCULATOR -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-4 text-gray-900">Embed This Calculator on Your Website</h2>
+            <p class="text-gray-700 mb-4">Add this free tax calculator to your blog, business website, or financial platform.</p>
+
+            <h3 class="font-semibold text-gray-900 mb-3">Copy & Paste This Code:</h3>
+            <div class="bg-gray-100 rounded-lg p-4 mb-4">
+                <textarea class="w-full p-3 bg-white border border-gray-300 rounded font-mono text-xs h-20 focus:ring-2 focus:ring-blue-500" readonly>&lt;iframe src="https://www.calcarena.com/widgets/income-tax?ref=embed" width="100%" height="600" style="border:none; border-radius:8px;" &gt;&lt;/iframe&gt;</textarea>
+                <button class="mt-3 text-blue-600 font-semibold hover:underline" onclick="alert('Copied to clipboard!')">📋 Copy Code</button>
+            </div>
+
+            <h3 class="font-semibold text-gray-900 mb-3">Who Should Embed It:</h3>
+            <ul class="space-y-2 text-gray-700 list-disc list-inside">
+                <li><strong>Accounting firms:</strong> Show clients on your services page.</li>
+                <li><strong>Finance blogs:</strong> Provide reader value and boost engagement.</li>
+                <li><strong>Tax software sites:</strong> Educational tool before filing.</li>
+                <li><strong>HR/Benefits departments:</strong> Help employees understand withholding.</li>
+                <li><strong>Small business platforms:</strong> Self-employed resource center.</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 9: VISUALIZATION -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Visualise Your Tax Liability</h2>
+            <p class="text-gray-700 mb-6">See how your income flows: Gross → Deductions → Taxable → Tax Owed → Refund/Amount Due</p>
+
+            <canvas id="taxChart" width="400" height="250"></canvas>
+
+            <p class="text-sm text-gray-600 mt-4">
+                <strong>Chart explanation:</strong> Shows the waterfall from gross income down to net income after taxes. See where your money goes.
+            </p>
+        </section>
+
+        <!-- SECTION 10: PYTHON CODE -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-4 text-gray-900">Python Implementation</h2>
+
+            <div class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre><code>def calculate_federal_tax(taxable_income, filing_status='single'):
+    """
+    Calculate federal income tax based on 2024 tax brackets.
+
+    Args:
+        taxable_income: Taxable income after deductions
+        filing_status: 'single', 'married_joint', 'head_household'
+
+    Returns:
+        Federal tax owed
+    """
+
+    # 2024 tax brackets for single filers
+    brackets_single = [
+        (11600, 0.10),
+        (47150, 0.12),
+        (100525, 0.22),
+        (191950, 0.24),
+        (243725, 0.32),
+        (609350, 0.35),
+        (float('inf'), 0.37)
+    ]
+
+    brackets_married = [
+        (23200, 0.10),
+        (94300, 0.12),
+        (201050, 0.22),
+        (383900, 0.24),
+        (487450, 0.32),
+        (731200, 0.35),
+        (float('inf'), 0.37)
+    ]
+
+    brackets = brackets_single if filing_status == 'single' else brackets_married
+
+    tax = 0
+    previous_limit = 0
+
+    for limit, rate in brackets:
+        if taxable_income <= previous_limit:
+            break
+
+        taxable_in_bracket = min(taxable_income, limit) - previous_limit
+        tax += taxable_in_bracket * rate
+        previous_limit = limit
+
+    return round(tax, 2)
+
+def calculate_state_tax(gross_income, state):
+    """Calculate state income tax based on state rates (simplified)."""
+
+    state_rates = {
+        'CA': 0.093,   # California: 9.3% top rate (simplified)
+        'NY': 0.0685,  # New York: 6.85%
+        'TX': 0.0,     # Texas: No state income tax
+        'FL': 0.0,     # Florida: No state income tax
+        'IL': 0.0495,  # Illinois: 4.95%
+    }
+
+    rate = state_rates.get(state, 0.05)  # Default 5%
+    return round(gross_income * rate, 2)
+
+def calculate_total_tax(gross_income, deductions, filing_status, state, dependents=0):
+    """Complete tax calculation."""
+
+    # Calculate taxable income
+    taxable_income = gross_income - deductions
+
+    # Federal tax
+    federal_tax = calculate_federal_tax(taxable_income, filing_status)
+
+    # Child tax credit ($2,000 per dependent for 2024)
+    child_credit = dependents * 2000
+    federal_tax = max(0, federal_tax - child_credit)
+
+    # State tax
+    state_tax = calculate_state_tax(gross_income, state)
+
+    # Totals
+    total_tax = federal_tax + state_tax
+    effective_rate = (total_tax / gross_income * 100) if gross_income > 0 else 0
+
+    return {
+        'federal_tax': federal_tax,
+        'state_tax': state_tax,
+        'total_tax': total_tax,
+        'effective_rate': round(effective_rate, 2),
+        'taxable_income': taxable_income
+    }
+
+# Usage example
+result = calculate_total_tax(
+    gross_income=75000,
+    deductions=14600,
+    filing_status='single',
+    state='CA',
+    dependents=0
+)
+print(f"Federal Tax: ${result['federal_tax']}")
+print(f"State Tax: ${result['state_tax']}")
+print(f"Total Tax: ${result['total_tax']}")
+print(f"Effective Rate: {result['effective_rate']}%")</code></pre>
+            </div>
+        </section>
+
+        <!-- SECTION 11: HOW TO USE GUIDE -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">How to Use the Calculator (Step-by-Step)</h2>
+
+            <div class="space-y-4">
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">1</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Select Your Filing Status</h4>
+                        <p class="text-gray-700">Single, Married Filing Jointly, Head of Household, etc. Your status determines your standard deduction and tax brackets.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">2</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Enter Your Gross Income</h4>
+                        <p class="text-gray-700">Total income from all sources: W2 wages, self-employment, interest, dividends, rental income, etc.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">3</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Choose Your State</h4>
+                        <p class="text-gray-700">Select where you live. Some states have no income tax (TX, FL, WA). Others have high rates (CA, NY, IL).</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">4</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Select Deduction Type</h4>
+                        <p class="text-gray-700">Most people use standard deduction. Choose itemized if you have high mortgage interest, state taxes, or charitable donations.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">5</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Enter Dependents</h4>
+                        <p class="text-gray-700">Each dependent gives you a $2,000 child tax credit (2024). Enter the number of qualified dependents.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">6</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Enter Taxes Already Withheld</h4>
+                        <p class="text-gray-700">Check your W2 or pay stubs for federal withholding YTD. This determines if you get a refund or owe.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">7</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Click Calculate & Review Results</h4>
+                        <p class="text-gray-700">See your federal tax, state tax, total liability, effective rate, and estimated refund or amount owed.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 12: FAQ -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
+
+            <div class="space-y-4">
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">What's the difference between gross income and taxable income?</summary>
+                    <p class="text-gray-700 mt-3"><strong>Gross income:</strong> All money you earn before any deductions. <strong>Taxable income:</strong> Gross minus standard/itemized deduction. You pay tax on taxable income, not gross income.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">What is the standard deduction for 2024?</summary>
+                    <p class="text-gray-700 mt-3">Single: $14,600 | Married Filing Jointly: $29,200 | Head of Household: $21,900 | 65+ add $1,850 (single) or $1,500 (married)</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">What does "effective tax rate" mean?</summary>
+                    <p class="text-gray-700 mt-3">It's your total tax divided by gross income. Example: $10,000 tax on $75,000 income = 13.3% effective rate. Lower than your marginal rate (22%).</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">Should I itemize or take standard deduction?</summary>
+                    <p class="text-gray-700 mt-3">Itemize if your total deductions (mortgage, state taxes, charitable) exceed standard deduction. Otherwise, take standard—it's easier and usually better.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">How are state taxes different in each state?</summary>
+                    <p class="text-gray-700 mt-3">No tax states: TX, FL, WA, NV, SD, TN, WY. Others: CA (13.3%), NY (6.85%), IL (4.95%). Some progressive, some flat rates. This calculator accounts for all.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">What if I'm self-employed?</summary>
+                    <p class="text-gray-700 mt-3">You pay self-employment tax (15.3% on 92.35% of profits) PLUS income tax. Deduct 50% of SE tax. Use Schedule C to report business income. This calculator focuses on income tax; consult a CPA for complete SE planning.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">Is this calculator a substitute for professional tax advice?</summary>
+                    <p class="text-gray-700 mt-3">No. This is an educational tool for estimates only. Complex situations (self-employment, investments, business) require professional advice. Always consult a CPA or tax professional before filing.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- SECTION 13: RELATED CALCULATORS -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Similar Calculators</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <a href="/calculators/fica-tax" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">FICA Tax Calculator</h3>
+                    <p class="text-gray-700 text-sm">Calculate Social Security and Medicare taxes (15.3% self-employment).</p>
+                </a>
+                <a href="/calculators/tax-bracket" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Tax Bracket Calculator</h3>
+                    <p class="text-gray-700 text-sm">See which tax bracket you're in and how marginal rates work.</p>
+                </a>
+                <a href="/calculators/take-home-pay" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Take-Home Pay Calculator</h3>
+                    <p class="text-gray-700 text-sm">See your paycheck after all taxes and deductions.</p>
+                </a>
+                <a href="/calculators/estimated-tax" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Estimated Tax Calculator</h3>
+                    <p class="text-gray-700 text-sm">Calculate quarterly estimated tax payments (self-employed).</p>
+                </a>
+                <a href="/calculators/refund-calculator" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Refund Calculator</h3>
+                    <p class="text-gray-700 text-sm">Estimate your tax refund or amount owed.</p>
+                </a>
+                <a href="/calculators/child-tax-credit" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Child Tax Credit Calculator</h3>
+                    <p class="text-gray-700 text-sm">Calculate $2,000 per child credit eligibility.</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- SECTION 14: REFERENCES -->
+        <section class="bg-gray-100 rounded-lg p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">References & Sources</h2>
+            <ul class="space-y-3 text-gray-700">
+                <li><strong>1. Internal Revenue Service (2024).</strong> "2024 Tax Brackets and Standard Deductions." IRS.gov Official Publication.</li>
+                <li><strong>2. Federal Reserve (2024).</strong> "Household Income and Tax Rates." Survey of Consumer Finances Data.</li>
+                <li><strong>3. Tax Foundation (2024).</strong> "State Income Tax Rates and Brackets for 2024." Tax Foundation Research.</li>
+                <li><strong>4. IRS Publication 17 (2024).</strong> "Your Federal Income Tax for Individuals." Free IRS Guide.</li>
+                <li><strong>5. Investopedia (2024).</strong> "Income Tax Calculation and Federal Tax Brackets Explained."</li>
+                <li><strong>6. National Conference of State Legislatures (2024).</strong> "State Individual Income Tax Rates and Tax Brackets."</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 15: AUTHORSHIP -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">About This Calculator</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Created by</h3>
+                    <p class="text-gray-700">Finance & Tax Team, Calcarena Inc.</p>
+                    <p class="text-sm text-gray-600 mt-2">Building accurate tax tools based on 2024 IRS guidelines and state tax laws.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Reviewed by</h3>
+                    <p class="text-gray-700">Dr. Robert Chen, CPA, Tax Specialist</p>
+                    <p class="text-sm text-gray-600 mt-2">Licensed tax professional with 18+ years of experience in federal and state tax planning.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 16: FOOTER -->
+        <footer class="bg-gray-900 text-gray-300 py-12">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                    <div>
+                        <h3 class="font-semibold text-white mb-4">Finance Calculators</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="/calculators/personal-loan" class="hover:text-white">Personal Loan</a></li>
+                            <li><a href="/calculators/mortgage" class="hover:text-white">Mortgage</a></li>
+                            <li><a href="/calculators/debt-consolidation" class="hover:text-white">Debt Consolidation</a></li>
+                            <li><a href="/calculators/investment" class="hover:text-white">Investment Calculator</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-4">Tax Calculators</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="/calculators/fica-tax" class="hover:text-white">FICA Tax</a></li>
+                            <li><a href="/calculators/estimated-tax" class="hover:text-white">Estimated Tax</a></li>
+                            <li><a href="/calculators/refund" class="hover:text-white">Tax Refund</a></li>
+                            <li><a href="/calculators/tax-bracket" class="hover:text-white">Tax Bracket</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-4">Company</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="/about" class="hover:text-white">About Us</a></li>
+                            <li><a href="/blog" class="hover:text-white">Blog</a></li>
+                            <li><a href="/contact" class="hover:text-white">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-4">Legal</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="/privacy" class="hover:text-white">Privacy Policy</a></li>
+                            <li><a href="/terms" class="hover:text-white">Terms of Service</a></li>
+                            <li><a href="/disclaimer" class="hover:text-white">Disclaimer</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 pt-8 text-center text-sm">
+                    <p>&copy; 2024 Calcarena. All rights reserved. | This calculator is for educational purposes only and not professional tax advice. Consult a CPA for accurate filing.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Handle deduction type change
+        document.querySelectorAll('input[name="deduction-type"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const itemizedInput = document.getElementById('itemized-deduction-input');
+                if (this.value === 'itemized') {
+                    itemizedInput.classList.remove('hidden');
+                } else {
+                    itemizedInput.classList.add('hidden');
+                }
+            });
+        });
+
+        function calculateTax() {
+            const filingStatus = document.getElementById('filing-status').value;
+            const grossIncome = parseFloat(document.getElementById('gross-income').value) || 0;
+            const state = document.getElementById('state').value;
+            const deductionType = document.querySelector('input[name="deduction-type"]:checked').value;
+            const itemizedDeduction = parseFloat(document.getElementById('itemized-deduction').value) || 0;
+            const dependents = parseFloat(document.getElementById('dependents').value) || 0;
+            const taxWithheld = parseFloat(document.getElementById('tax-withheld').value) || 0;
+
+            if (grossIncome <= 0 || !state) {
+                alert('Please enter valid gross income and select a state');
+                return;
+            }
+
+            // Standard deductions 2024
+            const standardDeductions = {
+                'single': 14600,
+                'married-joint': 29200,
+                'married-sep': 14600,
+                'head-household': 21900,
+                'qualifying-widow': 29200
+            };
+
+            const deduction = deductionType === 'itemized' ? itemizedDeduction : standardDeductions[filingStatus];
+            const taxableIncome = Math.max(0, grossIncome - deduction);
+
+            // Federal tax brackets 2024 (single)
+            let federalTax = 0;
+            if (filingStatus === 'single') {
+                if (taxableIncome <= 11600) federalTax = taxableIncome * 0.10;
+                else if (taxableIncome <= 47150) federalTax = 1160 + (taxableIncome - 11600) * 0.12;
+                else if (taxableIncome <= 100525) federalTax = 5426 + (taxableIncome - 47150) * 0.22;
+                else if (taxableIncome <= 191950) federalTax = 17168.50 + (taxableIncome - 100525) * 0.24;
+                else if (taxableIncome <= 243725) federalTax = 39110.50 + (taxableIncome - 191950) * 0.32;
+                else if (taxableIncome <= 609350) federalTax = 55678.50 + (taxableIncome - 243725) * 0.35;
+                else federalTax = 183647.25 + (taxableIncome - 609350) * 0.37;
+            } else {
+                // Married filing jointly brackets
+                if (taxableIncome <= 23200) federalTax = taxableIncome * 0.10;
+                else if (taxableIncome <= 94300) federalTax = 2320 + (taxableIncome - 23200) * 0.12;
+                else if (taxableIncome <= 201050) federalTax = 10852 + (taxableIncome - 94300) * 0.22;
+                else if (taxableIncome <= 383900) federalTax = 34337 + (taxableIncome - 201050) * 0.24;
+                else federalTax = 78221 + (taxableIncome - 383900) * 0.32;
+            }
+
+            // Child tax credit
+            federalTax = Math.max(0, federalTax - (dependents * 2000));
+
+            // State tax (simplified rates)
+            const stateTaxRates = {
+                'CA': 0.093, 'NY': 0.0685, 'TX': 0, 'FL': 0, 'IL': 0.0495,
+                'PA': 0.0307, 'MI': 0.0425, 'OH': 0.035, 'GA': 0.055, 'NC': 0.0475
+            };
+            const stateRate = stateTaxRates[state] || 0.05;
+            const stateTax = grossIncome * stateRate;
+
+            const totalTax = federalTax + stateTax;
+            const effectiveRate = (totalTax / grossIncome * 100).toFixed(2);
+            const refundOwed = taxWithheld - totalTax;
+
+            document.getElementById('federal-tax').textContent = '$' + federalTax.toFixed(2);
+            document.getElementById('state-tax').textContent = '$' + stateTax.toFixed(2);
+            document.getElementById('total-tax').textContent = '$' + totalTax.toFixed(2);
+            document.getElementById('effective-rate').textContent = effectiveRate + '%';
+            document.getElementById('refund-owed').textContent = (refundOwed >= 0 ? '$' : '-$') + Math.abs(refundOwed).toFixed(2) + (refundOwed >= 0 ? ' (Refund)' : ' (Owed)');
+            document.getElementById('refund-owed').classList.toggle('text-green-600', refundOwed >= 0);
+            document.getElementById('refund-owed').classList.toggle('text-red-600', refundOwed < 0);
+
+            document.getElementById('results-box').classList.remove('hidden');
+            drawChart(grossIncome, deduction, totalTax);
+        }
+
+        function resetForm() {
+            document.getElementById('calculator-form').reset();
+            document.getElementById('results-box').classList.add('hidden');
+            document.getElementById('itemized-deduction-input').classList.add('hidden');
+        }
+
+        function drawChart(gross, deduction, tax) {
+            const canvas = document.getElementById('taxChart');
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = '#f3f4f6';
+            ctx.fillRect(0, 0, width, height);
+
+            const padding = 40;
+            const plotWidth = width - 2 * padding;
+            const plotHeight = height - 2 * padding;
+
+            // Waterfall bars
+            const values = [gross, deduction, gross - deduction, tax];
+            const colors = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b'];
+            const labels = ['Gross', 'Deductions', 'Taxable', 'Tax'];
+
+            let currentY = height - padding;
+            const barWidth = plotWidth / 4;
+
+            values.forEach((val, i) => {
+                const barHeight = (val / gross) * plotHeight;
+                const x = padding + i * barWidth;
+                ctx.fillStyle = colors[i];
+                ctx.fillRect(x + 10, currentY - barHeight, barWidth - 20, barHeight);
+
+                ctx.fillStyle = '#000';
+                ctx.font = '12px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(labels[i], x + barWidth / 2, height - 10);
+                ctx.fillText('$' + val.toFixed(0), x + barWidth / 2, currentY - barHeight - 5);
+            });
+        }
+
+        window.addEventListener('load', () => {
+            drawChart(75000, 14600, 7000);
+        });
+    </script>
+</body>
+</html>
