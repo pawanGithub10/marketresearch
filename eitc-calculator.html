@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EITC Calculator | Earned Income Tax Credit Eligibility & Amount</title>
+    <meta name="description" content="Free EITC calculator. Calculate your Earned Income Tax Credit eligibility and maximum refund. Check income limits and filing requirements for 2024.">
+    <meta name="keywords" content="EITC calculator, earned income tax credit, tax credit, tax refund, low income tax credit">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Calculator",
+        "name": "EITC Calculator",
+        "description": "Calculate your Earned Income Tax Credit eligibility and maximum refund amount",
+        "url": "https://yoursite.com/eitc-calculator"
+    }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50">
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-blue-600">EITC Calc</div>
+            <div class="hidden md:flex gap-8">
+                <a href="#calculator" class="text-gray-700 hover:text-blue-600">Calculator</a>
+                <a href="#guide" class="text-gray-700 hover:text-blue-600">Guide</a>
+                <a href="#faq" class="text-gray-700 hover:text-blue-600">FAQ</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">EITC Calculator</h1>
+            <p class="text-xl text-blue-100 mb-4">Calculate your Earned Income Tax Credit and see how much you might receive as a refund</p>
+            <div class="flex gap-4 flex-wrap">
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">IRS updated 2024 rates</p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">All filing statuses</p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">Instant eligibility check</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator" class="max-w-6xl mx-auto px-4 py-12">
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Calculator</h2>
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Filing Status</label>
+                        <select id="filingStatus" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" onchange="calculateEITC()">
+                            <option value="single">Single</option>
+                            <option value="married">Married Filing Jointly</option>
+                            <option value="head">Head of Household</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Number of Qualifying Children</label>
+                        <div class="grid grid-cols-4 gap-2 mb-3">
+                            <button onclick="setChildren(0)" class="py-2 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm">0</button>
+                            <button onclick="setChildren(1)" class="py-2 bg-blue-100 rounded-lg border-2 border-blue-600 font-semibold text-sm">1</button>
+                            <button onclick="setChildren(2)" class="py-2 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm">2</button>
+                            <button onclick="setChildren(3)" class="py-2 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm">3+</button>
+                        </div>
+                        <input type="number" id="children" value="1" min="0" max="5" step="1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" onchange="calculateEITC()">
+                        <p class="text-xs text-gray-500 mt-1">Children under 17 with valid SSN</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Total Earned Income (Wages + Self-Employment)</label>
+                        <input type="number" id="earnedIncome" value="25000" min="0" max="500000" step="1000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" onchange="calculateEITC()">
+                        <p class="text-xs text-gray-500 mt-1">From W-2 wages or 1099 self-employment</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Adjusted Gross Income (AGI)</label>
+                        <input type="number" id="agi" value="25000" min="0" max="500000" step="1000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" onchange="calculateEITC()">
+                        <p class="text-xs text-gray-500 mt-1">Usually same as earned income for EITC purposes</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Received Nontaxable Combat Pay</label>
+                        <select id="combatPay" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" onchange="calculateEITC()">
+                            <option value="0">No</option>
+                            <option value="other">Yes, want to include it</option>
+                        </select>
+                        <p class="text-xs text-gray-500 mt-1">Military members can elect to include nontaxable combat pay</p>
+                    </div>
+
+                    <button onclick="calculateEITC()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold text-lg hover:bg-blue-700 active:scale-95">Calculate My EITC</button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Your EITC Amount</h2>
+
+                <div class="space-y-4">
+                    <div class="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-600">
+                        <p class="text-gray-600 text-sm">Your EITC Credit Amount</p>
+                        <p id="eitcAmount" class="text-4xl font-bold text-blue-600">$1,870</p>
+                        <p id="eligibilityStatus" class="text-sm text-blue-600 mt-1 font-semibold">✓ You are eligible!</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <p class="text-gray-600 text-sm">Refund or Tax Reduction</p>
+                            <p id="refundType" class="text-lg font-bold text-gray-800">Refund</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <p class="text-gray-600 text-sm">Maximum for Your Situation</p>
+                            <p id="maxEITC" class="text-lg font-bold text-gray-800">$3,733</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 rounded-lg p-4 border-l-4 border-green-600">
+                        <p class="text-gray-600 text-sm">Income Limits for Your Status</p>
+                        <p id="incomeLimits" class="text-sm font-bold text-green-600">Limit: $46,560 (Single, 1 Child)</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <p class="text-gray-600">Income to Next Bracket</p>
+                            <p id="incomePath" class="font-bold text-gray-800">+$21,560</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <p class="text-gray-600">Phase-Out Percentage</p>
+                            <p id="phaseOut" class="font-bold text-gray-800">21% reduction per $1k</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 mt-8">
+            <h3 class="text-xl font-bold mb-4 text-gray-800">EITC by Filing Status & Children</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="text-left p-3">Filing Status</th>
+                            <th class="text-left p-3">0 Children</th>
+                            <th class="text-left p-3">1 Child</th>
+                            <th class="text-left p-3">2 Children</th>
+                            <th class="text-left p-3">3+ Children</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b">
+                            <td class="p-3 font-semibold">Single/Head of HH</td>
+                            <td class="p-3">Max: $560<br>Limit: $17,530</td>
+                            <td class="p-3">Max: $3,733<br>Limit: $46,560</td>
+                            <td class="p-3">Max: $6,151<br>Limit: $50,162</td>
+                            <td class="p-3">Max: $6,728<br>Limit: $53,175</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold">Married Filing Jointly</td>
+                            <td class="p-3">Max: $560<br>Limit: $24,470</td>
+                            <td class="p-3">Max: $3,733<br>Limit: $53,010</td>
+                            <td class="p-3">Max: $6,151<br>Limit: $56,838</td>
+                            <td class="p-3">Max: $6,728<br>Limit: $59,851</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white py-12 px-4 mt-12">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Why EITC Matters</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-6 bg-blue-50 rounded-lg">
+                    <div class="text-4xl mb-3">💰</div>
+                    <h3 class="font-bold text-lg mb-2">Free Money You Earned</h3>
+                    <p class="text-gray-700">EITC is a refundable tax credit—money from IRS, not loans. If you earned it and have low-to-moderate income, you likely qualify.</p>
+                </div>
+                <div class="p-6 bg-indigo-50 rounded-lg">
+                    <div class="text-4xl mb-3">📈</div>
+                    <h3 class="font-bold text-lg mb-2">Bigger Refund with Kids</h3>
+                    <p class="text-gray-700">Max $6,728 with 3+ children. Can be largest refund many families receive. More than Child Tax Credit for low-income earners.</p>
+                </div>
+                <div class="p-6 bg-blue-100 rounded-lg">
+                    <div class="text-4xl mb-3">📊</div>
+                    <h3 class="font-bold text-lg mb-2">You Must File to Get It</h3>
+                    <p class="text-gray-700">EITC is automatic only if filing return. Many low-income earners don't file but qualify. You must file to claim it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">How EITC Works</h2>
+            <div class="bg-white rounded-lg p-8 space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-blue-600 mb-3">What: How EITC is Calculated</h3>
+                    <p class="text-gray-700 mb-4">EITC has three phases based on income:</p>
+                    <div class="bg-blue-50 p-4 rounded-lg space-y-3">
+                        <div>
+                            <p class="font-semibold">Phase 1: Credit Build-Up (0% to Income Limit)</p>
+                            <p class="text-sm text-gray-700">Credit increases with each dollar earned. Rate: 34-45% depending on children.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Phase 2: Maximum Credit (Plateau)</p>
+                            <p class="text-sm text-gray-700">Your income is within the flat maximum range—you get full credit amount.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Phase 3: Phase-Out (Income Limit to Upper Limit)</p>
+                            <p class="text-sm text-gray-700">Credit decreases as income rises. Rate: 15-21% per $1k over limit.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-blue-600 mb-3">Why: Purpose of EITC</h3>
+                    <p class="text-gray-700 mb-3">EITC policy goals:</p>
+                    <div class="bg-indigo-50 p-4 rounded-lg space-y-2 text-sm">
+                        <p><span class="font-semibold">Reward work:</span> Encourages employment vs. welfare dependency</p>
+                        <p><span class="font-semibold">Reduce poverty:</span> Lifts millions of working families above poverty</p>
+                        <p><span class="font-semibold">Support families:</span> Especially helps parents working low-wage jobs</p>
+                        <p><span class="font-semibold">Stimulate economy:</span> Money returned to low-income workers gets spent locally</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-blue-600 mb-3">How: Phase-Out Example</h3>
+                    <p class="text-gray-700 mb-3">Example: Single filer, 1 child, 2024</p>
+                    <div class="bg-blue-50 p-4 rounded-lg font-mono text-sm space-y-1 overflow-x-auto">
+                        <p>Max EITC: $3,733</p>
+                        <p>Income limit: $46,560</p>
+                        <p>Phase-out rate: 21%</p>
+                        <p className="mt-2">If your income is $50,000:</p>
+                        <p>Over limit: $50,000 - $46,560 = $3,440</p>
+                        <p>Phase-out: $3,440 × 21% = $723 reduction</p>
+                        <p>Your EITC: $3,733 - $723 = $3,010</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-blue-600 mb-3">Global Context: Earned Income Credits Worldwide</h3>
+                    <p class="text-gray-700 mb-3">US has most generous EITC globally:</p>
+                    <div class="bg-indigo-50 p-4 rounded-lg space-y-2 text-sm">
+                        <p><span class="font-semibold">United States:</span> Max $6,728 per year (refundable tax credit)</p>
+                        <p><span class="font-semibold">UK:</span> Working Family Tax Credit (similar, smaller amounts)</p>
+                        <p><span class="font-semibold">Canada:</span> Canada Workers Benefit (CWTB), similar structure</p>
+                        <p><span class="font-semibold">Australia:</span> Tax offsets and family payments (different structure)</p>
+                        <p><span class="font-semibold">Impact:</span> EITC lifts ~6 million people out of poverty annually in US</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">Key EITC Requirements</h2>
+        <div class="bg-white rounded-lg p-8 space-y-4">
+            <div class="border-l-4 border-blue-600 pl-4 py-2">
+                <p className="font-semibold mb-1">✓ Have earned income</p>
+                <p className="text-sm text-gray-700">Wages (W-2) or self-employment (Schedule C). Investment income doesn't count.</p>
+            </div>
+            <div class="border-l-4 border-blue-600 pl-4 py-2">
+                <p className="font-semibold mb-1">✓ Income below limit</p>
+                <p className="text-sm text-gray-700">Your income and AGI must be under the limit for your filing status/children.</p>
+            </div>
+            <div class="border-l-4 border-blue-600 pl-4 py-2">
+                <p className="font-semibold mb-1">✓ Valid SSN or ITIN</p>
+                <p className="text-sm text-gray-700">You and spouse (if MFJ) must have Social Security Number or valid ITIN.</p>
+            </div>
+            <div class="border-l-4 border-blue-600 pl-4 py-2">
+                <p className="font-semibold mb-1">✓ Qualifying children (if claiming)</p>
+                <p className="text-sm text-gray-700">Must be your child, under 17, have valid SSN, and live with you 6+ months.</p>
+            </div>
+            <div class="border-l-4 border-blue-600 pl-4 py-2">
+                <p className="font-semibold mb-1">✓ File a tax return</p>
+                <p className="text-sm text-gray-700">EITC is not automatic—you must file Form 1040 to claim it.</p>
+            </div>
+            <div class="border-l-4 border-blue-600 pl-4 py-2">
+                <p className="font-semibold mb-1">✓ Be US citizen/resident</p>
+                <p className="text-sm text-gray-700">Permanent resident aliens qualify; most others must be citizens.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="guide" class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">How to Claim Your EITC</h2>
+        <div class="space-y-6">
+            <div class="bg-white rounded-lg p-6 border-l-4 border-blue-600">
+                <h3 class="font-bold text-lg mb-2">Step 1: Determine if You Qualify</h3>
+                <p class="text-gray-700">Use our calculator above. Check: (1) You have earned income, (2) Your income is below limit, (3) You have valid SSN, (4) Children meet requirements if claiming them.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-indigo-600">
+                <h3 class="font-bold text-lg mb-2">Step 2: Gather Your Documents</h3>
+                <p class="text-gray-700">Collect: W-2 forms (or Schedule C if self-employed), children's Social Security numbers, proof of residency, Social Security card or ITIN.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-blue-400">
+                <h3 class="font-bold text-lg mb-2">Step 3: File Your Tax Return</h3>
+                <p class="text-gray-700">File Form 1040 with Schedule EIC (EITC form). File with IRS (free with VITA, or paid tax software). Free options at IRS.gov for low-income filers.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-indigo-400">
+                <h3 class="font-bold text-lg mb-2">Step 4: Receive Your Refund</h3>
+                <p class="text-gray-700">If eligible, IRS deposits EITC into your bank account (direct deposit is fastest). Or receive check by mail in 4-6 weeks. Can claim on tax return OR request advance EITC from employer (rare).</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-blue-600">
+                <h3 class="font-bold text-lg mb-2">Where to File</h3>
+                <p class="text-gray-700"><strong>Free options:</strong> IRS VITA program (free in-person help), IRS Free File (online), tax preparation nonprofits. <strong>Paid options:</strong> Tax software ($0-150), tax preparer ($100-500).</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="bg-white py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        Do I have to file a tax return to get EITC?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Yes. EITC is not automatic—the IRS doesn't know you're eligible unless you file. Many low-income workers don't file because they don't owe taxes, but filing is required to claim EITC. This is money you earned and qualify for; filing is worth it.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What if I have self-employment income?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Self-employment counts as earned income for EITC. Use net profit from Schedule C. You must file Schedule C and Form 1040 to claim EITC. Self-employed people often qualify for EITC because net business income is usually lower than gross revenue.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        Can I claim children who don't live with me full-time?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Child must live with you more than half the year (6+ months). Overnight visits during summer don't count unless it's your primary custody arrangement. The child must have valid SSN and be claimed as your dependent on tax return.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        Is EITC really free money?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Yes. EITC is a refundable tax credit—meaning if it's larger than your tax bill, IRS sends you the difference. It's not a loan. You don't have to repay it. Congress designed it as benefit for working low-income people. Use it if you qualify.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What if I made a mistake on prior years?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">You can amend prior years with Form 1040-X (Amended Return). Go back 3 years typically. If you qualified but didn't file, you might be able to claim past years' EITC. Use IRS VITA for help or consult tax professional. Better to fix it than ignore it.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-between">
+                        How is EITC different from Child Tax Credit?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Child Tax Credit (CTC): $2,000 per child under 17; doesn't require earned income; partially refundable. EITC: Requires earned income; up to $6,728 with 3+ kids; fully refundable. Both are separate—you can claim both if eligible. EITC better for low-income earners; CTC better for moderate/higher income.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What's the deadline to claim EITC?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Tax return deadline is April 15 (typically). File by then to claim EITC for that year. If filing late, you can claim EITC with amended return (Form 1040-X) up to 3 years later. Don't miss claiming it just because you file late—amend and get your refund.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-blue-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Related Tax Calculators</h2>
+            <div class="grid md:grid-cols-4 gap-6">
+                <a href="/income-tax-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">📋</div>
+                    <h3 class="font-bold mb-2">Income Tax</h3>
+                    <p class="text-sm text-gray-600">Calculate tax liability</p>
+                </a>
+                <a href="/child-tax-credit-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">👶</div>
+                    <h3 class="font-bold mb-2">Child Tax Credit</h3>
+                    <p class="text-sm text-gray-600">CTC amount calculator</p>
+                </a>
+                <a href="/standard-deduction-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">📊</div>
+                    <h3 class="font-bold mb-2">Deductions</h3>
+                    <p class="text-sm text-gray-600">Standard vs itemized</p>
+                </a>
+                <a href="/tax-refund-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">💰</div>
+                    <h3 class="font-bold mb-2">Tax Refund</h3>
+                    <p class="text-sm text-gray-600">Estimate your refund</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-12 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to Claim Your EITC?</h2>
+            <p class="text-xl mb-6">File your tax return and get your refund today</p>
+            <button class="bg-white text-blue-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 active:scale-95">
+                Find Free Tax Help
+            </button>
+            <p class="text-sm mt-4 text-blue-100">Free filing • Free help • Claim what you deserve</p>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="font-bold text-white mb-4">Calculators</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">EITC Calculator</a></li>
+                        <li><a href="#" class="hover:text-white">Income Tax</a></li>
+                        <li><a href="#" class="hover:text-white">Tax Refund</a></li>
+                        <li><a href="#" class="hover:text-white">Child Tax Credit</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Resources</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">EITC Guide</a></li>
+                        <li><a href="#" class="hover:text-white">Tax Help</a></li>
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white">IRS Links</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Legal</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">Privacy</a></li>
+                        <li><a href="#" class="hover:text-white">Terms</a></li>
+                        <li><a href="#" class="hover:text-white">Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Newsletter</h3>
+                    <p class="text-sm mb-3">Tax & refund tips</p>
+                    <input type="email" placeholder="Your email" class="w-full px-3 py-2 rounded text-gray-800 text-sm">
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+                <p>&copy; 2024 EITC Calculator. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function setChildren(num) {
+            document.getElementById('children').value = num;
+            calculateEITC();
+        }
+
+        function calculateEITC() {
+            const filingStatus = document.getElementById('filingStatus').value;
+            const children = parseInt(document.getElementById('children').value) || 0;
+            const earnedIncome = parseFloat(document.getElementById('earnedIncome').value) || 0;
+            const agi = parseFloat(document.getElementById('agi').value) || 0;
+
+            // EITC 2024 rates by filing status and children
+            const eitcRates = {
+                single: {
+                    0: {maxCredit: 560, phaseInRate: 0.0765, incomeLimitPhaseIn: 7320, plateauEnd: 9100, phaseOutRate: 0.0765, incomeLimitPhaseOut: 17530},
+                    1: {maxCredit: 3733, phaseInRate: 0.34, incomeLimitPhaseIn: 10975, plateauEnd: 15810, phaseOutRate: 0.21, incomeLimitPhaseOut: 46560},
+                    2: {maxCredit: 6151, phaseInRate: 0.40, incomeLimitPhaseIn: 15370, plateauEnd: 15810, phaseOutRate: 0.21, incomeLimitPhaseOut: 50162},
+                    3: {maxCredit: 6728, phaseInRate: 0.45, incomeLimitPhaseIn: 14960, plateauEnd: 15810, phaseOutRate: 0.21, incomeLimitPhaseOut: 53175}
+                },
+                married: {
+                    0: {maxCredit: 560, phaseInRate: 0.0765, incomeLimitPhaseIn: 7320, plateauEnd: 13810, phaseOutRate: 0.0765, incomeLimitPhaseOut: 24470},
+                    1: {maxCredit: 3733, phaseInRate: 0.34, incomeLimitPhaseIn: 10975, plateauEnd: 21560, phaseOutRate: 0.21, incomeLimitPhaseOut: 53010},
+                    2: {maxCredit: 6151, phaseInRate: 0.40, incomeLimitPhaseIn: 15370, plateauEnd: 21560, phaseOutRate: 0.21, incomeLimitPhaseOut: 56838},
+                    3: {maxCredit: 6728, phaseInRate: 0.45, incomeLimitPhaseIn: 14960, plateauEnd: 21560, phaseOutRate: 0.21, incomeLimitPhaseOut: 59851}
+                },
+                head: {
+                    0: {maxCredit: 560, phaseInRate: 0.0765, incomeLimitPhaseIn: 7320, plateauEnd: 11310, phaseOutRate: 0.0765, incomeLimitPhaseOut: 20554},
+                    1: {maxCredit: 3733, phaseInRate: 0.34, incomeLimitPhaseIn: 10975, plateauEnd: 15810, phaseOutRate: 0.21, incomeLimitPhaseOut: 46560},
+                    2: {maxCredit: 6151, phaseInRate: 0.40, incomeLimitPhaseIn: 15370, plateauEnd: 15810, phaseOutRate: 0.21, incomeLimitPhaseOut: 50162},
+                    3: {maxCredit: 6728, phaseInRate: 0.45, incomeLimitPhaseIn: 14960, plateauEnd: 15810, phaseOutRate: 0.21, incomeLimitPhaseOut: 53175}
+                }
+            };
+
+            const kidCount = Math.min(children, 3);
+            const rates = eitcRates[filingStatus][kidCount];
+
+            // Calculate EITC
+            let eitc = 0;
+            if (agi < rates.incomeLimitPhaseOut) {
+                // Phase-in stage
+                if (agi <= rates.incomeLimitPhaseIn) {
+                    eitc = agi * rates.phaseInRate;
+                }
+                // Plateau stage
+                else if (agi <= rates.plateauEnd) {
+                    eitc = rates.maxCredit;
+                }
+                // Phase-out stage
+                else {
+                    const phaseOutAmount = (agi - rates.plateauEnd) * rates.phaseOutRate;
+                    eitc = Math.max(0, rates.maxCredit - phaseOutAmount);
+                }
+            }
+
+            // Display results
+            document.getElementById('eitcAmount').textContent = '$' + Math.round(eitc).toLocaleString('en-US');
+            document.getElementById('maxEITC').textContent = '$' + rates.maxCredit.toLocaleString('en-US');
+            document.getElementById('incomeLimits').textContent = 'Limit: $' + rates.incomeLimitPhaseOut.toLocaleString('en-US') + ' (' + filingStatus + ', ' + children + ' children)';
+
+            const incomeToLimit = Math.max(0, rates.incomeLimitPhaseOut - agi);
+            document.getElementById('incomePath').textContent = '+$' + incomeToLimit.toLocaleString('en-US');
+
+            if (eitc > 0) {
+                document.getElementById('eligibilityStatus').innerHTML = '✓ You are eligible! Estimated credit: $' + Math.round(eitc).toLocaleString('en-US');
+                document.getElementById('eligibilityStatus').className = 'text-sm text-green-600 mt-1 font-semibold';
+            } else {
+                document.getElementById('eligibilityStatus').innerHTML = '✗ Income too high to qualify';
+                document.getElementById('eligibilityStatus').className = 'text-sm text-red-600 mt-1 font-semibold';
+            }
+
+            document.getElementById('refundType').textContent = eitc > 0 ? 'Refund' : 'Not eligible';
+        }
+
+        // Initial calculation
+        calculateEITC();
+    </script>
+</body>
+</html>
