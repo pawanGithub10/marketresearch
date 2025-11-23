@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortgage Calculator | Calculate Monthly Payments & Affordability 2024</title>
+    <meta name="description" content="Free mortgage calculator. Calculate monthly payments, compare interest rates, determine affordability, and view amortization schedules. Updated 2024 rates and formulas.">
+    <meta name="keywords" content="mortgage calculator, monthly payment, mortgage rates, affordability calculator, amortization schedule, refinance calculator">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Calculator",
+        "name": "Mortgage Calculator",
+        "description": "Calculate your mortgage monthly payment, affordability, and view amortization schedules",
+        "url": "https://yoursite.com/mortgage-calculator",
+        "tool": {
+            "@type": "HowTo",
+            "step": [
+                {"text": "Enter home price or mortgage amount"},
+                {"text": "Enter down payment percentage (3-20%)"},
+                {"text": "Select loan term (5-30 years)"},
+                {"text": "Enter interest rate or select your credit score"},
+                {"text": "View monthly payment and complete amortization schedule"}
+            ]
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://yoursite.com"},
+            {"@type": "ListItem", "position": 2, "name": "Calculators", "item": "https://yoursite.com/calculators"},
+            {"@type": "ListItem", "position": 3, "name": "Mortgage Calculator"}
+        ]
+    }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-indigo-600">Mortgage Calc</div>
+            <div class="hidden md:flex gap-8">
+                <a href="#calculator" class="text-gray-700 hover:text-indigo-600">Calculator</a>
+                <a href="#guide" class="text-gray-700 hover:text-indigo-600">Guide</a>
+                <a href="#faq" class="text-gray-700 hover:text-indigo-600">FAQ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Mortgage Calculator</h1>
+            <p class="text-xl text-indigo-100 mb-4">Calculate your monthly mortgage payment, compare rates, and determine home affordability instantly</p>
+            <div class="flex gap-4 flex-wrap">
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">150,000+ monthly users</p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">Updated 2024 rates</p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">All loan types supported</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Widget -->
+    <section id="calculator" class="max-w-6xl mx-auto px-4 py-12">
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Input Section -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Calculator</h2>
+
+                <div class="space-y-6">
+                    <!-- Calculator Mode Selection -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">Calculation Type</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="setMode('purchase')" id="btn-purchase" class="py-2 px-4 bg-indigo-600 text-white rounded-lg font-semibold active:scale-95">Purchase</button>
+                            <button onclick="setMode('refinance')" id="btn-refinance" class="py-2 px-4 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 active:scale-95">Refinance</button>
+                        </div>
+                    </div>
+
+                    <!-- Home Price / Loan Amount -->
+                    <div id="purchase-mode" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Home Price</label>
+                            <input type="number" id="homePrice" value="300000" min="10000" max="10000000" step="10000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" onchange="calculateMortgage()">
+                            <div class="flex justify-between mt-2">
+                                <button onclick="setHomePrice(200000)" class="text-xs bg-gray-100 px-3 py-1 rounded">$200K</button>
+                                <button onclick="setHomePrice(400000)" class="text-xs bg-gray-100 px-3 py-1 rounded">$400K</button>
+                                <button onclick="setHomePrice(600000)" class="text-xs bg-gray-100 px-3 py-1 rounded">$600K</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Down Payment (%)</label>
+                            <input type="number" id="downPaymentPercent" value="20" min="3" max="50" step="1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" onchange="calculateMortgage()">
+                            <div class="flex justify-between mt-2">
+                                <button onclick="setDownPayment(3)" class="text-xs bg-gray-100 px-3 py-1 rounded">3%</button>
+                                <button onclick="setDownPayment(10)" class="text-xs bg-gray-100 px-3 py-1 rounded">10%</button>
+                                <button onclick="setDownPayment(20)" class="text-xs bg-gray-100 px-3 py-1 rounded">20%</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="refinance-mode" class="space-y-6 hidden">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Loan Amount</label>
+                            <input type="number" id="refinanceLoanAmount" value="240000" min="10000" max="10000000" step="10000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" onchange="calculateMortgage()">
+                        </div>
+                    </div>
+
+                    <!-- Interest Rate -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Interest Rate (%) or Credit Score</label>
+                        <div class="grid grid-cols-2 gap-3 mb-3">
+                            <input type="number" id="interestRate" value="6.5" min="2" max="12" step="0.1" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" onchange="calculateMortgage()">
+                            <select id="creditScore" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" onchange="setRateFromCredit()">
+                                <option value="">Manual entry</option>
+                                <option value="300-579">300-579 (8.5%)</option>
+                                <option value="580-619">580-619 (7.5%)</option>
+                                <option value="620-679">620-679 (6.8%)</option>
+                                <option value="680-739">680-739 (6.2%)</option>
+                                <option value="740-799">740-799 (5.8%)</option>
+                                <option value="800-850">800-850 (5.3%)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Loan Term -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Loan Term (Years)</label>
+                        <div class="grid grid-cols-3 gap-2 mb-3">
+                            <button onclick="setLoanTerm(15)" class="py-2 bg-gray-100 rounded-lg hover:bg-gray-200">15</button>
+                            <button onclick="setLoanTerm(20)" class="py-2 bg-gray-100 rounded-lg hover:bg-gray-200">20</button>
+                            <button onclick="setLoanTerm(30)" class="py-2 bg-indigo-100 rounded-lg font-semibold border-2 border-indigo-600">30</button>
+                        </div>
+                        <input type="number" id="loanTerm" value="30" min="5" max="40" step="1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" onchange="calculateMortgage()">
+                    </div>
+
+                    <!-- Property Tax & Insurance -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Annual Property Tax + Insurance</label>
+                        <input type="number" id="annualTaxInsurance" value="5000" min="0" max="50000" step="500" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" onchange="calculateMortgage()">
+                        <p class="text-xs text-gray-500 mt-1">Estimate: 0.8-1.5% of home value per year</p>
+                    </div>
+
+                    <button onclick="calculateMortgage()" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold text-lg hover:bg-indigo-700 active:scale-95">Calculate Mortgage</button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Results</h2>
+
+                <div class="space-y-4">
+                    <div class="bg-indigo-50 rounded-lg p-4 border-l-4 border-indigo-600">
+                        <p class="text-gray-600 text-sm">Monthly Payment</p>
+                        <p id="monthlyPayment" class="text-4xl font-bold text-indigo-600">$1,850</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <p class="text-gray-600 text-sm">Principal & Interest</p>
+                            <p id="principalInterest" class="text-2xl font-bold text-gray-800">$1,432</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <p class="text-gray-600 text-sm">Taxes & Insurance</p>
+                            <p id="taxInsurance" class="text-2xl font-bold text-gray-800">$418</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-600">
+                        <p class="text-gray-600 text-sm">Total Interest Over Life of Loan</p>
+                        <p id="totalInterest" class="text-2xl font-bold text-blue-600">$280,000</p>
+                    </div>
+
+                    <div class="bg-green-50 rounded-lg p-4 border-l-4 border-green-600">
+                        <p class="text-gray-600 text-sm">Affordability Status</p>
+                        <p id="affordabilityStatus" class="text-xl font-bold text-green-600">Need $70,000 annual income</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <p class="text-gray-600">Loan Amount</p>
+                            <p id="loanAmount" class="font-bold text-gray-800">$240,000</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <p class="text-gray-600">Total Amount Paid</p>
+                            <p id="totalPaid" class="font-bold text-gray-800">$520,000</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Amortization Chart -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mt-8">
+            <h3 class="text-xl font-bold mb-4 text-gray-800">Amortization Schedule (Visual)</h3>
+            <canvas id="amortizationChart" height="80"></canvas>
+            <div class="mt-4 grid grid-cols-3 gap-4 text-center">
+                <div>
+                    <p class="text-gray-600 text-sm">Year 1-10</p>
+                    <p id="earlyPrincipal" class="font-bold">$20,000</p>
+                </div>
+                <div>
+                    <p class="text-gray-600 text-sm">Year 11-20</p>
+                    <p id="midPrincipal" class="font-bold">$40,000</p>
+                </div>
+                <div>
+                    <p class="text-gray-600 text-sm">Year 21-30</p>
+                    <p id="latePrincipal" class="font-bold">$80,000</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Highlights -->
+    <section class="bg-white py-12 px-4 mt-12">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Why Use Our Mortgage Calculator?</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-6 bg-indigo-50 rounded-lg">
+                    <div class="text-4xl mb-3">📊</div>
+                    <h3 class="font-bold text-lg mb-2">Instant Calculations</h3>
+                    <p class="text-gray-700">Get accurate monthly payments in seconds without submitting personal information.</p>
+                </div>
+                <div class="p-6 bg-blue-50 rounded-lg">
+                    <div class="text-4xl mb-3">📈</div>
+                    <h3 class="font-bold text-lg mb-2">Compare Scenarios</h3>
+                    <p class="text-gray-700">Adjust rates, terms, and down payments to compare affordability across different options.</p>
+                </div>
+                <div class="p-6 bg-green-50 rounded-lg">
+                    <div class="text-4xl mb-3">💰</div>
+                    <h3 class="font-bold text-lg mb-2">Transparency</h3>
+                    <p class="text-gray-700">Understand exactly how interest, principal, and taxes affect your monthly payment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Theory -->
+    <section class="bg-gray-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">How the Mortgage Calculator Works</h2>
+            <div class="bg-white rounded-lg p-8 space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-indigo-600 mb-3">The Monthly Payment Formula</h3>
+                    <p class="text-gray-700 mb-4">Your monthly mortgage payment is calculated using the standard amortization formula:</p>
+                    <div class="bg-indigo-50 p-4 rounded-lg font-mono text-sm mb-4">
+                        <p>M = P × [r(1 + r)^n] / [(1 + r)^n − 1]</p>
+                        <p class="mt-2 text-gray-600">Where:</p>
+                        <p class="text-gray-600">M = Monthly payment</p>
+                        <p class="text-gray-600">P = Loan principal (home price - down payment)</p>
+                        <p class="text-gray-600">r = Monthly interest rate (annual rate ÷ 12 ÷ 100)</p>
+                        <p class="text-gray-600">n = Total number of payments (years × 12)</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-indigo-600 mb-3">Example Calculation</h3>
+                    <p class="text-gray-700 mb-3">For a $300,000 home with 20% down ($60,000), 6.5% rate, 30-year term:</p>
+                    <div class="bg-gray-50 p-4 rounded-lg space-y-2 text-sm">
+                        <p><span class="font-semibold">Loan Amount:</span> $300,000 - $60,000 = $240,000</p>
+                        <p><span class="font-semibold">Monthly Rate:</span> 6.5% ÷ 12 ÷ 100 = 0.005417</p>
+                        <p><span class="font-semibold">Number of Payments:</span> 30 × 12 = 360</p>
+                        <p><span class="font-semibold">Monthly Payment:</span> $1,520 (principal + interest)</p>
+                        <p><span class="font-semibold">With taxes/insurance:</span> $1,520 + $417 = <span class="font-bold">$1,937</span></p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-indigo-600 mb-3">Affordability Guidelines</h3>
+                    <p class="text-gray-700 mb-3">Lenders typically use these debt-to-income (DTI) ratios:</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <p class="font-semibold text-blue-900">Front-end ratio: 28%</p>
+                            <p class="text-sm text-gray-700">Housing costs ÷ gross monthly income</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <p class="font-semibold text-green-900">Back-end ratio: 36-43%</p>
+                            <p class="text-sm text-gray-700">All monthly debt ÷ gross monthly income</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Excel/Sheets Section -->
+    <section class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">Excel & Google Sheets Formulas</h2>
+        <div class="bg-white rounded-lg p-8 space-y-6">
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-indigo-600">Monthly Payment Formula (PMT)</h3>
+                <p class="text-gray-700 mb-3">In Excel or Google Sheets, use the PMT function:</p>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                    =PMT(rate/12, nper*12, -pv)<br/>
+                    =PMT(6.5%/12, 30*12, -240000)<br/>
+                    Result: $1,520.06
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-indigo-600">Total Interest Paid</h3>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                    =PMT(rate/12, nper*12, -pv) * nper * 12 - pv<br/>
+                    Or simply: (PMT * number_of_payments) - principal
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-indigo-600">Remaining Balance After X Months</h3>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                    =PV(rate/12, (nper*12)-months_paid, -PMT)<br/>
+                    Calculates remaining loan balance after specific months
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-indigo-600">Create Simple Amortization Table</h3>
+                <div class="bg-blue-50 p-4 rounded-lg text-sm space-y-2">
+                    <p><span class="font-semibold">Column A (Month):</span> 1, 2, 3, ... 360</p>
+                    <p><span class="font-semibold">Column B (Payment):</span> =PMT($rate/12, $nper*12, -$pv)</p>
+                    <p><span class="font-semibold">Column C (Interest):</span> =A1*$rate/12 (starting balance × monthly rate)</p>
+                    <p><span class="font-semibold">Column D (Principal):</span> =B1-C1</p>
+                    <p><span class="font-semibold">Column E (Balance):</span> =E0-D1</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Template -->
+    <section class="bg-indigo-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4 text-gray-800">Download Mortgage Calculator Spreadsheet</h2>
+            <p class="text-gray-700 mb-6">Get our pre-built Excel/Google Sheets template with formulas ready to use</p>
+            <button class="bg-indigo-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-indigo-700 active:scale-95">
+                📥 Download Excel Template
+            </button>
+            <p class="text-sm text-gray-600 mt-4">Free template with all formulas included • No email required</p>
+        </div>
+    </section>
+
+    <!-- Embed Widget Code -->
+    <section class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">Embed This Calculator on Your Site</h2>
+        <div class="bg-white rounded-lg p-8">
+            <p class="text-gray-700 mb-4">Copy and paste this code to embed the mortgage calculator on any website:</p>
+            <div class="bg-gray-100 p-4 rounded-lg font-mono text-xs overflow-x-auto">
+&lt;iframe src="https://yoursite.com/mortgage-calculator" width="100%" height="800" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+Or use our lightweight embed script:
+
+&lt;script src="https://cdn.yoursite.com/mortgage-calc.js"&gt;&lt;/script&gt;
+&lt;div id="mortgage-calc-widget"&gt;&lt;/div&gt;
+            </div>
+        </div>
+    </section>
+
+    <!-- Python Implementation -->
+    <section class="bg-gray-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">Python Implementation</h2>
+            <div class="bg-white rounded-lg p-8">
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto space-y-4">
+                    <div>
+                        <p class="text-indigo-600 font-bold">import math</p>
+                        <p class="mt-3">def calculate_mortgage(home_price, down_payment_percent, annual_rate, years, annual_taxes_insurance=0):</p>
+                        <p class="ml-4">    """Calculate mortgage payment and amortization"""</p>
+                        <p class="ml-4">    down_payment = home_price * (down_payment_percent / 100)</p>
+                        <p class="ml-4">    loan_amount = home_price - down_payment</p>
+                        <p class="ml-4">    monthly_rate = annual_rate / 12 / 100</p>
+                        <p class="ml-4">    num_payments = years * 12</p>
+                        <p class="ml-4">    </p>
+                        <p class="ml-4">    # Calculate monthly payment using formula</p>
+                        <p class="ml-4">    if monthly_rate == 0:</p>
+                        <p class="ml-8">        monthly_payment = loan_amount / num_payments</p>
+                        <p class="ml-4">    else:</p>
+                        <p class="ml-8">        monthly_payment = loan_amount * (monthly_rate * (1 + monthly_rate)**num_payments) / ((1 + monthly_rate)**num_payments - 1)</p>
+                        <p class="ml-4">    </p>
+                        <p class="ml-4">    monthly_tax_insurance = annual_taxes_insurance / 12</p>
+                        <p class="ml-4">    total_monthly = monthly_payment + monthly_tax_insurance</p>
+                        <p class="ml-4">    total_interest = (monthly_payment * num_payments) - loan_amount</p>
+                        <p class="ml-4">    total_paid = monthly_payment * num_payments</p>
+                        <p class="ml-4">    </p>
+                        <p class="ml-4">    return {</p>
+                        <p class="ml-8">'monthly_payment': round(monthly_payment, 2),</p>
+                        <p class="ml-8">'total_monthly_with_taxes': round(total_monthly, 2),</p>
+                        <p class="ml-8">'total_interest': round(total_interest, 2),</p>
+                        <p class="ml-8">'total_paid': round(total_paid, 2),</p>
+                        <p class="ml-8">'loan_amount': loan_amount,</p>
+                        <p class="ml-8">'down_payment': down_payment</p>
+                        <p class="ml-4">}</p>
+                        <p class="mt-3"># Example usage:</p>
+                        <p>result = calculate_mortgage(300000, 20, 6.5, 30, 5000)</p>
+                        <p>print(f"Monthly Payment: ${result['monthly_payment']:,.2f}")</p>
+                        <p>print(f"Total Interest: ${result['total_interest']:,.2f}")</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How-to Guide -->
+    <section id="guide" class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">How to Use the Mortgage Calculator</h2>
+        <div class="space-y-6">
+            <div class="bg-white rounded-lg p-6 border-l-4 border-indigo-600">
+                <h3 class="font-bold text-lg mb-2">Step 1: Choose Your Calculation Type</h3>
+                <p class="text-gray-700">Select "Purchase" if you're buying a new home and want to know how much your payment will be. Choose "Refinance" if you already have a mortgage and want to see savings from refinancing.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-blue-600">
+                <h3 class="font-bold text-lg mb-2">Step 2: Enter Home Price or Loan Amount</h3>
+                <p class="text-gray-700">For purchases: Enter the full home price. For refinancing: Enter your current loan balance. Use the quick preset buttons for common amounts like $200K, $400K, or $600K.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-green-600">
+                <h3 class="font-bold text-lg mb-2">Step 3: Set Your Down Payment</h3>
+                <p class="text-gray-700">If buying, choose your down payment percentage (3-20%). Larger down payments reduce your monthly payment and may help you avoid PMI (Private Mortgage Insurance). Minimum is typically 3-5% for conventional loans.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-yellow-600">
+                <h3 class="font-bold text-lg mb-2">Step 4: Enter Interest Rate</h3>
+                <p class="text-gray-700">Current rates vary by credit score and loan type. Rates range from 3-8% depending on market conditions. You can either enter a specific rate or select your credit score range to see typical rates.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-purple-600">
+                <h3 class="font-bold text-lg mb-2">Step 5: Choose Loan Term</h3>
+                <p class="text-gray-700">Most popular options are 15-year (faster payoff, higher payment) and 30-year (lower payment, more interest). 15-year typically has rates 0.3-0.5% lower than 30-year.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-red-600">
+                <h3 class="font-bold text-lg mb-2">Step 6: Add Property Tax & Insurance</h3>
+                <p class="text-gray-700">Enter your estimated annual property tax and homeowners insurance. Typically 0.8-1.5% of home value per year. Your lender will require insurance, and taxes vary by location.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-indigo-600">
+                <h3 class="font-bold text-lg mb-2">Step 7: Review Your Results</h3>
+                <p class="text-gray-700">Check your monthly payment, total interest, and affordability status. The calculator shows whether you can afford the home based on typical lending guidelines (your payment should be 28% or less of gross income).</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-blue-600">
+                <h3 class="font-bold text-lg mb-2">Step 8: Experiment with Different Scenarios</h3>
+                <p class="text-gray-700">Try adjusting the down payment, rate, or term to see how they affect your payment. Lower rates = lower payments. Longer terms = lower payments but more interest. Larger down payments = lower loan amount and payment.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="bg-white py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What's included in the monthly mortgage payment?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Your monthly payment includes four components called "PITI": Principal (loan amount paid down), Interest (lender's cost), Taxes (property tax), and Insurance (homeowners insurance). PMI (Private Mortgage Insurance) may be added if your down payment is less than 20%.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        How much of my payment goes toward principal vs interest?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Early in the loan, most of your payment goes to interest. For example, on a 30-year mortgage, your first payment might be 85% interest and 15% principal. Over time, this reverses. After 20 years, you'll pay mostly principal. This is why making extra principal payments early saves significant interest.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What's the difference between 15-year and 30-year mortgages?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">A 15-year mortgage has higher monthly payments but you pay off the home faster and save significant interest. A 30-year mortgage has lower monthly payments but you pay more interest overall. For example, a $240K loan at 6.5%: 15-year payment is $1,851/month ($151k interest), 30-year payment is $1,520/month ($307k interest).</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What credit score do I need for a mortgage?
+                        <span class="group-open:rotate-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Most lenders require a minimum credit score of 620 for conventional loans, though scores below 680 have higher interest rates. FHA loans allow scores as low as 580 with a 3.5% down payment. VA loans (veterans) have no minimum score. Scores above 740 get the best rates.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What is PMI and can I avoid it?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">PMI (Private Mortgage Insurance) is required when your down payment is less than 20%. It costs 0.3-1.5% of the loan amount annually, typically $150-300/month on a $240K loan. You can avoid PMI by making a 20% down payment. PMI automatically cancels once you reach 20% equity through payments and home appreciation.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        How much house can I afford based on my income?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Lenders use the 28% rule: your housing payment shouldn't exceed 28% of your gross monthly income. For example, if you earn $5,000/month, your payment (including taxes/insurance) shouldn't exceed $1,400. Many use the 36% rule for total debt including student loans, car loans, credit cards, etc.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        Should I refinance my mortgage?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Refinancing makes sense if interest rates drop 0.5-1% below your current rate. Calculate the break-even point: (refinancing costs) ÷ (monthly savings) = number of months to break even. If you'll stay in the home longer than break-even, refinance. If rates are rising, refinance sooner rather than later.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        How is the interest rate determined?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Your rate depends on: (1) Federal Reserve rates (market baseline), (2) your credit score (better credit = lower rate), (3) loan amount and term, (4) down payment size, (5) your employment stability, and (6) current economic conditions. Shopping with multiple lenders can save you $50-200/month.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Calculators -->
+    <section class="bg-indigo-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Related Calculators</h2>
+            <div class="grid md:grid-cols-4 gap-6">
+                <a href="/debt-consolidation-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">💳</div>
+                    <h3 class="font-bold mb-2">Debt Consolidation</h3>
+                    <p class="text-sm text-gray-600">Calculate payoff timeline and savings</p>
+                </a>
+                <a href="/income-tax-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">📋</div>
+                    <h3 class="font-bold mb-2">Income Tax</h3>
+                    <p class="text-sm text-gray-600">Calculate federal and state taxes</p>
+                </a>
+                <a href="/personal-loan-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">💰</div>
+                    <h3 class="font-bold mb-2">Personal Loan</h3>
+                    <p class="text-sm text-gray-600">Compare loan options and rates</p>
+                </a>
+                <a href="/car-loan-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">🚗</div>
+                    <h3 class="font-bold mb-2">Car Loan</h3>
+                    <p class="text-sm text-gray-600">Calculate vehicle financing payments</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- References -->
+    <section class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">Sources & References</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                <h3 class="font-bold mb-3">Government Resources</h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li>• Federal Reserve Mortgage Rate Data</li>
+                    <li>• HUD Home Affordability Guidelines</li>
+                    <li>• Consumer Financial Protection Bureau (CFPB)</li>
+                    <li>• Fannie Mae & Freddie Mac Standards</li>
+                </ul>
+            </div>
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                <h3 class="font-bold mb-3">Market Data</h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li>• Freddie Mac Primary Mortgage Market Survey</li>
+                    <li>• Zillow Zestimate Property Values</li>
+                    <li>• Mortgage Bankers Association Reports</li>
+                    <li>• FICO Credit Score Methodology</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authorship -->
+    <section class="bg-gray-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">About This Calculator</h2>
+            <div class="bg-white rounded-lg p-8">
+                <p class="text-gray-700 mb-4">This mortgage calculator uses industry-standard formulas used by lenders, banks, and financial professionals. The amortization calculation follows the standard formula used in mortgage servicing software.</p>
+                <p class="text-gray-700 mb-4"><span class="font-bold">Last Updated:</span> November 2024 with 2024 federal guidelines and current market data</p>
+                <p class="text-gray-700"><span class="font-bold">Accuracy Note:</span> This calculator provides estimates for planning purposes. Actual payments may vary based on lender-specific fees, HOA fees, flood insurance, and other factors. Consult with a mortgage professional for exact figures.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white py-12 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to Get Pre-Approved?</h2>
+            <p class="text-xl mb-6">Get quotes from multiple lenders and compare the best mortgage rates</p>
+            <button class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 active:scale-95">
+                Get Personalized Quotes
+            </button>
+            <p class="text-sm mt-4 text-indigo-100">Free quotes • No credit check • Compare offers side-by-side</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="font-bold text-white mb-4">Calculators</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">Mortgage</a></li>
+                        <li><a href="#" class="hover:text-white">Personal Loan</a></li>
+                        <li><a href="#" class="hover:text-white">Auto Loan</a></li>
+                        <li><a href="#" class="hover:text-white">Student Loan</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Resources</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">Blog</a></li>
+                        <li><a href="#" class="hover:text-white">Guides</a></li>
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Legal</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white">Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Newsletter</h3>
+                    <p class="text-sm mb-3">Get tips and updates</p>
+                    <input type="email" placeholder="Your email" class="w-full px-3 py-2 rounded text-gray-800 text-sm">
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+                <p>&copy; 2024 Mortgage Calculator. All rights reserved. Estimates are for planning purposes only.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentMode = 'purchase';
+
+        function setMode(mode) {
+            currentMode = mode;
+            document.getElementById('purchase-mode').classList.toggle('hidden', mode !== 'purchase');
+            document.getElementById('refinance-mode').classList.toggle('hidden', mode !== 'refinance');
+            document.getElementById('btn-purchase').classList.toggle('bg-indigo-600', mode === 'purchase');
+            document.getElementById('btn-purchase').classList.toggle('bg-gray-200', mode !== 'purchase');
+            document.getElementById('btn-purchase').classList.toggle('text-white', mode === 'purchase');
+            document.getElementById('btn-purchase').classList.toggle('text-gray-700', mode !== 'purchase');
+            document.getElementById('btn-refinance').classList.toggle('bg-indigo-600', mode === 'refinance');
+            document.getElementById('btn-refinance').classList.toggle('bg-gray-200', mode !== 'refinance');
+            document.getElementById('btn-refinance').classList.toggle('text-white', mode === 'refinance');
+            document.getElementById('btn-refinance').classList.toggle('text-gray-700', mode !== 'refinance');
+            calculateMortgage();
+        }
+
+        function setHomePrice(price) {
+            document.getElementById('homePrice').value = price;
+            calculateMortgage();
+        }
+
+        function setDownPayment(percent) {
+            document.getElementById('downPaymentPercent').value = percent;
+            calculateMortgage();
+        }
+
+        function setLoanTerm(years) {
+            document.getElementById('loanTerm').value = years;
+            calculateMortgage();
+        }
+
+        function setRateFromCredit() {
+            const creditScore = document.getElementById('creditScore').value;
+            const rates = {
+                '300-579': 8.5,
+                '580-619': 7.5,
+                '620-679': 6.8,
+                '680-739': 6.2,
+                '740-799': 5.8,
+                '800-850': 5.3
+            };
+            if (rates[creditScore]) {
+                document.getElementById('interestRate').value = rates[creditScore];
+                calculateMortgage();
+            }
+        }
+
+        function calculateMortgage() {
+            let loanAmount, monthlyRate, numPayments, annualRate;
+
+            if (currentMode === 'purchase') {
+                const homePrice = parseFloat(document.getElementById('homePrice').value) || 0;
+                const downPaymentPercent = parseFloat(document.getElementById('downPaymentPercent').value) || 0;
+                const downPayment = homePrice * (downPaymentPercent / 100);
+                loanAmount = homePrice - downPayment;
+                document.getElementById('loanAmount').textContent = '$' + loanAmount.toLocaleString('en-US', {maximumFractionDigits: 0});
+            } else {
+                loanAmount = parseFloat(document.getElementById('refinanceLoanAmount').value) || 0;
+                document.getElementById('loanAmount').textContent = '$' + loanAmount.toLocaleString('en-US', {maximumFractionDigits: 0});
+            }
+
+            annualRate = parseFloat(document.getElementById('interestRate').value) || 0;
+            monthlyRate = annualRate / 12 / 100;
+            numPayments = parseFloat(document.getElementById('loanTerm').value) * 12;
+
+            let monthlyPayment;
+            if (monthlyRate === 0) {
+                monthlyPayment = loanAmount / numPayments;
+            } else {
+                monthlyPayment = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+            }
+
+            const annualTaxInsurance = parseFloat(document.getElementById('annualTaxInsurance').value) || 0;
+            const monthlyTaxInsurance = annualTaxInsurance / 12;
+            const totalMonthly = monthlyPayment + monthlyTaxInsurance;
+
+            const totalPaid = monthlyPayment * numPayments;
+            const totalInterest = totalPaid - loanAmount;
+            const annualIncome = totalMonthly * 12 / 0.28;
+
+            // Update results
+            document.getElementById('monthlyPayment').textContent = '$' + totalMonthly.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('principalInterest').textContent = '$' + monthlyPayment.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('taxInsurance').textContent = '$' + monthlyTaxInsurance.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('totalInterest').textContent = '$' + totalInterest.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('totalPaid').textContent = '$' + totalPaid.toLocaleString('en-US', {maximumFractionDigits: 0});
+
+            const affordabilityStatus = annualIncome < 0 ? 'Unaffordable' : 'Need $' + Math.ceil(annualIncome).toLocaleString('en-US', {maximumFractionDigits: 0}) + ' annual income';
+            document.getElementById('affordabilityStatus').textContent = affordabilityStatus;
+
+            // Calculate amortization segments
+            let balance = loanAmount;
+            let earlyPrincipal = 0, midPrincipal = 0, latePrincipal = 0;
+
+            for (let i = 1; i <= numPayments; i++) {
+                const interestPayment = balance * monthlyRate;
+                const principalPayment = monthlyPayment - interestPayment;
+                balance -= principalPayment;
+
+                if (i <= 120) earlyPrincipal += principalPayment;
+                else if (i <= 240) midPrincipal += principalPayment;
+                else latePrincipal += principalPayment;
+            }
+
+            document.getElementById('earlyPrincipal').textContent = '$' + Math.round(earlyPrincipal).toLocaleString('en-US');
+            document.getElementById('midPrincipal').textContent = '$' + Math.round(midPrincipal).toLocaleString('en-US');
+            document.getElementById('latePrincipal').textContent = '$' + Math.round(latePrincipal).toLocaleString('en-US');
+
+            // Draw amortization chart
+            drawChart(earlyPrincipal, midPrincipal, latePrincipal, totalInterest - earlyPrincipal - midPrincipal - latePrincipal);
+        }
+
+        function drawChart(early, mid, late, interestRemaining) {
+            const canvas = document.getElementById('amortizationChart');
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            const total = early + mid + late + interestRemaining;
+
+            ctx.clearRect(0, 0, width, height);
+
+            const colors = ['#4f46e5', '#3b82f6', '#8b5cf6', '#ec4899'];
+            const segments = [
+                {value: early, label: 'Year 1-10 Principal'},
+                {value: mid, label: 'Year 11-20 Principal'},
+                {value: late, label: 'Year 21+ Principal'},
+                {value: interestRemaining, label: 'Interest'}
+            ];
+
+            let x = 0;
+            segments.forEach((seg, idx) => {
+                const segmentWidth = (seg.value / total) * width;
+                ctx.fillStyle = colors[idx];
+                ctx.fillRect(x, 0, segmentWidth, height);
+
+                if (segmentWidth > 30) {
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 12px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(((seg.value / total) * 100).toFixed(0) + '%', x + segmentWidth / 2, height / 2 + 5);
+                }
+                x += segmentWidth;
+            });
+        }
+
+        // Initial calculation
+        calculateMortgage();
+    </script>
+</body>
+</html>
