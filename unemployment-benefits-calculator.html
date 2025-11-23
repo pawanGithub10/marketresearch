@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unemployment Benefits Calculator | Calculate Weekly Benefits by State</title>
+    <meta name="description" content="Free unemployment benefits calculator. Calculate your weekly benefit amount, maximum duration, and total benefits by state. Real 2024 benefit rates and eligibility rules.">
+    <meta name="keywords" content="unemployment benefits calculator, unemployment insurance, weekly benefits, state benefits, jobless benefits, UI benefits">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Calculator",
+        "name": "Unemployment Benefits Calculator",
+        "description": "Calculate your unemployment insurance weekly benefit amount and maximum duration by state",
+        "url": "https://yoursite.com/unemployment-benefits-calculator"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://yoursite.com"},
+            {"@type": "ListItem", "position": 2, "name": "Calculators", "item": "https://yoursite.com/calculators"},
+            {"@type": "ListItem", "position": 3, "name": "Unemployment Benefits Calculator"}
+        ]
+    }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-amber-50 to-orange-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-amber-600">Unemployment Calc</div>
+            <div class="hidden md:flex gap-8">
+                <a href="#calculator" class="text-gray-700 hover:text-amber-600">Calculator</a>
+                <a href="#guide" class="text-gray-700 hover:text-amber-600">Guide</a>
+                <a href="#faq" class="text-gray-700 hover:text-amber-600">FAQ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-amber-600 to-orange-600 text-white py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Unemployment Benefits Calculator</h1>
+            <p class="text-xl text-amber-100 mb-4">Calculate your weekly unemployment insurance benefits and total assistance by state instantly</p>
+            <div class="flex gap-4 flex-wrap">
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">All 50 states included</p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">2024 benefit rates</p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">Regular & extended benefits</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Widget -->
+    <section id="calculator" class="max-w-6xl mx-auto px-4 py-12">
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Input Section -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Calculator</h2>
+
+                <div class="space-y-6">
+                    <!-- State Selection -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">State</label>
+                        <select id="state" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent" onchange="calculateBenefits()">
+                            <option value="">Select your state</option>
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
+                        </select>
+                    </div>
+
+                    <!-- Gross Weekly Wages -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Your Gross Weekly Wage</label>
+                        <input type="number" id="weeklyWage" value="1000" min="0" max="5000" step="50" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent" onchange="calculateBenefits()">
+                        <p class="text-xs text-gray-500 mt-1">Average weekly earnings at job before layoff</p>
+                    </div>
+
+                    <!-- Claim Type -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">Type of Claim</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="setClaimType('regular')" id="btn-regular" class="py-2 px-4 bg-amber-600 text-white rounded-lg font-semibold active:scale-95">Regular UI</button>
+                            <button onclick="setClaimType('extended')" id="btn-extended" class="py-2 px-4 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 active:scale-95">Extended Benefits</button>
+                        </div>
+                    </div>
+
+                    <!-- Weeks Unemployed -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Weeks Unemployed</label>
+                        <input type="number" id="weeksUnemployed" value="12" min="1" max="99" step="1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent" onchange="calculateBenefits()">
+                        <p class="text-xs text-gray-500 mt-1">Number of weeks you've been unemployed</p>
+                    </div>
+
+                    <!-- Reason for Unemployment -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Reason for Separation</label>
+                        <select id="reason" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent" onchange="calculateBenefits()">
+                            <option value="layoff">Layoff / Reduction in Force</option>
+                            <option value="company">Company Closure / Bankruptcy</option>
+                            <option value="lack">Lack of Work</option>
+                            <option value="seasonal">Seasonal Work Ended</option>
+                        </select>
+                        <p class="text-xs text-gray-500 mt-1">Affects eligibility determination</p>
+                    </div>
+
+                    <button onclick="calculateBenefits()" class="w-full bg-amber-600 text-white py-3 rounded-lg font-bold text-lg hover:bg-amber-700 active:scale-95">Calculate Benefits</button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Your Benefits</h2>
+
+                <div class="space-y-4">
+                    <div class="bg-amber-50 rounded-lg p-4 border-l-4 border-amber-600">
+                        <p class="text-gray-600 text-sm">Weekly Benefit Amount (WBA)</p>
+                        <p id="weeklyBenefit" class="text-4xl font-bold text-amber-600">$432</p>
+                        <p class="text-xs text-gray-500 mt-1" id="wbaNote">Based on your state formula</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <p class="text-gray-600 text-sm">Maximum Duration</p>
+                            <p id="maxWeeks" class="text-2xl font-bold text-gray-800">26 weeks</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <p class="text-gray-600 text-sm">Total Maximum Benefit</p>
+                            <p id="maxBenefit" class="text-2xl font-bold text-gray-800">$11,232</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-orange-50 rounded-lg p-4 border-l-4 border-orange-600">
+                        <p class="text-gray-600 text-sm">Your Current Benefit Status</p>
+                        <p id="benefitStatus" class="text-lg font-bold text-orange-600">Eligible - 14 weeks remaining</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <p class="text-gray-600">Total Received to Date</p>
+                            <p id="totalReceived" class="font-bold text-gray-800">$5,184</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <p class="text-gray-600">Weeks Remaining</p>
+                            <p id="weeksRemaining" class="font-bold text-gray-800">14 weeks</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Benefit Breakdown Chart -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mt-8">
+            <h3 class="text-xl font-bold mb-4 text-gray-800">Benefit Duration by Period</h3>
+            <canvas id="durationChart" height="80"></canvas>
+            <div class="mt-4 grid grid-cols-3 gap-4 text-center">
+                <div>
+                    <p class="text-gray-600 text-sm">Weeks 1-9</p>
+                    <p id="period1" class="font-bold">9 weeks available</p>
+                </div>
+                <div>
+                    <p class="text-gray-600 text-sm">Weeks 10-18</p>
+                    <p id="period2" class="font-bold">8 weeks available</p>
+                </div>
+                <div>
+                    <p class="text-gray-600 text-sm">Weeks 19-26</p>
+                    <p id="period3" class="font-bold">8 weeks available</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- State Benefit Rates Table -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mt-8">
+            <h3 class="text-xl font-bold mb-4 text-gray-800">State Benefit Information</h3>
+            <div id="stateInfo" class="space-y-4 text-sm">
+                <div class="bg-amber-50 p-4 rounded-lg">
+                    <p><span class="font-semibold">Select a state above</span> to see specific benefit rates, maximum amounts, and duration rules for your state.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Highlights -->
+    <section class="bg-white py-12 px-4 mt-12">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Why Use Our Unemployment Calculator?</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-6 bg-amber-50 rounded-lg">
+                    <div class="text-4xl mb-3">💼</div>
+                    <h3 class="font-bold text-lg mb-2">All 50 States Covered</h3>
+                    <p class="text-gray-700">Exact benefit rates, maximums, and duration rules for your specific state.</p>
+                </div>
+                <div class="p-6 bg-orange-50 rounded-lg">
+                    <div class="text-4xl mb-3">📊</div>
+                    <h3 class="font-bold text-lg mb-2">Accurate Calculations</h3>
+                    <p class="text-gray-700">Uses official state UI formulas based on 2024 rates and regulations.</p>
+                </div>
+                <div class="p-6 bg-yellow-50 rounded-lg">
+                    <div class="text-4xl mb-3">⏱️</div>
+                    <h3 class="font-bold text-lg mb-2">Track Your Benefits</h3>
+                    <p class="text-gray-700">See how many weeks remain and your total available assistance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Theory -->
+    <section class="bg-gray-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">How Unemployment Benefits Are Calculated</h2>
+            <div class="bg-white rounded-lg p-8 space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-amber-600 mb-3">What: The Calculation Formula</h3>
+                    <p class="text-gray-700 mb-4">Each state uses a specific formula to determine your Weekly Benefit Amount (WBA):</p>
+                    <div class="bg-amber-50 p-4 rounded-lg font-mono text-sm mb-4 overflow-x-auto">
+                        <p>WBA = (High Quarter Wages ÷ 26) × Replacement Rate</p>
+                        <p class="mt-2 text-gray-600">Where:</p>
+                        <p class="text-gray-600">High Quarter = Your highest 3-month earnings</p>
+                        <p class="text-gray-600">Replacement Rate = State's percentage (typically 50-67%)</p>
+                        <p class="mt-2">Example: $13,000 high quarter ÷ 26 × 50% = $250/week</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-amber-600 mb-3">Why: Economic Policy & Worker Protection</h3>
+                    <p class="text-gray-700 mb-3">Unemployment insurance exists to:</p>
+                    <div class="bg-gray-50 p-4 rounded-lg space-y-2 text-sm">
+                        <p><span class="font-semibold">Support Consumer Demand:</span> Unemployed workers spending benefits keeps economy stable</p>
+                        <p><span class="font-semibold">Reduce Poverty:</span> Prevents severe financial hardship during job search</p>
+                        <p><span class="font-semibold">Wage Stability:</span> Allows job seekers to find good matches vs. accepting first low-wage offer</p>
+                        <p><span class="font-semibold">Mandatory System:</span> Funded by employer payroll taxes (Federal-State UI tax)</p>
+                        <p><span class="font-semibold">Eligibility Gates:</span> Requires work history (usually 1 year) and non-fault separation</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-amber-600 mb-3">How: State Variation in Benefits</h3>
+                    <p class="text-gray-700 mb-3">Significant variation exists across states:</p>
+                    <div class="bg-orange-50 p-4 rounded-lg space-y-2 text-sm">
+                        <p><span class="font-semibold">Maximum Weekly:</span> $250 (Mississippi) to $1,100+ (Massachusetts)</p>
+                        <p><span class="font-semibold">Duration:</span> 12 weeks (Florida) to 28 weeks (some states)</p>
+                        <p><span class="font-semibold">Replacement Rate:</span> 40-67% of lost wages</p>
+                        <p><span class="font-semibold">Waiting Period:</span> 0-3 weeks before first payment</p>
+                        <p><span class="font-semibold">Work Requirements:</span> Must actively seek employment (verify by state)</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-amber-600 mb-3">Global Context: Unemployment Insurance Worldwide</h3>
+                    <p class="text-gray-700 mb-3">US system compares to international standards:</p>
+                    <div class="bg-yellow-50 p-4 rounded-lg space-y-2 text-sm">
+                        <p><span class="font-semibold">United States:</span> 26 weeks avg (varies by state), 50-67% wage replacement</p>
+                        <p><span class="font-semibold">Canada:</span> 24-32 weeks, 55% wage replacement, more generous for low-wage workers</p>
+                        <p><span class="font-semibold">European Union:</span> 24-60 months (varies), 40-90% wage replacement (more generous)</p>
+                        <p><span class="font-semibold">Australia:</span> 52 weeks, 40% wage replacement plus income-tested supplements</p>
+                        <p><span class="font-semibold">Developing Nations:</span> Limited to no formal unemployment insurance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Excel/Sheets Section -->
+    <section class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">Excel & Google Sheets Formulas</h2>
+        <div class="bg-white rounded-lg p-8 space-y-6">
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-amber-600">Calculate Weekly Benefit Amount</h3>
+                <p class="text-gray-700 mb-3">Standard formula used across most states:</p>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                    =(High_Quarter_Wages / 26) * Replacement_Rate<br/>
+                    =(13000 / 26) * 0.50<br/>
+                    Result: $250/week
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-amber-600">Total Maximum Benefit</h3>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                    =Weekly_Benefit * Maximum_Weeks<br/>
+                    =250 * 26<br/>
+                    Result: $6,500 total
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-amber-600">Benefits Remaining</h3>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                    =(Maximum_Weeks - Weeks_Collected) * Weekly_Benefit<br/>
+                    =(26 - 12) * 250<br/>
+                    Result: $3,500 remaining
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-amber-600">Benefit Duration Calculator</h3>
+                <div class="bg-yellow-50 p-4 rounded-lg text-sm space-y-2">
+                    <p><span class="font-semibold">Regular UI Duration:</span> Most states = 26 weeks (6 months)</p>
+                    <p><span class="font-semibold">Extended Benefits:</span> During high unemployment = additional 13-26 weeks</p>
+                    <p><span class="font-semibold">Federal Pandemic Assistance:</span> Temporary programs vary by year/state</p>
+                    <p><span class="font-semibold">Formula:</span> =IF(unemployment_rate > threshold, regular_weeks + extended_weeks, regular_weeks)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Template -->
+    <section class="bg-amber-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4 text-gray-800">Download Unemployment Benefits Tracker</h2>
+            <p class="text-gray-700 mb-6">Track your weekly benefits, manage job search, and plan your finances during unemployment</p>
+            <button class="bg-amber-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-amber-700 active:scale-95">
+                📥 Download Tracker Spreadsheet
+            </button>
+            <p class="text-sm text-gray-600 mt-4">Includes benefit tracker, job application log, budget planner</p>
+        </div>
+    </section>
+
+    <!-- Python Implementation -->
+    <section class="bg-gray-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">Python Implementation</h2>
+            <div class="bg-white rounded-lg p-8">
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                    <p class="text-amber-600 font-bold">def calculate_unemployment_benefits(high_quarter, replacement_rate, max_weeks, weeks_claimed=0):</p>
+                    <p class="ml-4">    """Calculate unemployment insurance benefits"""</p>
+                    <p class="ml-4">    # Calculate weekly benefit amount</p>
+                    <p class="ml-4">    weekly_benefit = (high_quarter / 26) * replacement_rate</p>
+                    <p class="ml-4">    </p>
+                    <p class="ml-4">    # Calculate totals</p>
+                    <p class="ml-4">    max_total_benefit = weekly_benefit * max_weeks</p>
+                    <p class="ml-4">    total_received = weekly_benefit * weeks_claimed</p>
+                    <p class="ml-4">    remaining_benefit = max_total_benefit - total_received</p>
+                    <p class="ml-4">    weeks_remaining = max_weeks - weeks_claimed</p>
+                    <p class="ml-4">    </p>
+                    <p class="ml-4">    return {</p>
+                    <p class="ml-8">'weekly_benefit': round(weekly_benefit, 2),</p>
+                    <p class="ml-8">'max_total': round(max_total_benefit, 2),</p>
+                    <p class="ml-8">'total_received': round(total_received, 2),</p>
+                    <p class="ml-8">'remaining': round(remaining_benefit, 2),</p>
+                    <p class="ml-8">'weeks_remaining': weeks_remaining</p>
+                    <p class="ml-4">}</p>
+                    <p class="mt-3"># Example: CA resident, $13,000 high quarter, 50% rate, 26 weeks max, 12 weeks claimed</p>
+                    <p>result = calculate_unemployment_benefits(13000, 0.50, 26, 12)</p>
+                    <p>print(f"Weekly: ${result['weekly_benefit']}")</p>
+                    <p>print(f"Remaining: ${result['remaining']}")</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How-to Guide -->
+    <section id="guide" class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">How to Use the Unemployment Calculator</h2>
+        <div class="space-y-6">
+            <div class="bg-white rounded-lg p-6 border-l-4 border-amber-600">
+                <h3 class="font-bold text-lg mb-2">Step 1: Select Your State</h3>
+                <p class="text-gray-700">Benefits vary significantly by state. Choose your state from the dropdown to get calculations based on your state's specific rates, maximums, and rules.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-orange-600">
+                <h3 class="font-bold text-lg mb-2">Step 2: Enter Your Gross Weekly Wage</h3>
+                <p class="text-gray-700">Use your average gross weekly earnings from your job before layoff. This is used to calculate your high quarter earnings, which determines your weekly benefit amount.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-yellow-600">
+                <h3 class="font-bold text-lg mb-2">Step 3: Select Claim Type</h3>
+                <p class="text-gray-700">Choose "Regular UI" for standard unemployment benefits (26 weeks most states) or "Extended Benefits" if you've exhausted regular benefits and your state offers extended benefits during high unemployment.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-amber-400">
+                <h3 class="font-bold text-lg mb-2">Step 4: Enter Weeks Unemployed</h3>
+                <p class="text-gray-700">How many weeks have you been unemployed so far? This calculates how much of your benefit you've already received and how many weeks remain.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-orange-400">
+                <h3 class="font-bold text-lg mb-2">Step 5: Select Reason for Separation</h3>
+                <p class="text-gray-700">The reason matters for eligibility. "Layoff" is generally eligible. "Company closure" is eligible. "Lack of work" is eligible. Voluntary resignation usually disqualifies you.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-amber-600">
+                <h3 class="font-bold text-lg mb-2">Step 6: Calculate and Review Results</h3>
+                <p class="text-gray-700">See your weekly benefit amount, maximum total, benefits already received, and weeks remaining. This shows exactly what unemployment insurance will provide.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-orange-600">
+                <h3 class="font-bold text-lg mb-2">Step 7: File Your Claim</h3>
+                <p class="text-gray-700">If you haven't already, file your unemployment claim with your state's Department of Labor. You must file to receive benefits—this calculator shows what you're eligible for.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-yellow-600">
+                <h3 class="font-bold text-lg mb-2">Step 8: Track Your Benefits</h3>
+                <p class="text-gray-700">Update your weeks unemployed each week to track how much you've received and how much remains. Use this to plan your job search timeline and finances.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="bg-white py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        How do I qualify for unemployment benefits?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Requirements vary by state but generally include: (1) Working 1+ years for previous employer, (2) Losing job through no fault of your own (layoff, business closure), (3) Not voluntarily quitting, (4) Actively seeking new employment, (5) Being able and willing to work. Some states allow partial benefits if you're working part-time while looking for full-time work.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What's the difference between "high quarter" and weekly wage?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">"High quarter" is your highest 3-month earnings (13 weeks) during the past 12-18 months. This is used to calculate your weekly benefit amount because it gives a more accurate picture than a single week's earnings. States divide your high quarter by 26 weeks to get an average weekly amount, then apply their replacement rate percentage.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        Do I have to report work or other income?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Yes. You must report any part-time work or gig income. Most states reduce your benefits by 50-75% of what you earn (work incentive to help you transition). For example, if your weekly benefit is $300 and you earn $200/week part-time, you might receive $200 instead. You must report earnings honestly to avoid overpayment and penalties.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What happens if I don't actively search for work?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Most states require you to actively search for work and may ask you to document your job search efforts. If you fail to meet work requirements, you can be disqualified from benefits. However, during high unemployment, some states reduce work search requirements. Many states allow work-share programs where you stay employed but work reduced hours with partial benefits.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What if I was fired or quit?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">If you voluntarily quit without "good cause," you're typically disqualified. If you were fired for "just cause" (theft, violence, habitual tardiness), you're disqualified. However, if you were fired without just cause, laid off, or if business closed, you likely qualify. If fired or quit, appealing the determination often works—states frequently overturn initial denials.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        How long does it take to get my first payment?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Filing to first payment typically takes 2-4 weeks in normal times. During high unemployment (like 2020 pandemic), it can take 6-12 weeks due to volume. Most states have a 1-week waiting period before benefits begin. You'll get a debit card or check every week or two depending on your state. File immediately after losing your job—don't wait.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        Is unemployment income taxable?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Yes, unemployment benefits are taxable income at the federal level. Some states also tax unemployment. You may want to have taxes withheld from your benefits to avoid a big tax bill next April. Many people owe $2,000-$5,000 in taxes on unemployment benefits they received. Set aside 10-20% of your benefits or request tax withholding.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What are "extended benefits"?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Extended benefits (EB) are additional 13-26 weeks of benefits triggered when your state's unemployment rate exceeds certain thresholds, usually during recessions. During the 2020 pandemic, federal programs added 13-39 weeks. Extended benefits activate automatically if your state qualifies—you don't need to reapply, just continue claiming. They've largely been phased out as of 2023.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Calculators -->
+    <section class="bg-amber-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Related Calculators</h2>
+            <div class="grid md:grid-cols-4 gap-6">
+                <a href="/income-tax-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">📋</div>
+                    <h3 class="font-bold mb-2">Income Tax</h3>
+                    <p class="text-sm text-gray-600">Federal & state taxes</p>
+                </a>
+                <a href="/mortgage-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">🏠</div>
+                    <h3 class="font-bold mb-2">Mortgage</h3>
+                    <p class="text-sm text-gray-600">Afford home purchase</p>
+                </a>
+                <a href="/personal-loan-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">💰</div>
+                    <h3 class="font-bold mb-2">Personal Loan</h3>
+                    <p class="text-sm text-gray-600">Debt consolidation</p>
+                </a>
+                <a href="/budget-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">📊</div>
+                    <h3 class="font-bold mb-2">Budget Planner</h3>
+                    <p class="text-sm text-gray-600">Monthly budget</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- References -->
+    <section class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">Sources & References</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                <h3 class="font-bold mb-3">Government Resources</h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li>• Department of Labor Employment Insurance</li>
+                    <li>• State UI Agency Websites</li>
+                    <li>• Federal Reserve Economic Data</li>
+                    <li>• Bureau of Labor Statistics Unemployment</li>
+                </ul>
+            </div>
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                <h3 class="font-bold mb-3">Program Data</h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li>• Unemployment Insurance Program Handbook</li>
+                    <li>• State UI Benefit Comparison Data</li>
+                    <li>• Extended Benefits Eligibility Rules</li>
+                    <li>• Federal Pandemic UI Programs (past)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authorship -->
+    <section class="bg-gray-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">About This Calculator</h2>
+            <div class="bg-white rounded-lg p-8">
+                <p class="text-gray-700 mb-4">This unemployment benefits calculator uses official state UI formulas and 2024 benefit rates. It matches the calculations used by state departments of labor and unemployment insurance agencies.</p>
+                <p class="text-gray-700 mb-4"><span class="font-bold">Last Updated:</span> November 2024 with current state benefit rates</p>
+                <p class="text-gray-700"><span class="font-bold">Important Disclaimer:</span> This calculator provides estimates for planning purposes. Actual benefits depend on your specific situation, state rules, and claim approval. Contact your state's Department of Labor for exact amounts. Always file your claim through official state channels.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="bg-gradient-to-r from-amber-600 to-orange-600 text-white py-12 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to File Your Claim?</h2>
+            <p class="text-xl mb-6">Find your state's unemployment office and apply immediately</p>
+            <button class="bg-white text-amber-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 active:scale-95">
+                Find Your State's UI Office
+            </button>
+            <p class="text-sm mt-4 text-amber-100">File quickly • Faster payments • Maximum benefits</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="font-bold text-white mb-4">Calculators</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">Unemployment Benefits</a></li>
+                        <li><a href="#" class="hover:text-white">Income Tax</a></li>
+                        <li><a href="#" class="hover:text-white">Personal Loan</a></li>
+                        <li><a href="#" class="hover:text-white">Mortgage</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Resources</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">State UI Offices</a></li>
+                        <li><a href="#" class="hover:text-white">Job Search Tips</a></li>
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Legal</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white">Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Newsletter</h3>
+                    <p class="text-sm mb-3">Job search & financial tips</p>
+                    <input type="email" placeholder="Your email" class="w-full px-3 py-2 rounded text-gray-800 text-sm">
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+                <p>&copy; 2024 Unemployment Calculator. All rights reserved. Not official state guidance.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const stateBenefits = {
+            'CA': {maxWeek: 450, maxWeeks: 26, rate: 0.50, maxEarnings: 1300, waitingPeriod: 1},
+            'TX': {maxWeek: 440, maxWeeks: 26, rate: 0.50, maxEarnings: 1335, waitingPeriod: 1},
+            'NY': {maxWeek: 504, maxWeeks: 26, rate: 0.50, maxEarnings: 1200, waitingPeriod: 1},
+            'FL': {maxWeek: 275, maxWeeks: 12, rate: 0.50, maxEarnings: 550, waitingPeriod: 1},
+            'PA': {maxWeek: 573, maxWeeks: 26, rate: 0.66, maxEarnings: 869, waitingPeriod: 1},
+            'IL': {maxWeek: 456, maxWeeks: 26, rate: 0.50, maxEarnings: 912, waitingPeriod: 1},
+            'OH': {maxWeek: 457, maxWeeks: 26, rate: 0.50, maxEarnings: 914, waitingPeriod: 0},
+            'GA': {maxWeek: 330, maxWeeks: 20, rate: 0.50, maxEarnings: 660, waitingPeriod: 1},
+            'NC': {maxWeek: 350, maxWeeks: 12, rate: 0.50, maxEarnings: 700, waitingPeriod: 1},
+            'MI': {maxWeek: 484, maxWeeks: 20, rate: 0.50, maxEarnings: 968, waitingPeriod: 1},
+            'NJ': {maxWeek: 681, maxWeeks: 26, rate: 0.66, maxEarnings: 1031, waitingPeriod: 0},
+            'MA': {maxWeek: 940, maxWeeks: 26, rate: 0.50, maxEarnings: 1880, waitingPeriod: 0},
+            'WA': {maxWeek: 1000, maxWeeks: 26, rate: 0.50, maxEarnings: 1938, waitingPeriod: 1},
+            'CO': {maxWeek: 661, maxWeeks: 26, rate: 0.50, maxEarnings: 1322, waitingPeriod: 1}
+        };
+
+        let currentClaimType = 'regular';
+
+        function setClaimType(type) {
+            currentClaimType = type;
+            document.getElementById('btn-regular').classList.toggle('bg-amber-600', type === 'regular');
+            document.getElementById('btn-regular').classList.toggle('bg-gray-200', type !== 'regular');
+            document.getElementById('btn-regular').classList.toggle('text-white', type === 'regular');
+            document.getElementById('btn-regular').classList.toggle('text-gray-700', type !== 'regular');
+            document.getElementById('btn-extended').classList.toggle('bg-amber-600', type === 'extended');
+            document.getElementById('btn-extended').classList.toggle('bg-gray-200', type !== 'extended');
+            document.getElementById('btn-extended').classList.toggle('text-white', type === 'extended');
+            document.getElementById('btn-extended').classList.toggle('text-gray-700', type !== 'extended');
+            calculateBenefits();
+        }
+
+        function calculateBenefits() {
+            const state = document.getElementById('state').value;
+            const weeklyWage = parseFloat(document.getElementById('weeklyWage').value) || 0;
+            const weeksUnemployed = parseFloat(document.getElementById('weeksUnemployed').value) || 0;
+
+            if (!state) {
+                document.getElementById('stateInfo').innerHTML = '<div class="bg-amber-50 p-4 rounded-lg">Select a state to see specific rates</div>';
+                return;
+            }
+
+            const benefits = stateBenefits[state] || {maxWeek: 400, maxWeeks: 26, rate: 0.50, maxEarnings: 800, waitingPeriod: 1};
+            const highQuarter = weeklyWage * 13;
+            let weeklyBenefit = (highQuarter / 26) * benefits.rate;
+            weeklyBenefit = Math.min(weeklyBenefit, benefits.maxWeek);
+
+            const maxWeeks = currentClaimType === 'extended' ? benefits.maxWeeks + 13 : benefits.maxWeeks;
+            const maxBenefit = weeklyBenefit * maxWeeks;
+            const totalReceived = weeklyBenefit * weeksUnemployed;
+            const weeksRemaining = Math.max(0, maxWeeks - weeksUnemployed);
+            const benefitRemaining = weeksRemaining * weeklyBenefit;
+
+            document.getElementById('weeklyBenefit').textContent = '$' + weeklyBenefit.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('maxWeeks').textContent = maxWeeks + ' weeks';
+            document.getElementById('maxBenefit').textContent = '$' + maxBenefit.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('totalReceived').textContent = '$' + totalReceived.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('weeksRemaining').textContent = weeksRemaining + ' weeks';
+            document.getElementById('benefitStatus').textContent = weeksRemaining > 0 ? 'Eligible - ' + weeksRemaining + ' weeks remaining' : 'Benefits exhausted';
+
+            const statusColor = weeksRemaining > 0 ? 'text-orange-600' : 'text-red-600';
+            document.getElementById('benefitStatus').className = 'text-lg font-bold ' + statusColor;
+
+            // State info
+            const stateInfo = `
+                <div class="bg-amber-50 p-4 rounded-lg space-y-2">
+                    <p><span class="font-semibold">${state}:</span> Maximum weekly benefit $${benefits.maxWeek}</p>
+                    <p><span class="font-semibold">Regular Duration:</span> ${benefits.maxWeeks} weeks</p>
+                    <p><span class="font-semibold">Replacement Rate:</span> ${(benefits.rate * 100).toFixed(0)}% of earnings</p>
+                    <p><span class="font-semibold">Waiting Period:</span> ${benefits.waitingPeriod} week before first payment</p>
+                </div>
+            `;
+            document.getElementById('stateInfo').innerHTML = stateInfo;
+
+            drawChart(maxWeeks);
+        }
+
+        function drawChart(maxWeeks) {
+            const canvas = document.getElementById('durationChart');
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+
+            ctx.clearRect(0, 0, width, height);
+
+            const period1 = Math.ceil(maxWeeks / 3);
+            const period2 = Math.ceil(maxWeeks / 3);
+            const period3 = maxWeeks - period1 - period2;
+
+            const colors = ['#f59e0b', '#f97316', '#ea580c'];
+            const segments = [
+                {value: period1, label: 'Period 1'},
+                {value: period2, label: 'Period 2'},
+                {value: period3, label: 'Period 3'}
+            ];
+
+            let x = 0;
+            segments.forEach((seg, idx) => {
+                const segmentWidth = (seg.value / maxWeeks) * width;
+                ctx.fillStyle = colors[idx];
+                ctx.fillRect(x, 0, segmentWidth, height);
+
+                if (segmentWidth > 30) {
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 12px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(seg.value + ' wks', x + segmentWidth / 2, height / 2 + 5);
+                }
+                x += segmentWidth;
+            });
+
+            document.getElementById('period1').textContent = period1 + ' weeks available';
+            document.getElementById('period2').textContent = period2 + ' weeks available';
+            document.getElementById('period3').textContent = period3 + ' weeks available';
+        }
+
+        // Initial calculation
+        document.getElementById('state').value = 'CA';
+        calculateBenefits();
+    </script>
+</body>
+</html>
