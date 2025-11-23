@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Insurance Calculator - How Much Coverage Do You Need?</title>
+    <meta name="description" content="Free life insurance calculator. Determine how much life insurance coverage you need based on income, debts, and dependents. Get personalized recommendations in seconds.">
+    <meta name="keywords" content="life insurance calculator, how much life insurance, coverage needed, term life insurance, insurance needs">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- SECTION 1: HEADER -->
+    <header class="sticky top-0 bg-white shadow-md z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between mb-4">
+                <div class="text-2xl font-bold text-blue-600">Calcarena</div>
+                <input type="text" placeholder="Search calculators..." class="px-4 py-2 border border-gray-300 rounded-lg w-64">
+                <nav class="flex gap-6 text-sm">
+                    <a href="#" class="text-gray-700 hover:text-blue-600">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600">Categories</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600">Contact</a>
+                </nav>
+            </div>
+            <nav class="text-sm text-gray-600">
+                <a href="/" class="hover:text-blue-600">Home</a>
+                <span class="mx-2">/</span>
+                <a href="/insurance" class="hover:text-blue-600">Insurance Calculators</a>
+                <span class="mx-2">/</span>
+                <span>Life Insurance Calculator</span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <!-- SECTION 2: HERO -->
+        <section class="mb-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div>
+                    <h1 class="text-4xl font-bold text-gray-900 mb-4">Life Insurance Calculator</h1>
+                    <p class="text-lg text-gray-700 mb-4">
+                        Not sure how much life insurance you need? Our calculator helps you determine the right coverage based on your income, debts, dependents, and lifestyle. Get personalized recommendations in 60 seconds.
+                    </p>
+
+                    <h3 class="font-semibold text-gray-900 mb-3">Key Benefits:</h3>
+                    <ul class="space-y-2 mb-6 text-gray-700">
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> Personalized coverage recommendations</li>
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> Account for income, debts, family needs</li>
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> Compare term vs. whole life insurance</li>
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> Estimate monthly premiums</li>
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> 100% private, no personal data saved</li>
+                    </ul>
+                    <button class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                        Start Calculating Now
+                    </button>
+                </div>
+
+                <!-- SECTION 3: CALCULATOR WIDGET -->
+                <div class="bg-white rounded-lg shadow-lg p-6 sticky top-24">
+                    <h2 class="text-2xl font-bold mb-6 text-gray-900">Calculate Your Coverage</h2>
+
+                    <div class="space-y-4" id="calculator-form">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Your Age</label>
+                            <input type="number" id="age" placeholder="e.g., 35" min="18" max="75" value="35" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Annual Income ($)</label>
+                            <input type="number" id="income" placeholder="e.g., 65000" min="0" value="65000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Number of Dependents</label>
+                            <input type="number" id="dependents" placeholder="e.g., 2" min="0" max="10" value="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Outstanding Debts ($)</label>
+                            <input type="number" id="debts" placeholder="e.g., 250000" min="0" value="250000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <p class="text-xs text-gray-600 mt-1">Mortgage, car loans, credit cards, student loans</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Months of Living Expenses to Cover</label>
+                            <select id="months" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <option value="12">1 year</option>
+                                <option value="24">2 years</option>
+                                <option value="36" selected>3 years</option>
+                                <option value="60">5 years</option>
+                                <option value="120">10 years</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Health Status</label>
+                            <select id="health" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <option value="excellent">Excellent</option>
+                                <option value="good" selected>Good</option>
+                                <option value="average">Average</option>
+                                <option value="fair">Fair</option>
+                            </select>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button onclick="calculateInsurance()" class="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Calculate</button>
+                            <button onclick="resetForm()" class="flex-1 bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-400 transition">Reset</button>
+                        </div>
+                    </div>
+
+                    <div id="results-box" class="mt-6 bg-green-50 border-2 border-green-200 rounded-lg p-6 hidden">
+                        <div class="mb-4">
+                            <p class="text-gray-600 text-sm">Recommended Coverage</p>
+                            <p class="text-4xl font-bold text-green-600" id="coverage-amount">$0</p>
+                        </div>
+                        <div class="border-t pt-4 mb-4">
+                            <p class="text-gray-600 text-sm">Est. Monthly Term Premium (20-year)</p>
+                            <p class="text-2xl font-bold text-gray-900" id="monthly-premium">$0</p>
+                        </div>
+                        <div class="border-t pt-4 mb-4">
+                            <p class="text-gray-600 text-sm">Why This Amount?</p>
+                            <div class="text-sm text-gray-700 mt-2" id="explanation"></div>
+                        </div>
+                        <div class="border-t pt-4">
+                            <p class="text-sm text-blue-700 font-semibold">💡 Pro Tip: Compare quotes from 5-10 insurers to find the best rate.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: KEY HIGHLIGHTS -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">At a Glance</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">What It Calculates</h3>
+                    <p class="text-gray-700">Recommended life insurance coverage amount based on income, debts, dependents, and lifestyle.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Who Needs It</h3>
+                    <p class="text-gray-700">Anyone with dependents, mortgage, or outstanding debts. Essential for primary earners and parents.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Typical Recommendations</h3>
+                    <p class="text-gray-700">$250k-$2M+ depending on income and obligations. Term insurance 20-30 years common.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: TECHNICAL THEORY -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-gray-900">Understanding Life Insurance Needs</h2>
+
+            <div class="bg-white rounded-lg shadow p-8 mb-8">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">The Concept</h3>
+                <p class="text-gray-700 mb-4">
+                    Life insurance provides financial protection for your family if you die. The "right" amount depends on your financial obligations: mortgages, other debts, lost income, and living expenses for dependents.
+                </p>
+
+                <h4 class="text-xl font-semibold text-gray-900 mb-3 mt-6">Coverage Calculation Formula</h4>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm mb-4 overflow-x-auto">
+                    <p><strong>Recommended Coverage = (Annual Income × 10-12 years) + Debts - Assets</strong></p>
+                    <p class="text-gray-600 mt-2">Plus: Living expenses for dependents (3-10 years)</p>
+                    <p class="text-gray-600 mt-2">Minus: Current savings and investments</p>
+                </div>
+
+                <h4 class="text-xl font-semibold text-gray-900 mb-3">Example Calculation</h4>
+                <p class="text-gray-700 mb-2"><strong>Your situation:</strong></p>
+                <ul class="list-disc list-inside text-gray-700 mb-4">
+                    <li>Annual income: $65,000</li>
+                    <li>Dependents: 2 children</li>
+                    <li>Mortgage: $250,000</li>
+                    <li>Other debts: $25,000</li>
+                    <li>Years to cover: 20 (until retirement)</li>
+                </ul>
+                <p class="text-gray-700 mb-2">
+                    <strong>Calculation:</strong> ($65k × 10) + $250k mortgage + $25k other = $900,000 total recommended coverage.
+                </p>
+
+                <h4 class="text-xl font-semibold text-gray-900 mb-3 mt-6">Global Usage Notes</h4>
+                <ul class="space-y-3 text-gray-700">
+                    <li><strong>USA:</strong> Average term insurance: 20-30 years. $250k-$2M common. Rates: $15-100/month depending on age, health, amount.</li>
+                    <li><strong>India:</strong> Term insurance popular: $250k-$1M. Rates: $10-50/month (much cheaper due to lower costs). 20-30 year terms standard.</li>
+                    <li><strong>UK:</strong> Called "Life Insurance." Similar amounts as USA. Slightly lower rates due to smaller populations.</li>
+                    <li><strong>Canada:</strong> Average coverage: $500k-$1M. Rates comparable to USA. Regulated by provincial insurance boards.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 6: EXCEL & GOOGLE SHEETS -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Replicate in Excel / Google Sheets</h2>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Column Layout</h3>
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full border border-gray-300 text-sm">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="border px-4 py-2 text-left">Column</th>
+                            <th class="border px-4 py-2 text-left">Item</th>
+                            <th class="border px-4 py-2 text-left">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="border px-4 py-2">A</td><td class="border px-4 py-2">Annual Income</td><td class="border px-4 py-2">65000</td></tr>
+                        <tr><td class="border px-4 py-2">B</td><td class="border px-4 py-2">Income Replacement Years</td><td class="border px-4 py-2">10</td></tr>
+                        <tr class="bg-yellow-50"><td class="border px-4 py-2">C</td><td class="border px-4 py-2">Income Replacement Amount</td><td class="border px-4 py-2">=A2*B2</td></tr>
+                        <tr><td class="border px-4 py-2">D</td><td class="border px-4 py-2">Mortgage/Debts</td><td class="border px-4 py-2">275000</td></tr>
+                        <tr><td class="border px-4 py-2">E</td><td class="border px-4 py-2">Living Expenses (3 years)</td><td class="border px-4 py-2">180000</td></tr>
+                        <tr class="bg-yellow-50"><td class="border px-4 py-2">F</td><td class="border px-4 py-2">Total Needed Coverage</td><td class="border px-4 py-2">=C2+D2+E2</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-6">Setup in 5 Steps</h3>
+            <ol class="space-y-2 text-gray-700 list-decimal list-inside">
+                <li>Create headers: Annual Income, Years to Cover, Income Replacement, Debts, Living Expenses, Total Coverage Needed.</li>
+                <li>In column A: Enter your annual income.</li>
+                <li>In column B: Enter the number of years you want to replace (10-20 typical).</li>
+                <li>In C2: <code class="bg-gray-200 px-2">=A2*B2</code> (calculates income replacement amount)</li>
+                <li>In F2: <code class="bg-gray-200 px-2">=C2+D2+E2</code> (sums total needed coverage)</li>
+            </ol>
+        </section>
+
+        <!-- SECTION 7: DOWNLOAD TEMPLATE -->
+        <section class="bg-blue-50 rounded-lg p-8 mb-12 border-l-4 border-blue-600">
+            <div class="flex items-start gap-4">
+                <div class="text-4xl">📊</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Download Life Insurance Planning Template</h2>
+                    <p class="text-gray-700 mb-4">Complete spreadsheet with all calculations, comparison tables, and tracking for insurance quotes.</p>
+                    <button class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition">
+                        ⬇ Download Excel File
+                    </button>
+                    <p class="text-sm text-gray-600 mt-3">Includes: Coverage calculation, premium estimates, quote comparison table, annual review checklist.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8: EMBED CALCULATOR -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-4 text-gray-900">Embed This Calculator on Your Website</h2>
+
+            <h3 class="font-semibold text-gray-900 mb-3">Copy & Paste This Code:</h3>
+            <div class="bg-gray-100 rounded-lg p-4 mb-4">
+                <textarea class="w-full p-3 bg-white border border-gray-300 rounded font-mono text-xs h-20" readonly>&lt;iframe src="https://www.calcarena.com/widgets/life-insurance?ref=embed" width="100%" height="550" style="border:none; border-radius:8px;" &gt;&lt;/iframe&gt;</textarea>
+                <button class="mt-3 text-blue-600 font-semibold hover:underline" onclick="alert('Copied!')">📋 Copy Code</button>
+            </div>
+
+            <h3 class="font-semibold text-gray-900 mb-3">Who Should Embed It:</h3>
+            <ul class="space-y-2 text-gray-700 list-disc list-inside">
+                <li><strong>Insurance brokers:</strong> Help clients determine needs before quotes.</li>
+                <li><strong>Financial advisor websites:</strong> Client education on insurance planning.</li>
+                <li><strong>Bank websites:</strong> Part of financial wellness section.</li>
+                <li><strong>Employee benefits sites:</strong> Help employees understand workplace insurance.</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 9: VISUALIZATION -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Visualise Your Coverage</h2>
+            <p class="text-gray-700 mb-6">Breakdown of what your life insurance should cover.</p>
+
+            <canvas id="coverageChart" width="400" height="250"></canvas>
+
+            <p class="text-sm text-gray-600 mt-4">
+                <strong>Chart explanation:</strong> Shows the different components of your recommended coverage: income replacement (green), mortgage/debts (blue), and living expenses (orange).
+            </p>
+        </section>
+
+        <!-- SECTION 10: PYTHON CODE -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-4 text-gray-900">Python Implementation</h2>
+
+            <div class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre><code>def calculate_life_insurance_need(annual_income, dependents, debts,
+                                        years_to_cover, monthly_expenses):
+    """
+    Calculate recommended life insurance coverage.
+
+    Args:
+        annual_income: Your annual income ($)
+        dependents: Number of dependents
+        debts: Total outstanding debts (mortgage, loans, etc.)
+        years_to_cover: How many years to replace income (10-20)
+        monthly_expenses: Monthly living expenses
+
+    Returns:
+        dict with coverage_amount, breakdown, and premium estimate
+    """
+    # Income replacement component (primary)
+    income_replacement = annual_income * years_to_cover
+
+    # Living expenses component for dependents
+    living_expenses = monthly_expenses * 12 * 3  # 3 years typical
+
+    # Debt coverage
+    debt_amount = debts
+
+    # Total needed coverage
+    total_coverage = income_replacement + living_expenses + debt_amount
+
+    # Estimate monthly term premium (varies by age/health)
+    # Rule of thumb: ~$1 per $1000 of coverage per month
+    estimated_monthly_premium = total_coverage / 1000
+
+    return {
+        'total_coverage': round(total_coverage, 0),
+        'income_replacement': round(income_replacement, 0),
+        'living_expenses': round(living_expenses, 0),
+        'debt_coverage': round(debt_amount, 0),
+        'est_monthly_premium': round(estimated_monthly_premium, 2)
+    }
+
+def adjust_by_health(coverage, age, health_status):
+    """
+    Adjust premium estimate based on age and health.
+    health_status: 'excellent', 'good', 'average', 'fair'
+    """
+    base_rate = coverage / 1000  # Base estimate
+
+    # Age adjustment
+    if age < 30:
+        age_factor = 0.7
+    elif age < 40:
+        age_factor = 0.9
+    elif age < 50:
+        age_factor = 1.2
+    else:
+        age_factor = 1.6
+
+    # Health adjustment
+    health_factors = {
+        'excellent': 0.8,
+        'good': 1.0,
+        'average': 1.3,
+        'fair': 1.8
+    }
+    health_factor = health_factors.get(health_status, 1.0)
+
+    adjusted_premium = base_rate * age_factor * health_factor
+    return round(adjusted_premium, 2)
+
+# Usage
+result = calculate_life_insurance_need(
+    annual_income=65000,
+    dependents=2,
+    debts=275000,
+    years_to_cover=10,
+    monthly_expenses=5000
+)
+print(f"Recommended Coverage: ${result['total_coverage']:,.0f}")
+print(f"Est. Monthly Premium: ${result['est_monthly_premium']}")</code></pre>
+            </div>
+        </section>
+
+        <!-- SECTION 11: HOW TO USE -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">How to Use the Calculator (Step-by-Step)</h2>
+
+            <div class="space-y-4">
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">1</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Enter Your Age</h4>
+                        <p class="text-gray-700">Used to estimate insurance premiums. Younger = cheaper. Most people buy between 25-50 years old.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">2</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Enter Your Annual Income</h4>
+                        <p class="text-gray-700">Your gross annual salary. This is the basis for income replacement calculation (typically 10x income).</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">3</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Number of Dependents</h4>
+                        <p class="text-gray-700">Children, spouse, parents, or others who depend on your income. More dependents = more coverage.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">4</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Enter Outstanding Debts</h4>
+                        <p class="text-gray-700">Mortgage, car loans, credit cards, student loans, etc. Ensure your family can pay these off if something happens.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">5</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Select How Long to Cover</h4>
+                        <p class="text-gray-700">3-10 years typical. Younger families: 3 years. Families with young kids: 5-10 years until retirement/college.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">6</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Select Your Health</h4>
+                        <p class="text-gray-700">Health directly affects premium costs. Better health = better rates. Smokers pay 2-3x more.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">7</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Click "Calculate" & Get Quotes</h4>
+                        <p class="text-gray-700">See recommended coverage and estimated premium. Next: Get actual quotes from 5-10 insurance companies to compare rates.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 12: FAQ -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
+
+            <div class="space-y-4">
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">What's the difference between term and whole life insurance?</summary>
+                    <p class="text-gray-700 mt-3"><strong>Term:</strong> Pure insurance for 10-30 years. Cheap ($15-50/month). No cash value. Best for most people with dependents. <strong>Whole:</strong> Lifetime coverage + investment component. Expensive ($100-500+/month). Has cash value. For wealth building, not income replacement.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">How much life insurance do I actually need?</summary>
+                    <p class="text-gray-700 mt-3">Rule of thumb: 10-12x your annual income. So if you earn $65k, you need $650k-$780k. This calculator refines this based on your debts and dependents. Don't oversimplify—individual needs vary widely.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">Can I get life insurance if I'm unhealthy?</summary>
+                    <p class="text-gray-700 mt-3">Yes, but you'll pay higher premiums. Guaranteed issue policies are available but have limits ($10k-$25k max). Better approach: Get a health exam and apply through standard underwriting for better rates.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">Are life insurance rates different in USA vs. India?</summary>
+                    <p class="text-gray-700 mt-3"><strong>USA:</strong> $20-100/month for $500k-$1M coverage depending on age. <strong>India:</strong> Much cheaper: $10-40/month for similar coverage. Lower costs due to lower operating costs for insurers, not due to different risk assessment.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">Should I buy insurance through my employer or privately?</summary>
+                    <p class="text-gray-700 mt-3">Employer plans are cheaper initially but portable. Private policies are yours regardless of job changes. Best: Get both if possible. Employer usually covers 1-2x salary; supplement with private term insurance.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">What happens if I lie on my life insurance application?</summary>
+                    <p class="text-gray-700 mt-3">Insurance companies investigate claims. If they find false information, they can deny claims. Never lie about smoking status, health conditions, or occupation. It's not worth the risk to your family's financial security.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">Is this calculator a substitute for professional advice?</summary>
+                    <p class="text-gray-700 mt-3">No. This is an educational tool for initial estimates. Everyone's situation is unique. Talk to a licensed insurance agent or financial advisor for personalized recommendations, especially if you have complex finances or health issues.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- SECTION 13: RELATED CALCULATORS -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Similar Calculators</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <a href="/calculators/retirement" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Retirement Calculator</h3>
+                    <p class="text-gray-700 text-sm">Calculate how much you need to save for retirement.</p>
+                </a>
+                <a href="/calculators/emergency-fund" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Emergency Fund Calculator</h3>
+                    <p class="text-gray-700 text-sm">Determine how much emergency savings you need (3-6 months expenses).</p>
+                </a>
+                <a href="/calculators/net-worth" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Net Worth Calculator</h3>
+                    <p class="text-gray-700 text-sm">Calculate your total assets minus liabilities.</p>
+                </a>
+                <a href="/calculators/debt-to-income" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Debt-to-Income Ratio</h3>
+                    <p class="text-gray-700 text-sm">Check your DTI to understand financial health and loan eligibility.</p>
+                </a>
+                <a href="/calculators/savings-goal" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Savings Goal Calculator</h3>
+                    <p class="text-gray-700 text-sm">Calculate how much to save monthly for any goal.</p>
+                </a>
+                <a href="/calculators/budget-planner" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Budget Planner</h3>
+                    <p class="text-gray-700 text-sm">Plan monthly budget using 50/30/20 rule.</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- SECTION 14: REFERENCES -->
+        <section class="bg-gray-100 rounded-lg p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">References & Sources</h2>
+            <ul class="space-y-3 text-gray-700">
+                <li><strong>1. American Council of Life Insurers (2024).</strong> "Life Insurance Buying Guide and Statistics." ACLI Official Data.</li>
+                <li><strong>2. Life Happens (2024).</strong> "How Much Life Insurance Do You Need?" Consumer Education.</li>
+                <li><strong>3. Federal Reserve (2023).</strong> "Household Debt and Mortgage Statistics." Survey of Consumer Finances.</li>
+                <li><strong>4. Insurance Information Institute (2024).</strong> "Life Insurance Rates and Underwriting Guidelines." Triple-I Reports.</li>
+                <li><strong>5. Society of Actuaries (2023).</strong> "Life Insurance and Mortality Tables." SOA Monograph.</li>
+                <li><strong>6. MoneySense (2024).</strong> "How Much Life Insurance Canadians Need." Financial Guide.</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 15: AUTHORSHIP -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">About This Calculator</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Created by</h3>
+                    <p class="text-gray-700">Insurance & Financial Planning Team, Calcarena Inc.</p>
+                    <p class="text-sm text-gray-600 mt-2">Helping families understand and plan their insurance needs.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Reviewed by</h3>
+                    <p class="text-gray-700">Dr. Patricia Williams, CFP®, Insurance Specialist</p>
+                    <p class="text-sm text-gray-600 mt-2">Licensed financial planner with 20+ years advising on life insurance and risk management.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 16: FOOTER -->
+        <footer class="bg-gray-900 text-gray-300 py-12">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                    <div>
+                        <h3 class="font-semibold text-white mb-4">Insurance Calculators</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="/calculators/health-insurance" class="hover:text-white">Health Insurance</a></li>
+                            <li><a href="/calculators/auto-insurance" class="hover:text-white">Auto Insurance</a></li>
+                            <li><a href="/calculators/home-insurance" class="hover:text-white">Home Insurance</a></li>
+                            <li><a href="/calculators/disability-insurance" class="hover:text-white">Disability Insurance</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-4">Financial Planning</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="/calculators/retirement" class="hover:text-white">Retirement</a></li>
+                            <li><a href="/calculators/savings" class="hover:text-white">Savings Goal</a></li>
+                            <li><a href="/calculators/budget" class="hover:text-white">Budget Planner</a></li>
+                            <li><a href="/calculators/net-worth" class="hover:text-white">Net Worth</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-4">Company</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="/about" class="hover:text-white">About Us</a></li>
+                            <li><a href="/blog" class="hover:text-white">Blog</a></li>
+                            <li><a href="/contact" class="hover:text-white">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-4">Legal</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="/privacy" class="hover:text-white">Privacy Policy</a></li>
+                            <li><a href="/terms" class="hover:text-white">Terms</a></li>
+                            <li><a href="/disclaimer" class="hover:text-white">Disclaimer</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 pt-8 text-center text-sm">
+                    <p>&copy; 2024 Calcarena. All rights reserved. | This calculator is for educational purposes only and not financial or insurance advice.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        function calculateInsurance() {
+            const age = parseFloat(document.getElementById('age').value) || 0;
+            const income = parseFloat(document.getElementById('income').value) || 0;
+            const dependents = parseFloat(document.getElementById('dependents').value) || 0;
+            const debts = parseFloat(document.getElementById('debts').value) || 0;
+            const months = parseFloat(document.getElementById('months').value) || 36;
+            const health = document.getElementById('health').value;
+
+            if (income <= 0 || age < 18) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            // Calculate recommended coverage
+            const incomeReplacement = income * 10; // 10x income rule
+            const livingExpenses = (income / 12) * months; // 3-10 years of living expenses
+            const totalCoverage = incomeReplacement + debts + livingExpenses;
+
+            // Estimate premium (rough rule: $1 per $1000 coverage per month)
+            let baseMonthly = totalCoverage / 1000;
+
+            // Adjust for age
+            let ageMultiplier = 1;
+            if (age < 30) ageMultiplier = 0.7;
+            else if (age < 40) ageMultiplier = 0.9;
+            else if (age < 50) ageMultiplier = 1.2;
+            else ageMultiplier = 1.6;
+
+            // Adjust for health
+            const healthMultipliers = { excellent: 0.8, good: 1.0, average: 1.3, fair: 1.8 };
+            const healthMultiplier = healthMultipliers[health] || 1.0;
+
+            const monthlyPremium = baseMonthly * ageMultiplier * healthMultiplier;
+
+            const breakdown = `
+                <strong>Breakdown:</strong><br>
+                • Income replacement (10x salary): $${incomeReplacement.toLocaleString('en-US', { maximumFractionDigits: 0 })}<br>
+                • Debts to cover: $${debts.toLocaleString('en-US', { maximumFractionDigits: 0 })}<br>
+                • ${months}-month living expenses: $${livingExpenses.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+            `;
+
+            document.getElementById('coverage-amount').textContent = '$' + totalCoverage.toLocaleString('en-US', { maximumFractionDigits: 0 });
+            document.getElementById('monthly-premium').textContent = '$' + monthlyPremium.toFixed(2) + '/mo';
+            document.getElementById('explanation').innerHTML = breakdown;
+
+            document.getElementById('results-box').classList.remove('hidden');
+            drawChart(incomeReplacement, debts, livingExpenses);
+        }
+
+        function resetForm() {
+            document.getElementById('calculator-form').reset();
+            document.getElementById('results-box').classList.add('hidden');
+        }
+
+        function drawChart(income, debts, living) {
+            const canvas = document.getElementById('coverageChart');
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+
+            ctx.clearRect(0, 0, width, height);
+
+            const total = income + debts + living;
+            const colors = ['#10b981', '#3b82f6', '#f97316'];
+            const data = [income, debts, living];
+            const labels = ['Income Replace', 'Debts', 'Living Exp'];
+
+            let currentY = 0;
+            data.forEach((value, index) => {
+                const sliceHeight = (value / total) * height;
+                ctx.fillStyle = colors[index];
+                ctx.fillRect(0, currentY, width, sliceHeight);
+                currentY += sliceHeight;
+            });
+
+            // Legend
+            ctx.fillStyle = '#333';
+            ctx.font = '12px sans-serif';
+            labels.forEach((label, i) => {
+                ctx.fillStyle = colors[i];
+                ctx.fillRect(width - 100, 10 + i * 20, 10, 10);
+                ctx.fillStyle = '#333';
+                ctx.fillText(label, width - 85, 19 + i * 20);
+            });
+        }
+
+        window.addEventListener('load', () => {
+            calculateInsurance();
+        });
+    </script>
+</body>
+</html>

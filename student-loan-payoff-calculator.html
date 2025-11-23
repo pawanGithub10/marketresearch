@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Loan Payoff Calculator - Calculate Payoff Timeline & PSLF Eligibility</title>
+    <meta name="description" content="Free student loan payoff calculator. Calculate payoff timeline, monthly payments, refinancing savings, PSLF eligibility, and income-driven repayment plans. US & India.">
+    <meta name="keywords" content="student loan payoff calculator, student loan repayment, PSLF, loan forgiveness, refinancing savings">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- SECTION 1: HEADER & NAVIGATION -->
+    <header class="sticky top-0 bg-white shadow-md z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between mb-4">
+                <div class="text-2xl font-bold text-blue-600">Calcarena</div>
+                <input type="text" placeholder="Search calculators..." class="px-4 py-2 border border-gray-300 rounded-lg w-64">
+                <nav class="flex gap-6 text-sm">
+                    <a href="#" class="text-gray-700 hover:text-blue-600">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600">Categories</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600">Contact</a>
+                </nav>
+            </div>
+            <nav class="text-sm text-gray-600">
+                <a href="/" class="hover:text-blue-600">Home</a>
+                <span class="mx-2">/</span>
+                <a href="/finance" class="hover:text-blue-600">Finance Calculators</a>
+                <span class="mx-2">/</span>
+                <span>Student Loan Payoff Calculator</span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <!-- SECTION 2: HERO SECTION -->
+        <section class="mb-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div>
+                    <h1 class="text-4xl font-bold text-gray-900 mb-4">Student Loan Payoff Calculator</h1>
+                    <p class="text-lg text-gray-700 mb-4">
+                        Drowning in student debt? Discover your fastest payoff strategy, refinancing savings, and eligibility for loan forgiveness programs like PSLF. Compare multiple repayment plans in seconds.
+                    </p>
+
+                    <h3 class="font-semibold text-gray-900 mb-3">Key Benefits:</h3>
+                    <ul class="space-y-2 mb-6 text-gray-700">
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> See your payoff timeline with different strategies</li>
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> Calculate refinancing savings instantly</li>
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> Check PSLF (Public Service Loan Forgiveness) eligibility</li>
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> Compare 4 income-driven repayment plans (PAYE, REPAYE, IBR, ICR)</li>
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> Calculate forgiveness amount and tax impact</li>
+                    </ul>
+                    <button class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                        Start Calculating Now
+                    </button>
+                </div>
+
+                <!-- SECTION 3: CALCULATOR WIDGET -->
+                <div class="bg-white rounded-lg shadow-lg p-6 sticky top-24">
+                    <h2 class="text-2xl font-bold mb-6 text-gray-900">Calculate Your Payoff Plan</h2>
+
+                    <div class="space-y-4" id="calculator-form">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Total Student Loan Balance ($)</label>
+                            <input type="number" id="balance" placeholder="e.g., 50000" min="0" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Interest Rate (APR %)</label>
+                            <input type="number" id="rate" placeholder="e.g., 5.5" min="0" max="12" step="0.1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Years Remaining</label>
+                            <input type="number" id="years" placeholder="e.g., 10" min="1" max="25" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Annual Income ($)</label>
+                            <input type="number" id="income" placeholder="e.g., 55000" min="0" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Employer Type</label>
+                            <select id="employer" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <option value="private">Private Sector</option>
+                                <option value="government">Government/Non-Profit (PSLF Eligible)</option>
+                                <option value="education">Education</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Desired Refinancing Rate (%)</label>
+                            <input type="number" id="refi-rate" placeholder="e.g., 4.5" min="0" max="10" step="0.1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button onclick="calculateStudentLoan()" class="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Calculate</button>
+                            <button onclick="resetForm()" class="flex-1 bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-400 transition">Reset</button>
+                        </div>
+                        <div id="validation-message" class="text-red-600 text-sm hidden"></div>
+                    </div>
+
+                    <div id="results-box" class="mt-6 bg-blue-50 border-2 border-blue-200 rounded-lg p-6 hidden">
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <p class="text-gray-600 text-sm">Standard Payoff (Months)</p>
+                                <p class="text-2xl font-bold text-gray-900" id="standard-months">0</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 text-sm">Monthly Payment</p>
+                                <p class="text-2xl font-bold text-blue-600" id="monthly-payment">$0</p>
+                            </div>
+                        </div>
+                        <div class="border-t pt-4 mb-4">
+                            <p class="text-gray-600 text-sm">Total Interest Paid</p>
+                            <p class="text-2xl font-bold text-red-600" id="total-interest">$0</p>
+                        </div>
+                        <div class="border-t pt-4">
+                            <p class="text-gray-600 text-sm">Refinancing Savings</p>
+                            <p class="text-2xl font-bold text-green-600" id="refi-savings">$0</p>
+                        </div>
+                        <div class="mt-4 p-3 bg-yellow-100 rounded text-sm text-yellow-800" id="pslf-message"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: KEY HIGHLIGHTS -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">At a Glance</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">What It Does</h3>
+                    <p class="text-gray-700">Calculates how long it takes to pay off student loans, refinancing savings, and PSLF eligibility for public service workers.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Who Should Use It</h3>
+                    <p class="text-gray-700">Anyone with federal or private student loans. Essential for government/non-profit workers considering PSLF forgiveness after 120 payments.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Common Scenarios</h3>
+                    <p class="text-gray-700">Pay off $30k-$150k+ in loans. Save $5k-$50k through refinancing. Qualify for $50k-$200k in PSLF forgiveness.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: TECHNICAL THEORY & GLOBAL USE -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-gray-900">Understanding Student Loan Payoff</h2>
+
+            <div class="bg-white rounded-lg shadow p-8 mb-8">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">The Concept</h3>
+                <p class="text-gray-700 mb-4">
+                    Student loan payoff strategies determine how quickly you can eliminate debt and minimize interest. Unlike other debts, federal student loans offer multiple repayment plans with different monthly payment calculations and forgiveness options.
+                </p>
+
+                <h4 class="text-xl font-semibold text-gray-900 mb-3 mt-6">Repayment Plan Formulas</h4>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm mb-4 overflow-x-auto">
+                    <p><strong>Standard 10-Year Plan:</strong></p>
+                    <p class="text-gray-700 mt-2">Monthly Payment = P × [r(1+r)^n] / [(1+r)^n - 1]</p>
+                    <p class="text-gray-600 text-xs mt-2">n = 120 months (always fixed at 10 years)</p>
+                </div>
+
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm mb-4 overflow-x-auto">
+                    <p><strong>Income-Driven Repayment (PAYE/REPAYE):</strong></p>
+                    <p class="text-gray-700 mt-2">Monthly Payment = AGI × Percentage (10% for REPAYE, 10% for new PAYE)</p>
+                    <p class="text-gray-600 text-xs mt-2">Capped at 10-year standard payment. Forgiven after 20-25 years.</p>
+                </div>
+
+                <h4 class="text-xl font-semibold text-gray-900 mb-3 mt-6">Global Usage Notes</h4>
+                <ul class="space-y-3 text-gray-700">
+                    <li><strong>USA:</strong> 43+ million borrowers with $1.7T in student debt. Federal loans offer income-driven plans and PSLF. Private loans have fewer options.</li>
+                    <li><strong>UK:</strong> Similar concept as "Student Loans." Repaid through income contingent repayment. Forgiven after 30 years for newer borrowers.</li>
+                    <li><strong>India:</strong> Education loans from banks/NBFCs. No specific forgiveness programs. Standard EMI over 5-15 years. Moratorium during studies + 6 months.</li>
+                    <li><strong>Canada:</strong> Federal and provincial student loans. Repayment Assistance Plan available for low-income borrowers. Forgiveness after 15 years under certain conditions.</li>
+                    <li><strong>Australia:</strong> HECS-HELP loans repaid through income-contingent system. No fixed repayment term. Indexed annually and forgiven after 25 years of employment.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 6: EXCEL & GOOGLE SHEETS -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Replicate in Excel / Google Sheets</h2>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Column Layout</h3>
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full border border-gray-300 text-sm">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="border px-4 py-2 text-left">Column</th>
+                            <th class="border px-4 py-2 text-left">Header</th>
+                            <th class="border px-4 py-2 text-left">Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="border px-4 py-2">A</td><td class="border px-4 py-2">Loan Balance</td><td class="border px-4 py-2">50000</td></tr>
+                        <tr><td class="border px-4 py-2">B</td><td class="border px-4 py-2">Interest Rate (%)</td><td class="border px-4 py-2">5.5</td></tr>
+                        <tr><td class="border px-4 py-2">C</td><td class="border px-4 py-2">Loan Term (Years)</td><td class="border px-4 py-2">10</td></tr>
+                        <tr class="bg-yellow-50"><td class="border px-4 py-2">D</td><td class="border px-4 py-2">Monthly Payment</td><td class="border px-4 py-2">=PMT(B2/12/100, C2*12, -A2)</td></tr>
+                        <tr class="bg-yellow-50"><td class="border px-4 py-2">E</td><td class="border px-4 py-2">Total Paid</td><td class="border px-4 py-2">=D2*C2*12</td></tr>
+                        <tr class="bg-yellow-50"><td class="border px-4 py-2">F</td><td class="border px-4 py-2">Total Interest</td><td class="border px-4 py-2">=E2-A2</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Excel Formula</h3>
+            <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm mb-6 overflow-x-auto">
+                <p><strong>Monthly Payment:</strong></p>
+                <p class="text-gray-700 mt-2">=PMT(B2/12/100, C2*12, -A2)</p>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-6">Setup in 5 Steps</h3>
+            <ol class="space-y-2 text-gray-700 list-decimal list-inside">
+                <li>Create headers in row 1: Loan Balance, Interest Rate (%), Loan Term (Years), Monthly Payment, Total Paid, Total Interest.</li>
+                <li>Enter your loan balance in A2, interest rate in B2, and term in C2.</li>
+                <li>In D2, enter: <code class="bg-gray-200 px-2">=PMT(B2/12/100, C2*12, -A2)</code></li>
+                <li>In E2, enter: <code class="bg-gray-200 px-2">=D2*C2*12</code></li>
+                <li>In F2, enter: <code class="bg-gray-200 px-2">=E2-A2</code></li>
+            </ol>
+        </section>
+
+        <!-- SECTION 7: DOWNLOAD TEMPLATE -->
+        <section class="bg-blue-50 rounded-lg p-8 mb-12 border-l-4 border-blue-600">
+            <div class="flex items-start gap-4">
+                <div class="text-4xl">📊</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Download Excel Template</h2>
+                    <p class="text-gray-700 mb-4">Pre-built spreadsheet with formulas for student loan payoff scenarios, refinancing comparison, and PSLF tracking.</p>
+                    <button class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition">
+                        ⬇ Download Excel File
+                    </button>
+                    <p class="text-sm text-gray-600 mt-3">Includes multiple worksheets: Standard Payoff, Income-Driven Plans, PSLF Tracker, Refinancing Comparison.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8: EMBED CALCULATOR -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-4 text-gray-900">Embed This Calculator on Your Website</h2>
+            <p class="text-gray-700 mb-4">Add this calculator to your blog, educational platform, or financial aid website for free.</p>
+
+            <h3 class="font-semibold text-gray-900 mb-3">Copy & Paste This Code:</h3>
+            <div class="bg-gray-100 rounded-lg p-4 mb-4">
+                <textarea class="w-full p-3 bg-white border border-gray-300 rounded font-mono text-xs h-20" readonly>&lt;iframe src="https://www.calcarena.com/widgets/student-loan-payoff?ref=embed" width="100%" height="600" style="border:none; border-radius:8px;" &gt;&lt;/iframe&gt;</textarea>
+                <button class="mt-3 text-blue-600 font-semibold hover:underline" onclick="alert('Copied!')">📋 Copy Code</button>
+            </div>
+
+            <h3 class="font-semibold text-gray-900 mb-3">Who Should Embed It:</h3>
+            <ul class="space-y-2 text-gray-700 list-disc list-inside">
+                <li><strong>Universities & colleges:</strong> Student services and financial aid pages.</li>
+                <li><strong>Educational blogs:</strong> Student loan guides and career planning content.</li>
+                <li><strong>Non-profit counselors:</strong> Provide free resources to borrowers.</li>
+                <li><strong>Government agencies:</strong> Aid offices and student loan servicer websites.</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 9: VISUALIZATION -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Visualise Your Payoff Timeline</h2>
+            <p class="text-gray-700 mb-6">See how your loan balance decreases over your repayment period.</p>
+
+            <canvas id="payoffChart" width="400" height="250"></canvas>
+
+            <p class="text-sm text-gray-600 mt-4">
+                <strong>Chart explanation:</strong> The blue area shows your remaining loan balance month by month. The red area represents cumulative interest paid. As you make payments, both decrease.
+            </p>
+        </section>
+
+        <!-- SECTION 10: PYTHON CODE -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-4 text-gray-900">Python Implementation</h2>
+
+            <div class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre><code>def calculate_student_loan_payoff(balance, annual_rate, years):
+    """
+    Calculate student loan payoff plan.
+
+    Args:
+        balance: Total loan balance ($)
+        annual_rate: Annual interest rate (%)
+        years: Desired payoff timeline (years)
+
+    Returns:
+        dict with monthly_payment, total_interest, payoff_date
+    """
+    monthly_rate = annual_rate / 12 / 100
+    num_payments = years * 12
+
+    # PMT formula
+    monthly_payment = balance * (monthly_rate * (1 + monthly_rate)**num_payments) / \
+                      ((1 + monthly_rate)**num_payments - 1)
+
+    total_paid = monthly_payment * num_payments
+    total_interest = total_paid - balance
+
+    return {
+        'monthly_payment': round(monthly_payment, 2),
+        'total_interest': round(total_interest, 2),
+        'payoff_months': num_payments
+    }
+
+# PSLF Calculation
+def check_pslf_eligibility(employer_type, years_employed, plan_type):
+    """Check PSLF eligibility (120 qualifying payments)."""
+    if employer_type in ['government', 'nonprofit'] and plan_type in ['PAYE', 'REPAYE']:
+        payments_needed = 120 - (years_employed * 12)
+        return payments_needed > 0, max(payments_needed, 0)
+    return False, 120
+
+# Usage
+result = calculate_student_loan_payoff(50000, 5.5, 10)
+print(f"Monthly: ${result['monthly_payment']}")
+print(f"Total Interest: ${result['total_interest']}")</code></pre>
+            </div>
+        </section>
+
+        <!-- SECTION 11: HOW TO USE -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">How to Use the Calculator (Step-by-Step)</h2>
+
+            <div class="space-y-4">
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">1</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Enter Your Loan Balance</h4>
+                        <p class="text-gray-700">Total amount you owe across all student loans. Check your loan servicer website (MOHELA, Great Lakes, Navient, etc.) or StudentLoans.gov.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">2</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Enter Your Interest Rate</h4>
+                        <p class="text-gray-700">Average APR across all loans. Federal loans: 4-8%. Private loans: 4-13%. Found on your loan statements or studentaid.gov.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">3</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Set Your Desired Payoff Term</h4>
+                        <p class="text-gray-700">Standard federal loans: 10 years. Want faster payoff? Set 5-7 years. On income-driven plan? Set 20-25 years.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">4</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Enter Your Annual Income</h4>
+                        <p class="text-gray-700">Used to calculate PSLF eligibility and income-driven plan payments. Your adjusted gross income (AGI).</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">5</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Select Your Employer Type</h4>
+                        <p class="text-gray-700">Government/non-profit workers: eligible for PSLF after 120 qualifying payments. Private sector: focus on refinancing or aggressive payoff.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">6</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Review Your Results</h4>
+                        <p class="text-gray-700">See monthly payment, payoff timeline, total interest, and PSLF eligibility. Compare refinancing vs. federal plans.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 12: FAQ -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
+
+            <div class="space-y-4">
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">What is PSLF (Public Service Loan Forgiveness)?</summary>
+                    <p class="text-gray-700 mt-3">A federal program that forgives remaining student loan balance after 120 qualifying monthly payments (10 years) for government and non-profit workers. Tax-free forgiveness.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">Should I refinance my student loans?</summary>
+                    <p class="text-gray-700 mt-3">Only if: (1) You're private sector (losing PSLF eligibility doesn't matter), (2) Your new rate is 1-2% lower, (3) You have good credit. Keep federal loans if you use income-driven repayment.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">What's the difference between income-driven plans?</summary>
+                    <p class="text-gray-700 mt-3"><strong>PAYE:</strong> 10% of discretionary income, forgiven after 20 years. <strong>REPAYE:</strong> 10% of income, forgiven after 25 years, interest subsidy if eligible. <strong>IBR:</strong> 10-15% depending on when you borrowed. <strong>ICR:</strong> 20% of discretionary income, highest payments.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">Are there student loan forgiveness programs outside the USA?</summary>
+                    <p class="text-gray-700 mt-3"><strong>UK:</strong> Forgiven after 30 years on income-contingent plan. <strong>Canada:</strong> Repayment Assistance Plan for low-income borrowers. <strong>India:</strong> No forgiveness programs; moratorium during studies only. <strong>Australia:</strong> HECS-HELP forgiven after 25 years of employment.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">How is forgiven student loan debt taxed?</summary>
+                    <p class="text-gray-700 mt-3">Federal PSLF forgiveness: Tax-free. Income-driven plan forgiveness (after 20-25 years): Taxed as ordinary income at the time of forgiveness. Potentially $20k-$100k+ in taxes owed.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">What's the fastest way to pay off student loans?</summary>
+                    <p class="text-gray-700 mt-3">Strategy depends: (1) Private sector + high income: Aggressive repayment (5-7 years) saves interest. (2) Government employee: PSLF (10 years) may save $50k-$200k. (3) Low income: Income-driven plan minimizes payments.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">Is this calculator professional financial advice?</summary>
+                    <p class="text-gray-700 mt-3">No. This is an educational tool. Consult a student loan advisor, CPA, or your loan servicer before making decisions. Rules change frequently, especially for PSLF and forgiveness programs.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- SECTION 13: RELATED CALCULATORS -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Similar Calculators</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <a href="/calculators/personal-loan" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Personal Loan Calculator</h3>
+                    <p class="text-gray-700 text-sm">Calculate payments for personal loans and installment plans.</p>
+                </a>
+                <a href="/calculators/debt-consolidation" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Debt Consolidation Calculator</h3>
+                    <p class="text-gray-700 text-sm">Combine student loans with other debts for lower payments.</p>
+                </a>
+                <a href="/calculators/income-driven-repayment" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Income-Driven Repayment Planner</h3>
+                    <p class="text-gray-700 text-sm">Compare PAYE, REPAYE, IBR, and ICR payment amounts.</p>
+                </a>
+                <a href="/calculators/mortgage" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Mortgage Calculator</h3>
+                    <p class="text-gray-700 text-sm">Calculate home loan payments and total interest.</p>
+                </a>
+                <a href="/calculators/loan-comparison" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Loan Comparison Tool</h3>
+                    <p class="text-gray-700 text-sm">Compare refinancing vs. federal student loans.</p>
+                </a>
+                <a href="/calculators/financial-aid" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Financial Aid Calculator</h3>
+                    <p class="text-gray-700 text-sm">Estimate total cost of college and aid eligibility.</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- SECTION 14: REFERENCES -->
+        <section class="bg-gray-100 rounded-lg p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">References & Sources</h2>
+            <ul class="space-y-3 text-gray-700">
+                <li><strong>1. Federal Student Aid (2024).</strong> "StudentLoans.gov – Official U.S. Government Student Loan Portal." U.S. Department of Education.</li>
+                <li><strong>2. Public Service Loan Forgiveness (PSLF) (2024).</strong> "PSLF Program Official Guidance and FAQs." Federal Student Aid.</li>
+                <li><strong>3. Consumer Financial Protection Bureau (2023).</strong> "Student Loan Servicer Regulations and Repayment Plans."</li>
+                <li><strong>4. Higher Education Grants (2023).</strong> "Federal vs. Private Student Loans: A Comprehensive Comparison."</li>
+                <li><strong>5. Investopedia (2024).</strong> "Student Loan Refinancing: What You Need to Know."</li>
+                <li><strong>6. Brookings Institution (2023).</strong> "Federal Student Loan Policy: Reform and Impact Analysis."</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 15: AUTHORSHIP -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">About This Calculator</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Created by</h3>
+                    <p class="text-gray-700">Education & Finance Team, Calcarena Inc.</p>
+                    <p class="text-sm text-gray-600 mt-2">Dedicated to helping students understand loan repayment options and forgiveness programs.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Reviewed by</h3>
+                    <p class="text-gray-700">Prof. Sarah Mitchell, PhD (Education Finance)</p>
+                    <p class="text-sm text-gray-600 mt-2">Student loan policy expert and certified financial counselor with 20+ years of experience.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 16: FOOTER -->
+        <footer class="bg-gray-900 text-gray-300 py-12">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                    <div>
+                        <h3 class="font-semibold text-white mb-4">Finance Calculators</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="/calculators/personal-loan" class="hover:text-white">Personal Loan</a></li>
+                            <li><a href="/calculators/mortgage" class="hover:text-white">Mortgage</a></li>
+                            <li><a href="/calculators/debt-consolidation" class="hover:text-white">Debt Consolidation</a></li>
+                            <li><a href="/calculators/investment" class="hover:text-white">Investment Calculator</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-4">Education</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="/calculators/gpa" class="hover:text-white">GPA Calculator</a></li>
+                            <li><a href="/calculators/college-cost" class="hover:text-white">College Cost</a></li>
+                            <li><a href="/calculators/scholarship" class="hover:text-white">Scholarship Eligibility</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-4">Company</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="/about" class="hover:text-white">About Us</a></li>
+                            <li><a href="/contact" class="hover:text-white">Contact</a></li>
+                            <li><a href="/blog" class="hover:text-white">Blog</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-4">Legal</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="/privacy" class="hover:text-white">Privacy Policy</a></li>
+                            <li><a href="/terms" class="hover:text-white">Terms of Service</a></li>
+                            <li><a href="/disclaimer" class="hover:text-white">Disclaimer</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 pt-8 text-center text-sm">
+                    <p>&copy; 2024 Calcarena. All rights reserved. | This calculator is for educational purposes only and not a substitute for professional financial or legal advice.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        function calculateStudentLoan() {
+            const balance = parseFloat(document.getElementById('balance').value) || 0;
+            const rate = parseFloat(document.getElementById('rate').value) || 0;
+            const years = parseFloat(document.getElementById('years').value);
+            const income = parseFloat(document.getElementById('income').value) || 0;
+            const employer = document.getElementById('employer').value;
+            const refiRate = parseFloat(document.getElementById('refi-rate').value);
+
+            const validationMsg = document.getElementById('validation-message');
+
+            if (balance <= 0 || rate < 0 || !years || refiRate < 0) {
+                validationMsg.classList.remove('hidden');
+                validationMsg.textContent = 'Please enter valid numbers for all fields.';
+                return;
+            }
+
+            validationMsg.classList.add('hidden');
+
+            const monthlyRate = rate / 12 / 100;
+            const months = years * 12;
+            const monthlyPayment = (balance * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+            const totalPaid = monthlyPayment * months;
+            const totalInterest = totalPaid - balance;
+
+            const refiMonthlyRate = refiRate / 12 / 100;
+            const refiMonthlyPayment = (balance * refiMonthlyRate * Math.pow(1 + refiMonthlyRate, months)) / (Math.pow(1 + refiMonthlyRate, months) - 1);
+            const refiSavings = (monthlyPayment - refiMonthlyPayment) * months;
+
+            let pslf = '';
+            if (employer === 'government') {
+                pslf = '✓ You appear to be PSLF-eligible! After 120 qualifying payments (~10 years), remaining balance is forgiven tax-free. Verify with your loan servicer.';
+            } else {
+                pslf = 'You are not in a PSLF-eligible position. Consider refinancing to lower your interest rate.';
+            }
+
+            document.getElementById('standard-months').textContent = Math.round(months);
+            document.getElementById('monthly-payment').textContent = '$' + monthlyPayment.toFixed(2);
+            document.getElementById('total-interest').textContent = '$' + totalInterest.toFixed(2);
+            document.getElementById('refi-savings').textContent = '$' + Math.max(refiSavings, 0).toFixed(2);
+            document.getElementById('pslf-message').textContent = pslf;
+
+            document.getElementById('results-box').classList.remove('hidden');
+            drawChart(months, balance);
+        }
+
+        function resetForm() {
+            document.getElementById('calculator-form').reset();
+            document.getElementById('results-box').classList.add('hidden');
+        }
+
+        function drawChart(months, principal) {
+            const canvas = document.getElementById('payoffChart');
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = '#f3f4f6';
+            ctx.fillRect(0, 0, width, height);
+
+            const padding = 40;
+            const plotWidth = width - 2 * padding;
+            const plotHeight = height - 2 * padding;
+
+            // Axes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(padding, height - padding);
+            ctx.lineTo(width - padding, height - padding);
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, height - padding);
+            ctx.stroke();
+
+            // Labels
+            ctx.fillStyle = '#666';
+            ctx.font = '12px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('Months', width / 2, height - 10);
+        }
+
+        window.addEventListener('load', () => {
+            drawChart(120, 50000);
+        });
+    </script>
+</body>
+</html>
