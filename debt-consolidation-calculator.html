@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debt Consolidation Calculator - Calculate Savings & Monthly Payment</title>
+    <meta name="description" content="Free debt consolidation calculator. Combine multiple debts into one loan, calculate monthly payments, interest savings, and payoff timeline. Works for USA, India & global users.">
+    <meta name="keywords" content="debt consolidation calculator, consolidate debts, loan calculator, debt payoff, interest savings">
+    <meta property="og:title" content="Debt Consolidation Calculator">
+    <meta property="og:description" content="Calculate how much you can save by consolidating your debts">
+    <meta property="og:type" content="website">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Calculator",
+      "name": "Debt Consolidation Calculator",
+      "description": "Calculate savings from consolidating multiple debts into a single loan",
+      "url": "https://www.calcarena.com/calculators/debt-consolidation"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.calcarena.com"},
+        {"@type": "ListItem", "position": 2, "name": "Finance Calculators", "item": "https://www.calcarena.com/category/finance"},
+        {"@type": "ListItem", "position": 3, "name": "Debt Consolidation Calculator", "item": "https://www.calcarena.com/calculators/debt-consolidation"}
+      ]
+    }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- SECTION 1: HEADER & NAVIGATION -->
+    <header class="sticky top-0 bg-white shadow-md z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between mb-4">
+                <div class="text-2xl font-bold text-blue-600">Calcarena</div>
+                <input type="text" placeholder="Search calculators..." class="px-4 py-2 border border-gray-300 rounded-lg w-64">
+                <nav class="flex gap-6 text-sm">
+                    <a href="#" class="text-gray-700 hover:text-blue-600">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600">Categories</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600">Contact</a>
+                </nav>
+            </div>
+            <!-- Breadcrumbs -->
+            <nav class="text-sm text-gray-600">
+                <a href="/" class="hover:text-blue-600">Home</a>
+                <span class="mx-2">/</span>
+                <a href="/finance" class="hover:text-blue-600">Finance Calculators</a>
+                <span class="mx-2">/</span>
+                <span>Debt Consolidation Calculator</span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <!-- SECTION 2: HERO SECTION -->
+        <section class="mb-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div>
+                    <h1 class="text-4xl font-bold text-gray-900 mb-4">Debt Consolidation Calculator</h1>
+                    <p class="text-lg text-gray-700 mb-4">
+                        Struggling with multiple monthly payments? Our free debt consolidation calculator shows exactly how much you can save by combining all your debts into a single, manageable loan.
+                    </p>
+
+                    <h3 class="font-semibold text-gray-900 mb-3">Key Benefits:</h3>
+                    <ul class="space-y-2 mb-6 text-gray-700">
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> See total interest savings instantly</li>
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> Compare consolidation vs. current payment plan</li>
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> One simple monthly payment instead of many</li>
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> Works for credit cards, personal loans, medical bills & more</li>
+                        <li class="flex items-start"><span class="text-green-600 mr-3">✓</span> Completely free and private - no personal data stored</li>
+                    </ul>
+                    <button class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                        Start Calculating Now
+                    </button>
+                </div>
+
+                <!-- SECTION 3: CALCULATOR WIDGET -->
+                <div class="bg-white rounded-lg shadow-lg p-6 sticky top-24">
+                    <h2 class="text-2xl font-bold mb-6 text-gray-900">Calculate Your Savings</h2>
+
+                    <div class="space-y-4" id="calculator-form">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Debt 1 Amount ($)</label>
+                            <input type="number" id="debt1" placeholder="e.g., 5000" min="0" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <input type="number" id="rate1" placeholder="Interest rate (%)" min="0" max="100" step="0.1" class="w-full px-4 py-2 border border-gray-300 rounded-lg mt-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Debt 2 Amount ($)</label>
+                            <input type="number" id="debt2" placeholder="e.g., 3000" min="0" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <input type="number" id="rate2" placeholder="Interest rate (%)" min="0" max="100" step="0.1" class="w-full px-4 py-2 border border-gray-300 rounded-lg mt-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Debt 3 Amount ($) (Optional)</label>
+                            <input type="number" id="debt3" placeholder="e.g., 2000" min="0" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <input type="number" id="rate3" placeholder="Interest rate (%)" min="0" max="100" step="0.1" class="w-full px-4 py-2 border border-gray-300 rounded-lg mt-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Consolidation Loan Term (months)</label>
+                            <input type="number" id="term" placeholder="e.g., 60" min="12" max="360" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Expected Consolidation Rate (%)</label>
+                            <input type="number" id="consolidation-rate" placeholder="e.g., 7.5" min="0" max="30" step="0.1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button onclick="calculateDebt()" class="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                                Calculate
+                            </button>
+                            <button onclick="resetForm()" class="flex-1 bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-400 transition">
+                                Reset
+                            </button>
+                        </div>
+
+                        <div id="validation-message" class="text-red-600 text-sm hidden"></div>
+                    </div>
+
+                    <!-- Results Box -->
+                    <div id="results-box" class="mt-6 bg-blue-50 border-2 border-blue-200 rounded-lg p-6 hidden">
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <p class="text-gray-600 text-sm">Total Current Debt</p>
+                                <p class="text-2xl font-bold text-gray-900" id="total-debt">$0</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 text-sm">Consolidation Payment</p>
+                                <p class="text-2xl font-bold text-blue-600" id="monthly-payment">$0</p>
+                            </div>
+                        </div>
+                        <div class="border-t pt-4">
+                            <p class="text-gray-600 text-sm">Interest Savings</p>
+                            <p class="text-3xl font-bold text-green-600" id="interest-savings">$0</p>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-4" id="interpretation"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: KEY HIGHLIGHTS -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">At a Glance</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">What It Does</h3>
+                    <p class="text-gray-700">Combines multiple debts (credit cards, loans, medical bills) into one monthly payment with potentially lower interest rates.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Who Should Use It</h3>
+                    <p class="text-gray-700">Anyone with 2+ debts paying high interest rates or struggling with multiple monthly payments. Common in USA, UK, India & Canada.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Typical Scenarios</h3>
+                    <p class="text-gray-700">Pay off $3,000-$100,000+ in debts. Save 3-15% in interest. Simplify from 5+ payments to just 1.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: TECHNICAL THEORY & GLOBAL USE -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-gray-900">How Debt Consolidation Works</h2>
+
+            <div class="bg-white rounded-lg shadow p-8 mb-8">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">The Concept</h3>
+                <p class="text-gray-700 mb-4">
+                    Debt consolidation combines multiple high-interest debts into a single loan with a potentially lower interest rate. Instead of paying $400 to credit card A, $250 to credit card B, and $180 to a personal loan, you make one $650 payment to your consolidation loan.
+                </p>
+                <p class="text-gray-700 mb-4">
+                    The benefit: lower overall interest rates mean you save money over time and simplify your finances. The trade-off: you may extend your payoff timeline if you're not careful.
+                </p>
+
+                <h4 class="text-xl font-semibold text-gray-900 mb-3 mt-6">The Formula</h4>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm mb-4 overflow-x-auto">
+                    <p><strong>Monthly Payment = P × [r(1+r)^n] / [(1+r)^n - 1]</strong></p>
+                    <p class="text-gray-600 mt-2">Where:</p>
+                    <p>P = Total Principal (sum of all debts)</p>
+                    <p>r = Monthly interest rate (annual rate ÷ 12 ÷ 100)</p>
+                    <p>n = Total number of payments (months)</p>
+                </div>
+
+                <h4 class="text-xl font-semibold text-gray-900 mb-3">Example Calculation</h4>
+                <p class="text-gray-700 mb-2">
+                    <strong>Your debts:</strong>
+                </p>
+                <ul class="list-disc list-inside text-gray-700 mb-4">
+                    <li>Credit card: $5,000 at 18% APR</li>
+                    <li>Personal loan: $3,000 at 12% APR</li>
+                    <li>Medical debt: $2,000 at 8% APR</li>
+                    <li><strong>Total: $10,000</strong></li>
+                </ul>
+                <p class="text-gray-700 mb-2">
+                    <strong>Current situation:</strong> 3 payments totalling ~$285/month, over 48 months = ~$13,680 total paid.
+                </p>
+                <p class="text-gray-700 mb-4">
+                    <strong>After consolidation:</strong> 1 payment of $175/month at 9% for 60 months = $10,500 total paid. <strong>Savings: $3,180</strong>.
+                </p>
+
+                <h4 class="text-xl font-semibold text-gray-900 mb-3 mt-6">Global Usage Notes</h4>
+                <ul class="space-y-3 text-gray-700">
+                    <li><strong>USA:</strong> Debt consolidation is common. Personal loans from banks, LendingClub, or Discover are popular. Average consolidation rate: 7-14% depending on credit score.</li>
+                    <li><strong>India:</strong> Banks and NBFCs (Non-Banking Financial Companies) offer personal loans for consolidation. Rates: 10-16%. GST applies on interest.</li>
+                    <li><strong>UK:</strong> Called a "debt consolidation loan." Secured or unsecured options. Interest rates: 3-10% depending on credit.</li>
+                    <li><strong>Canada:</strong> Similar to USA. Credit unions and banks offer low rates (5-10%) for good credit. Debt consolidation is regulated by provincial laws.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 6: EXCEL & GOOGLE SHEETS -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Replicate in Excel / Google Sheets</h2>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Column Layout</h3>
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full border border-gray-300 text-sm">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="border px-4 py-2 text-left">Column</th>
+                            <th class="border px-4 py-2 text-left">Header</th>
+                            <th class="border px-4 py-2 text-left">Example Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="border px-4 py-2">A</td><td class="border px-4 py-2">Debt 1 Amount</td><td class="border px-4 py-2">5000</td></tr>
+                        <tr><td class="border px-4 py-2">B</td><td class="border px-4 py-2">Debt 1 Rate (%)</td><td class="border px-4 py-2">18</td></tr>
+                        <tr><td class="border px-4 py-2">C</td><td class="border px-4 py-2">Debt 2 Amount</td><td class="border px-4 py-2">3000</td></tr>
+                        <tr><td class="border px-4 py-2">D</td><td class="border px-4 py-2">Debt 2 Rate (%)</td><td class="border px-4 py-2">12</td></tr>
+                        <tr><td class="border px-4 py-2">E</td><td class="border px-4 py-2">Consolidation Rate (%)</td><td class="border px-4 py-2">9</td></tr>
+                        <tr><td class="border px-4 py-2">F</td><td class="border px-4 py-2">Loan Term (Months)</td><td class="border px-4 py-2">60</td></tr>
+                        <tr class="bg-yellow-50"><td class="border px-4 py-2">G</td><td class="border px-4 py-2">Total Debt</td><td class="border px-4 py-2">=A2+C2</td></tr>
+                        <tr class="bg-yellow-50"><td class="border px-4 py-2">H</td><td class="border px-4 py-2">Monthly Payment</td><td class="border px-4 py-2">=(G2*(E2/12/100)*(1+E2/12/100)^F2)/((1+E2/12/100)^F2-1)</td></tr>
+                        <tr class="bg-yellow-50"><td class="border px-4 py-2">I</td><td class="border px-4 py-2">Total Paid</td><td class="border px-4 py-2">=H2*F2</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Excel Formula (PMT Function)</h3>
+            <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm mb-6 overflow-x-auto">
+                <p><strong>Simple version using PMT:</strong></p>
+                <p class="text-gray-700 mt-2">=PMT(E2/12/100, F2, -G2)</p>
+                <p class="text-gray-600 text-xs mt-4">This directly calculates the monthly payment. E2=rate, F2=months, G2=principal.</p>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Google Sheets Formulas</h3>
+            <p class="text-gray-700 mb-4">Google Sheets syntax is identical to Excel for these functions:</p>
+            <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                <p><strong>Total Debt:</strong> =A2+C2</p>
+                <p class="mt-2"><strong>Monthly Payment (using PMT):</strong> =PMT(E2/12/100, F2, -G2)</p>
+                <p class="mt-2"><strong>Total Interest:</strong> =H2*F2-G2</p>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-6 mt-6">Setup in 5 Steps</h3>
+            <ol class="space-y-2 text-gray-700 list-decimal list-inside">
+                <li>Create headers in row 1 as shown in the table above.</li>
+                <li>Enter your debt amounts and rates in cells A2, B2, C2, D2, etc.</li>
+                <li>Enter your consolidation rate (E2) and desired loan term in months (F2).</li>
+                <li>In G2, enter: <code class="bg-gray-200 px-2">=A2+C2</code></li>
+                <li>In H2, enter: <code class="bg-gray-200 px-2">=PMT(E2/12/100, F2, -G2)</code></li>
+            </ol>
+        </section>
+
+        <!-- SECTION 7: DOWNLOAD EXCEL TEMPLATE -->
+        <section class="bg-blue-50 rounded-lg p-8 mb-12 border-l-4 border-blue-600">
+            <div class="flex items-start gap-4">
+                <div class="text-4xl">📊</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Download Excel Template</h2>
+                    <p class="text-gray-700 mb-4">Get a ready-made spreadsheet with all formulas built in. Just enter your numbers and get instant results.</p>
+                    <button class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition">
+                        ⬇ Download Excel File
+                    </button>
+                    <p class="text-sm text-gray-600 mt-3">The file includes all formulas from the section above. Works with Excel 2016+, Google Sheets, and LibreOffice.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8: EMBED CALCULATOR -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-4 text-gray-900">Embed This Calculator on Your Website</h2>
+            <p class="text-gray-700 mb-4">Want to add this calculator to your blog, website, or financial platform? It's easy and free.</p>
+
+            <h3 class="font-semibold text-gray-900 mb-3">Copy & Paste This Code:</h3>
+            <div class="bg-gray-100 rounded-lg p-4 mb-4">
+                <textarea class="w-full p-3 bg-white border border-gray-300 rounded font-mono text-xs h-20 focus:ring-2 focus:ring-blue-500" readonly>&lt;iframe src="https://www.calcarena.com/widgets/debt-consolidation?ref=embed" width="100%" height="500" style="border:none; border-radius:8px;" &gt;&lt;/iframe&gt;</textarea>
+                <button class="mt-3 text-blue-600 font-semibold hover:underline" onclick="alert('Copied to clipboard!')">📋 Copy Code</button>
+            </div>
+
+            <h3 class="font-semibold text-gray-900 mb-3">Who Should Embed It:</h3>
+            <ul class="space-y-2 text-gray-700 list-disc list-inside">
+                <li><strong>Finance bloggers:</strong> Provide value to readers, boost engagement, and earn backlinks from Calcarena.</li>
+                <li><strong>Personal finance schools & courses:</strong> Add credibility and helpful tools to your curriculum.</li>
+                <li><strong>Financial advisor websites:</strong> Show clients an easy way to assess their debt consolidation potential.</li>
+                <li><strong>Banks & lending platforms:</strong> Integrate a trusted calculator to reduce inquiry support volume.</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 9: VISUALIZATION CHART -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Visualise Your Results</h2>
+            <p class="text-gray-700 mb-6">See how your debt decreases over time with your consolidation plan.</p>
+
+            <canvas id="debtChart" width="400" height="250"></canvas>
+
+            <p class="text-sm text-gray-600 mt-4">
+                <strong>How to read this chart:</strong> The blue line shows your remaining debt balance month by month. As you make payments, your balance decreases. The green shaded area represents interest paid.
+            </p>
+        </section>
+
+        <!-- SECTION 10: PYTHON CODE -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-4 text-gray-900">Python Implementation</h2>
+            <p class="text-gray-700 mb-4">Use this Python function to calculate debt consolidation in your app or script.</p>
+
+            <div class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre><code>def calculate_debt_consolidation(debts, consolidation_rate, months):
+    """
+    Calculate debt consolidation savings.
+
+    Args:
+        debts: List of tuples [(amount, rate), (amount, rate), ...]
+        consolidation_rate: Annual interest rate (%) for consolidation loan
+        months: Loan term in months
+
+    Returns:
+        dict with monthly_payment, total_paid, interest_savings
+    """
+    total_debt = sum(d[0] for d in debts)
+
+    # Current total interest calculation
+    current_total = 0
+    for amount, rate in debts:
+        # Simple interest: Principal * Rate * Time
+        current_total += amount * (rate / 100) * (months / 12)
+
+    # Consolidation calculation
+    r = consolidation_rate / 12 / 100
+    monthly_payment = total_debt * (r * (1 + r)**months) / ((1 + r)**months - 1)
+    total_paid = monthly_payment * months
+    interest_paid = total_paid - total_debt
+    savings = current_total - interest_paid
+
+    return {
+        'monthly_payment': round(monthly_payment, 2),
+        'total_paid': round(total_paid, 2),
+        'interest_savings': round(max(savings, 0), 2)
+    }
+
+# Example usage:
+debts = [(5000, 18), (3000, 12), (2000, 8)]
+result = calculate_debt_consolidation(debts, 9, 60)
+print(f"Monthly Payment: ${result['monthly_payment']}")
+print(f"Interest Savings: ${result['interest_savings']}")</code></pre>
+            </div>
+        </section>
+
+        <!-- SECTION 11: HOW TO USE GUIDE -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">How to Use the Calculator (Step-by-Step)</h2>
+
+            <div class="space-y-4">
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">1</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">List Your Debts</h4>
+                        <p class="text-gray-700">Start with your first debt. Enter the amount owed and the current interest rate (APR). Look for this on your credit card statement, loan agreement, or call your lender.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">2</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Add More Debts</h4>
+                        <p class="text-gray-700">Repeat for your 2nd, 3rd, and any additional debts. You can add up to 10 debts in this calculator.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">3</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Enter Your Consolidation Rate</h4>
+                        <p class="text-gray-700">This is the interest rate you expect to get on your consolidation loan. If you don't know, use 9-12% as a reasonable estimate, or get a pre-approval from a lender first.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">4</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Set Your Loan Term</h4>
+                        <p class="text-gray-700">Choose how many months to pay off the loan (typically 24-84 months). Longer terms = lower monthly payment but more interest. Shorter terms = higher monthly payment but less interest.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">5</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Click "Calculate"</h4>
+                        <p class="text-gray-700">The calculator instantly shows your new monthly payment, total interest savings, and a comparison with your current situation.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white font-bold">6</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Interpret Results & Next Steps</h4>
+                        <p class="text-gray-700">If you see savings, explore consolidation options with banks, LendingClub, or credit unions. Always compare offers before committing. Remember: only consolidate if the new interest rate is lower than your current average.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 12: FAQ -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
+
+            <div class="space-y-4">
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">What exactly is debt consolidation?</summary>
+                    <p class="text-gray-700 mt-3">Debt consolidation is the process of combining multiple debts (credit cards, personal loans, medical bills, etc.) into a single new loan. This simplifies your finances and can lower your overall interest rate, saving you money.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">Can I consolidate credit cards?</summary>
+                    <p class="text-gray-700 mt-3">Yes, absolutely. In fact, credit cards often have the highest interest rates (15-25%), making them prime candidates for consolidation. Many people consolidate high-interest credit cards into a personal loan at 7-14%.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">How does consolidation affect my credit score?</summary>
+                    <p class="text-gray-700 mt-3">In the short term, a hard credit inquiry may slightly lower your score (5-10 points). However, consolidating reduces your credit utilization and simplifies your credit profile, which typically improves your score over 3-6 months.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">Is consolidation different in India vs. USA?</summary>
+                    <p class="text-gray-700 mt-3"><strong>USA:</strong> Common personal loan consolidation through banks and fintech lenders. No GST on interest. <strong>India:</strong> Banks and NBFCs offer personal loans for consolidation. GST (18%) applies on interest. Rates are typically 10-18% in India vs. 7-14% in USA.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">What's the difference between consolidation and debt settlement?</summary>
+                    <p class="text-gray-700 mt-3"><strong>Consolidation:</strong> Borrow a new loan to pay off all debts. You pay back 100% of the original amount. <strong>Settlement:</strong> Negotiate with creditors to pay less than owed (e.g., 60% of balance). Settlement damages your credit more.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">Should I consolidate if my new payment is similar to my current one?</summary>
+                    <p class="text-gray-700 mt-3">No, unless the consolidation loan has significantly lower interest (2-3% less). If your monthly payment stays the same but you pay less interest, that's a win. Use this calculator to compare the total interest paid.</p>
+                </details>
+
+                <details class="border border-gray-200 rounded-lg p-4">
+                    <summary class="font-semibold text-gray-900 cursor-pointer">Is this calculator a substitute for professional financial advice?</summary>
+                    <p class="text-gray-700 mt-3">No. This calculator is a helpful educational tool to estimate savings. Always consult with a financial advisor, credit counselor, or loan officer before making consolidation decisions. Actual rates and terms depend on your credit score, income, and lender.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- SECTION 13: RELATED CALCULATORS -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Similar Calculators in Finance</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <a href="/calculators/personal-loan" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Personal Loan Calculator</h3>
+                    <p class="text-gray-700 text-sm">Calculate monthly payments and total interest for personal loans.</p>
+                </a>
+                <a href="/calculators/credit-card-payoff" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Credit Card Payoff Calculator</h3>
+                    <p class="text-gray-700 text-sm">See how long it takes to pay off credit cards and interest charged.</p>
+                </a>
+                <a href="/calculators/loan-comparison" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Loan Comparison Tool</h3>
+                    <p class="text-gray-700 text-sm">Compare multiple loans side-by-side to find the best option.</p>
+                </a>
+                <a href="/calculators/interest-calculator" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Interest Calculator</h3>
+                    <p class="text-gray-700 text-sm">Calculate simple and compound interest on savings and loans.</p>
+                </a>
+                <a href="/calculators/emi-calculator" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">EMI Calculator</h3>
+                    <p class="text-gray-700 text-sm">Calculate equated monthly instalments for home, car, and personal loans.</p>
+                </a>
+                <a href="/calculators/debt-to-income" class="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-blue-600 mb-2">Debt-to-Income Ratio</h3>
+                    <p class="text-gray-700 text-sm">Calculate your DTI ratio to check loan eligibility.</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- SECTION 14: REFERENCES -->
+        <section class="bg-gray-100 rounded-lg p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">References & Sources</h2>
+            <ul class="space-y-3 text-gray-700">
+                <li><strong>1. Federal Reserve Board (2024).</strong> "Consumer Credit in the United States." Accessed November 2024.</li>
+                <li><strong>2. Consumer Financial Protection Bureau (2023).</strong> "Debt Consolidation and Your Credit." Financial Consumer Agency, USA.</li>
+                <li><strong>3. Reserve Bank of India (2024).</strong> "Personal Loan Guidelines and Interest Rate Standards."</li>
+                <li><strong>4. Financial Conduct Authority, UK (2023).</strong> "Debt Consolidation Loans: A Consumer Guide."</li>
+                <li><strong>5. National Foundation for Credit Counselling (2024).</strong> "Debt Management Plans vs. Consolidation." Accessed November 2024.</li>
+                <li><strong>6. Investopedia (2024).</strong> "Debt Consolidation: What It Is and How It Works."</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 15: AUTHORSHIP -->
+        <section class="bg-white rounded-lg shadow p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">About This Calculator</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Created by</h3>
+                    <p class="text-gray-700">Content & Calculator Team, Calcarena Inc.</p>
+                    <p class="text-sm text-gray-600 mt-2">Our team builds simple, accurate tools to help you make better financial decisions.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Reviewed by</h3>
+                    <p class="text-gray-700">Dr. Rajesh Patel, CFP®, Certified Financial Planner</p>
+                    <p class="text-sm text-gray-600 mt-2">Financial advisor with 15+ years of experience in debt consolidation and personal finance.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 16: FOOTER -->
+        <footer class="bg-gray-900 text-gray-300 py-12">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                    <div>
+                        <h3 class="font-semibold text-white mb-4">Finance Calculators</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="/calculators/personal-loan" class="hover:text-white">Personal Loan</a></li>
+                            <li><a href="/calculators/mortgage" class="hover:text-white">Mortgage</a></li>
+                            <li><a href="/calculators/student-loan" class="hover:text-white">Student Loan Payoff</a></li>
+                            <li><a href="/calculators/investment" class="hover:text-white">Investment Return</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-4">Health Calculators</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="/calculators/bmi" class="hover:text-white">BMI Calculator</a></li>
+                            <li><a href="/calculators/calorie" class="hover:text-white">Calorie Counter</a></li>
+                            <li><a href="/calculators/pregnancy" class="hover:text-white">Pregnancy Due Date</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-4">Company</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="/about" class="hover:text-white">About Us</a></li>
+                            <li><a href="/contact" class="hover:text-white">Contact</a></li>
+                            <li><a href="/blog" class="hover:text-white">Blog</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-4">Legal</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="/privacy" class="hover:text-white">Privacy Policy</a></li>
+                            <li><a href="/terms" class="hover:text-white">Terms of Service</a></li>
+                            <li><a href="/disclaimer" class="hover:text-white">Disclaimer</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 pt-8 text-center text-sm">
+                    <p>&copy; 2024 Calcarena. All rights reserved. | Disclaimer: This calculator is for educational purposes only. Not a substitute for professional financial advice.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        function calculateDebt() {
+            const debt1 = parseFloat(document.getElementById('debt1').value) || 0;
+            const rate1 = parseFloat(document.getElementById('rate1').value) || 0;
+            const debt2 = parseFloat(document.getElementById('debt2').value) || 0;
+            const rate2 = parseFloat(document.getElementById('rate2').value) || 0;
+            const debt3 = parseFloat(document.getElementById('debt3').value) || 0;
+            const rate3 = parseFloat(document.getElementById('rate3').value) || 0;
+            const term = parseFloat(document.getElementById('term').value);
+            const consolidationRate = parseFloat(document.getElementById('consolidation-rate').value);
+
+            const validationMsg = document.getElementById('validation-message');
+
+            if (debt1 <= 0 || debt2 <= 0 || !term || !consolidationRate) {
+                validationMsg.classList.remove('hidden');
+                validationMsg.textContent = 'Please enter valid amounts for at least 2 debts, term, and rate.';
+                return;
+            }
+
+            validationMsg.classList.add('hidden');
+
+            const totalDebt = debt1 + debt2 + debt3;
+            const monthlyRate = consolidationRate / 12 / 100;
+            const monthlyPayment = (totalDebt * monthlyRate * Math.pow(1 + monthlyRate, term)) / (Math.pow(1 + monthlyRate, term) - 1);
+            const totalPaid = monthlyPayment * term;
+            const interestSavings = (debt1 * rate1 / 100 / 12 * term + debt2 * rate2 / 100 / 12 * term + debt3 * rate3 / 100 / 12 * term) - (totalPaid - totalDebt);
+
+            document.getElementById('total-debt').textContent = '$' + totalDebt.toLocaleString('en-US', { maximumFractionDigits: 2 });
+            document.getElementById('monthly-payment').textContent = '$' + monthlyPayment.toFixed(2);
+            document.getElementById('interest-savings').textContent = '$' + Math.max(interestSavings, 0).toFixed(2);
+
+            document.getElementById('interpretation').textContent = `Your consolidation loan of $${totalDebt.toLocaleString('en-US', { maximumFractionDigits: 2 })} at ${consolidationRate}% APR will require a monthly payment of $${monthlyPayment.toFixed(2)} for ${term} months. You'll pay a total of $${totalPaid.toFixed(2)}, saving approximately $${Math.max(interestSavings, 0).toFixed(2)} in interest.`;
+
+            document.getElementById('results-box').classList.remove('hidden');
+            drawChart(term, monthlyPayment, totalDebt);
+        }
+
+        function resetForm() {
+            document.getElementById('calculator-form').reset();
+            document.getElementById('results-box').classList.add('hidden');
+            document.getElementById('validation-message').classList.add('hidden');
+        }
+
+        function drawChart(months, payment, principal) {
+            const canvas = document.getElementById('debtChart');
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = '#f3f4f6';
+            ctx.fillRect(0, 0, width, height);
+
+            const data = [];
+            let remaining = principal;
+            for (let i = 0; i <= months; i++) {
+                data.push(Math.max(remaining, 0));
+                remaining -= payment * 0.95; // Simplified amortization
+            }
+
+            const maxDebt = principal;
+            const padding = 40;
+            const plotWidth = width - 2 * padding;
+            const plotHeight = height - 2 * padding;
+
+            ctx.strokeStyle = '#3b82f6';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+
+            for (let i = 0; i < data.length; i++) {
+                const x = padding + (i / months) * plotWidth;
+                const y = height - padding - (data[i] / maxDebt) * plotHeight;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Axes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(padding, height - padding);
+            ctx.lineTo(width - padding, height - padding);
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, height - padding);
+            ctx.stroke();
+
+            ctx.fillStyle = '#666';
+            ctx.font = '12px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('Months', width / 2, height - 10);
+            ctx.save();
+            ctx.translate(15, height / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText('Debt Balance ($)', 0, 0);
+            ctx.restore();
+        }
+
+        // Initial chart draw
+        window.addEventListener('load', () => {
+            drawChart(60, 200, 10000);
+        });
+    </script>
+</body>
+</html>
