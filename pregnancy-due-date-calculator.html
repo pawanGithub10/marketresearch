@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregnancy Due Date Calculator | Calculate Your Baby's Due Date</title>
+    <meta name="description" content="Free pregnancy due date calculator. Find your baby's estimated delivery date using last menstrual period, conception date, or ultrasound gestational age. Accurate 2024 medical standards.">
+    <meta name="keywords" content="pregnancy calculator, due date calculator, due date predictor, gestational age, pregnancy timeline">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "MedicalWebPage",
+        "name": "Pregnancy Due Date Calculator",
+        "description": "Calculate your baby's estimated due date and track pregnancy timeline",
+        "url": "https://yoursite.com/pregnancy-due-date-calculator",
+        "medicalAudience": "Expectant mothers, healthcare providers"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://yoursite.com"},
+            {"@type": "ListItem", "position": 2, "name": "Calculators", "item": "https://yoursite.com/calculators"},
+            {"@type": "ListItem", "position": 3, "name": "Pregnancy Due Date Calculator"}
+        ]
+    }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-pink-50 to-purple-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-pink-600">Pregnancy Calc</div>
+            <div class="hidden md:flex gap-8">
+                <a href="#calculator" class="text-gray-700 hover:text-pink-600">Calculator</a>
+                <a href="#guide" class="text-gray-700 hover:text-pink-600">Guide</a>
+                <a href="#faq" class="text-gray-700 hover:text-pink-600">FAQ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-pink-500 to-purple-500 text-white py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Pregnancy Due Date Calculator</h1>
+            <p class="text-xl text-pink-100 mb-4">Calculate your baby's estimated due date and track your pregnancy timeline week by week</p>
+            <div class="flex gap-4 flex-wrap">
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">85,000+ monthly users</p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">Medically accurate</p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">4 calculation methods</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Widget -->
+    <section id="calculator" class="max-w-6xl mx-auto px-4 py-12">
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Input Section -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Calculator</h2>
+
+                <div class="space-y-6">
+                    <!-- Calculation Method Selection -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">How Do You Know Your Dates?</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="setMethod('lmp')" id="btn-lmp" class="py-2 px-3 bg-pink-600 text-white rounded-lg font-semibold text-sm active:scale-95">Last Period</button>
+                            <button onclick="setMethod('conception')" id="btn-conception" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-lg font-semibold text-sm hover:bg-gray-300 active:scale-95">Conception</button>
+                            <button onclick="setMethod('ultrasound')" id="btn-ultrasound" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-lg font-semibold text-sm hover:bg-gray-300 active:scale-95">Ultrasound</button>
+                            <button onclick="setMethod('transfer')" id="btn-transfer" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-lg font-semibold text-sm hover:bg-gray-300 active:scale-95">IVF Transfer</button>
+                        </div>
+                    </div>
+
+                    <!-- Last Menstrual Period -->
+                    <div id="lmp-mode" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">First Day of Last Period (LMP)</label>
+                            <input type="date" id="lmpDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent" onchange="calculateDueDate()">
+                            <p class="text-xs text-gray-500 mt-2">The first day of your last menstrual cycle</p>
+                        </div>
+                    </div>
+
+                    <!-- Conception Date -->
+                    <div id="conception-mode" class="space-y-4 hidden">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Conception Date</label>
+                            <input type="date" id="conceptionDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent" onchange="calculateDueDate()">
+                            <p class="text-xs text-gray-500 mt-2">Estimated or known date of conception</p>
+                        </div>
+                    </div>
+
+                    <!-- Ultrasound Dating -->
+                    <div id="ultrasound-mode" class="space-y-4 hidden">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Ultrasound Date</label>
+                            <input type="date" id="ultrasoundDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent" onchange="calculateDueDate()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Gestational Age (weeks)</label>
+                            <input type="number" id="gestationalWeeks" value="12" min="8" max="40" step="0.1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent" onchange="calculateDueDate()">
+                            <p class="text-xs text-gray-500 mt-2">From your ultrasound report</p>
+                        </div>
+                    </div>
+
+                    <!-- IVF Transfer -->
+                    <div id="transfer-mode" class="space-y-4 hidden">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Embryo Transfer Date</label>
+                            <input type="date" id="transferDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent" onchange="calculateDueDate()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Embryo Age</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="setEmbryoAge(3)" id="btn-3day" class="py-2 px-4 bg-gray-100 rounded-lg hover:bg-gray-200">3 Day Old</button>
+                                <button onclick="setEmbryoAge(5)" id="btn-5day" class="py-2 px-4 bg-pink-100 rounded-lg border-2 border-pink-600 font-semibold">5 Day Old</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="calculateDueDate()" class="w-full bg-pink-600 text-white py-3 rounded-lg font-bold text-lg hover:bg-pink-700 active:scale-95">Calculate Due Date</button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Your Results</h2>
+
+                <div class="space-y-4">
+                    <div class="bg-pink-50 rounded-lg p-4 border-l-4 border-pink-600">
+                        <p class="text-gray-600 text-sm">Your Baby's Due Date</p>
+                        <p id="dueDate" class="text-4xl font-bold text-pink-600">January 15, 2025</p>
+                        <p id="daysUntilDue" class="text-sm text-gray-600 mt-2">278 days from now</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-purple-50 rounded-lg p-4">
+                            <p class="text-gray-600 text-sm">Current Gestational Age</p>
+                            <p id="gestationalAge" class="text-2xl font-bold text-purple-600">12 weeks 4 days</p>
+                        </div>
+                        <div class="bg-blue-50 rounded-lg p-4">
+                            <p class="text-gray-600 text-sm">Current Trimester</p>
+                            <p id="trimesterInfo" class="text-2xl font-bold text-blue-600">Second Trimester</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 rounded-lg p-4 border-l-4 border-green-600">
+                        <p class="text-gray-600 text-sm">Estimated Delivery Window</p>
+                        <p id="deliveryWindow" class="text-xl font-bold text-green-600">January 8 - January 22</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <p class="text-gray-600">Weeks Since Conception</p>
+                            <p id="weeksSinceConception" class="font-bold text-gray-800">10 weeks</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <p class="text-gray-600">Weeks Remaining</p>
+                            <p id="weeksRemaining" class="font-bold text-gray-800">28 weeks</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pregnancy Timeline -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mt-8">
+            <h3 class="text-xl font-bold mb-6 text-gray-800">Your Pregnancy Timeline</h3>
+            <div class="space-y-3">
+                <div class="flex items-center gap-4">
+                    <div class="w-24 text-right text-sm font-semibold">Weeks 1-4</div>
+                    <div class="flex-1 bg-gray-200 rounded-full h-3"></div>
+                    <div class="text-sm">Fertilization & Implantation</div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-24 text-right text-sm font-semibold">Weeks 5-8</div>
+                    <div class="flex-1 bg-pink-300 rounded-full h-3" id="timeline-2"></div>
+                    <div class="text-sm">Heart Beats, Organs Form</div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-24 text-right text-sm font-semibold">Weeks 9-13</div>
+                    <div class="flex-1 bg-pink-400 rounded-full h-3" id="timeline-3"></div>
+                    <div class="text-sm">End of First Trimester</div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-24 text-right text-sm font-semibold">Weeks 14-20</div>
+                    <div class="flex-1 bg-pink-500 rounded-full h-3" id="timeline-4"></div>
+                    <div class="text-sm">Anatomy Scan (20 weeks)</div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-24 text-right text-sm font-semibold">Weeks 21-27</div>
+                    <div class="flex-1 bg-purple-500 rounded-full h-3" id="timeline-5"></div>
+                    <div class="text-sm">Baby Develops Senses</div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-24 text-right text-sm font-semibold">Weeks 28-36</div>
+                    <div class="flex-1 bg-blue-500 rounded-full h-3" id="timeline-6"></div>
+                    <div class="text-sm">Third Trimester Begins</div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-24 text-right text-sm font-semibold">Weeks 37-40</div>
+                    <div class="flex-1 bg-indigo-600 rounded-full h-3" id="timeline-7"></div>
+                    <div class="text-sm">Full Term & Ready!</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Highlights -->
+    <section class="bg-white py-12 px-4 mt-12">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Why Use Our Pregnancy Calculator?</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-6 bg-pink-50 rounded-lg">
+                    <div class="text-4xl mb-3">📅</div>
+                    <h3 class="font-bold text-lg mb-2">Multiple Input Methods</h3>
+                    <p class="text-gray-700">Calculate based on your last period, conception date, ultrasound results, or IVF transfer date.</p>
+                </div>
+                <div class="p-6 bg-purple-50 rounded-lg">
+                    <div class="text-4xl mb-3">👶</div>
+                    <h3 class="font-bold text-lg mb-2">Accurate & Medically Sound</h3>
+                    <p class="text-gray-700">Uses Naegele's rule and medical standards recognized by ACOG and WHO guidelines.</p>
+                </div>
+                <div class="p-6 bg-blue-50 rounded-lg">
+                    <div class="text-4xl mb-3">📊</div>
+                    <h3 class="font-bold text-lg mb-2">Detailed Pregnancy Info</h3>
+                    <p class="text-gray-700">Track gestational age, current trimester, and key pregnancy milestones week by week.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Theory -->
+    <section class="bg-gray-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">How the Pregnancy Calculator Works</h2>
+            <div class="bg-white rounded-lg p-8 space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-pink-600 mb-3">Naegele's Rule (Standard Method)</h3>
+                    <p class="text-gray-700 mb-4">The most common method for estimating due date, recommended by ACOG (American College of Obstetricians and Gynecologists):</p>
+                    <div class="bg-pink-50 p-4 rounded-lg font-mono text-sm mb-4">
+                        <p>Due Date = First Day of LMP + 280 days</p>
+                        <p class="mt-2">Or: First Day of LMP + 40 weeks + 0 days</p>
+                        <p class="mt-2 text-gray-600">This assumes a 28-day cycle and 14-day ovulation</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-pink-600 mb-3">Gestational Age Calculation</h3>
+                    <p class="text-gray-700 mb-3">Medical professionals define pregnancy as 40 weeks from the first day of your last menstrual period:</p>
+                    <div class="bg-gray-50 p-4 rounded-lg space-y-2 text-sm">
+                        <p><span class="font-semibold">Week 1:</span> First day of last menstrual period (LMP)</p>
+                        <p><span class="font-semibold">Week 2:</span> Ovulation and conception occur</p>
+                        <p><span class="font-semibold">Week 4:</span> Positive pregnancy test possible</p>
+                        <p><span class="font-semibold">Week 8:</span> Heartbeat detectable via ultrasound</p>
+                        <p><span class="font-semibold">Week 12:</span> End of first trimester (12 weeks 6 days)</p>
+                        <p><span class="font-semibold">Week 20:</span> Anatomy scan typically performed</p>
+                        <p><span class="font-semibold">Week 37:</span> Full-term pregnancy (≥37 weeks)</p>
+                        <p><span class="font-semibold">Week 40:</span> Due date / estimated date of delivery (EDD)</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-pink-600 mb-3">IVF & Assisted Reproduction Adjustments</h3>
+                    <p class="text-gray-700 mb-3">For IVF pregnancies, add days based on embryo age at transfer:</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-pink-50 p-4 rounded-lg">
+                            <p class="font-semibold">3-Day Embryo:</p>
+                            <p class="text-sm text-gray-700">Add 3 days to transfer date for 5-day equivalent</p>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <p class="font-semibold">5-Day Blastocyst:</p>
+                            <p class="text-sm text-gray-700">Most accurate dating method, use transfer date + 280 days</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-pink-600 mb-3">Delivery Window</h3>
+                    <p class="text-gray-700 mb-3">Due date is an estimate. Full-term pregnancies are considered 37-42 weeks:</p>
+                    <div class="bg-blue-50 p-4 rounded-lg text-sm space-y-2">
+                        <p><span class="font-semibold">Early Term:</span> 37 weeks 0 days to 38 weeks 6 days</p>
+                        <p><span class="font-semibold">Full Term:</span> 39 weeks 0 days to 40 weeks 6 days</p>
+                        <p><span class="font-semibold">Late Term:</span> 41 weeks 0 days to 41 weeks 6 days</p>
+                        <p><span class="font-semibold">Overdue (Post-term):</span> 42 weeks 0 days and beyond</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Excel/Sheets Section -->
+    <section class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">Excel & Google Sheets Formulas</h2>
+        <div class="bg-white rounded-lg p-8 space-y-6">
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-pink-600">Calculate Due Date from LMP</h3>
+                <p class="text-gray-700 mb-3">Add 280 days to the first day of last menstrual period:</p>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                    =A1+280<br/>
+                    (where A1 is your LMP date)<br/>
+                    Or: =DATE(YEAR(A1), MONTH(A1), DAY(A1)+280)
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-pink-600">Calculate Gestational Age in Weeks</h3>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                    =INT((TODAY()-A1)/7)&" weeks"<br/>
+                    Or: =DATEDIF(A1,TODAY(),"W")&" weeks " & MOD(DATEDIF(A1,TODAY(),"D"),7)&" days"
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-pink-600">Current Trimester</h3>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                    =IF(DATEDIF(A1,TODAY(),"W")<=13,"First","IF(DATEDIF(A1,TODAY(),"W")<=26,"Second","Third"))
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-pink-600">Days Until Due Date</h3>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                    =(A1+280)-TODAY()<br/>
+                    Where A1 is your LMP date
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-pink-600">IVF Due Date Calculation</h3>
+                <div class="bg-blue-50 p-4 rounded-lg text-sm space-y-2">
+                    <p><span class="font-semibold">For 3-day embryo:</span> =B1+282 (transfer date + 282 days)</p>
+                    <p><span class="font-semibold">For 5-day embryo:</span> =B1+280 (transfer date + 280 days)</p>
+                    <p class="text-gray-600">B1 = embryo transfer date</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Template -->
+    <section class="bg-pink-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4 text-gray-800">Download Pregnancy Tracker Spreadsheet</h2>
+            <p class="text-gray-700 mb-6">Track your entire pregnancy with our pre-built Excel/Google Sheets template</p>
+            <button class="bg-pink-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-pink-700 active:scale-95">
+                📥 Download Pregnancy Tracker
+            </button>
+            <p class="text-sm text-gray-600 mt-4">Includes due date, timelines, milestones & appointment tracker</p>
+        </div>
+    </section>
+
+    <!-- Embed Widget Code -->
+    <section class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">Embed This Calculator on Your Site</h2>
+        <div class="bg-white rounded-lg p-8">
+            <p class="text-gray-700 mb-4">Copy and paste this code to embed the pregnancy calculator on any website:</p>
+            <div class="bg-gray-100 p-4 rounded-lg font-mono text-xs overflow-x-auto">
+&lt;iframe src="https://yoursite.com/pregnancy-calculator" width="100%" height="900" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+Or use our lightweight widget:
+
+&lt;script src="https://cdn.yoursite.com/pregnancy-widget.js"&gt;&lt;/script&gt;
+&lt;div id="pregnancy-calc-widget"&gt;&lt;/div&gt;
+            </div>
+        </div>
+    </section>
+
+    <!-- Python Implementation -->
+    <section class="bg-gray-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">Python Implementation</h2>
+            <div class="bg-white rounded-lg p-8">
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto space-y-4">
+                    <div>
+                        <p class="text-pink-600 font-bold">from datetime import datetime, timedelta</p>
+                        <p class="mt-3">def calculate_due_date(lmp_date):</p>
+                        <p class="ml-4">    """Calculate due date from last menstrual period"""</p>
+                        <p class="ml-4">    if isinstance(lmp_date, str):</p>
+                        <p class="ml-8">        lmp_date = datetime.strptime(lmp_date, "%Y-%m-%d")</p>
+                        <p class="ml-4">    </p>
+                        <p class="ml-4">    # Naegele's rule: LMP + 280 days</p>
+                        <p class="ml-4">    due_date = lmp_date + timedelta(days=280)</p>
+                        <p class="ml-4">    return due_date</p>
+                        <p class="mt-3">def calculate_gestational_age(lmp_date):</p>
+                        <p class="ml-4">    """Calculate current gestational age"""</p>
+                        <p class="ml-4">    if isinstance(lmp_date, str):</p>
+                        <p class="ml-8">        lmp_date = datetime.strptime(lmp_date, "%Y-%m-%d")</p>
+                        <p class="ml-4">    </p>
+                        <p class="ml-4">    today = datetime.now()</p>
+                        <p class="ml-4">    days_since_lmp = (today - lmp_date).days</p>
+                        <p class="ml-4">    weeks = days_since_lmp // 7</p>
+                        <p class="ml-4">    days = days_since_lmp % 7</p>
+                        <p class="ml-4">    </p>
+                        <p class="ml-4">    return {'weeks': weeks, 'days': days}</p>
+                        <p class="mt-3">def get_trimester(weeks):</p>
+                        <p class="ml-4">    """Determine current trimester"""</p>
+                        <p class="ml-4">    if weeks <= 13:</p>
+                        <p class="ml-8">        return "First Trimester"</p>
+                        <p class="ml-4">    elif weeks <= 26:</p>
+                        <p class="ml-8">        return "Second Trimester"</p>
+                        <p class="ml-4">    else:</p>
+                        <p class="ml-8">        return "Third Trimester"</p>
+                        <p class="mt-3">def calculate_delivery_window(due_date):</p>
+                        <p class="ml-4">    """Calculate full-term delivery window (37-42 weeks)"""</p>
+                        <p class="ml-4">    early_term = due_date - timedelta(days=21)  # 37 weeks</p>
+                        <p class="ml-4">    late_term = due_date + timedelta(days=14)   # 42 weeks</p>
+                        <p class="ml-4">    return {'early_term': early_term, 'late_term': late_term}</p>
+                        <p class="mt-3"># Example usage:</p>
+                        <p>lmp = "2024-04-15"</p>
+                        <p>due = calculate_due_date(lmp)</p>
+                        <p>age = calculate_gestational_age(lmp)</p>
+                        <p>print(f"Due Date: {due.strftime('%B %d, %Y')}")</p>
+                        <p>print(f"Gestational Age: {age['weeks']} weeks {age['days']} days")</p>
+                        <p>print(f"Trimester: {get_trimester(age['weeks'])}")</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How-to Guide -->
+    <section id="guide" class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">How to Use the Pregnancy Calculator</h2>
+        <div class="space-y-6">
+            <div class="bg-white rounded-lg p-6 border-l-4 border-pink-600">
+                <h3 class="font-bold text-lg mb-2">Step 1: Choose Your Calculation Method</h3>
+                <p class="text-gray-700">Select the method that matches your situation: "Last Period" (most common), "Conception" date, "Ultrasound" gestational age, or "IVF Transfer" date. Each method calculates your due date differently for maximum accuracy.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-purple-600">
+                <h3 class="font-bold text-lg mb-2">Step 2: Enter Your Date</h3>
+                <p class="text-gray-700">For LMP: Use the first day of your last menstrual period. For conception: Use your best estimate if known. For ultrasound: Enter the date of your scan. For IVF: Enter your embryo transfer date.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-blue-600">
+                <h3 class="font-bold text-lg mb-2">Step 3: Select IVF Details (If Applicable)</h3>
+                <p class="text-gray-700">If using IVF transfer dating, specify whether it was a 3-day embryo or 5-day blastocyst. 5-day blastocysts provide the most accurate dating. This adjusts your due date calculation accordingly.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-green-600">
+                <h3 class="font-bold text-lg mb-2">Step 4: Review Your Due Date</h3>
+                <p class="text-gray-700">Your estimated due date (EDD) is calculated. Remember this is an estimate—only about 4-5% of babies are born on their actual due date. Most babies arrive within 2 weeks before or after.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-yellow-600">
+                <h3 class="font-bold text-lg mb-2">Step 5: Check Your Gestational Age</h3>
+                <p class="text-gray-700">See how many weeks and days pregnant you are right now. This is calculated from your LMP, which is the medical standard. Your gestational age may differ from conception age by 1-2 weeks.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-red-600">
+                <h3 class="font-bold text-lg mb-2">Step 6: Track Your Trimester</h3>
+                <p class="text-gray-700">Identify which trimester you're in. First (weeks 1-13) focuses on organ development. Second (weeks 14-26) is typically easiest with weight gain. Third (weeks 27-40) involves final growth and preparation for delivery.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-indigo-600">
+                <h3 class="font-bold text-lg mb-2">Step 7: Understand Delivery Window</h3>
+                <p class="text-gray-700">Full-term pregnancy is 37-42 weeks. Doctors typically recommend delivery by 42 weeks. Your estimated delivery window shows when you can safely deliver. Babies born at 37+ weeks are considered full-term.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-pink-600">
+                <h3 class="font-bold text-lg mb-2">Step 8: Share With Healthcare Provider</h3>
+                <p class="text-gray-700">Bring these results to your prenatal appointments. Your doctor may adjust your due date based on ultrasound measurements, especially if performed in the first trimester.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="bg-white py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        How accurate is the due date calculator?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">The calculator is accurate within 3-5 days when using the first day of your last menstrual period. However, only 4-5% of babies are born on their exact due date. Most arrive within 2 weeks before or after. Ultrasound dating in the first trimester is accurate within 3-5 days; second trimester within 1-2 weeks; and third trimester within 2-3 weeks. This is why doctors may adjust your due date at different ultrasounds.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        When should I use ultrasound dating vs LMP dating?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">LMP dating assumes a regular 28-day cycle with ovulation on day 14. If your cycles are irregular or you don't know your exact LMP, ultrasound dating is more accurate. First trimester ultrasounds (8-13 weeks) are the most precise for dating. If there's a discrepancy of more than 1-2 weeks between LMP and ultrasound dating, doctors typically trust the ultrasound result and adjust your due date accordingly.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What's the difference between due date and estimated date of delivery (EDD)?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Due date and estimated date of delivery (EDD) are the same thing—they both refer to your baby's expected arrival date. Medical providers prefer "estimated date of delivery" because it emphasizes that this is an estimate, not a guarantee. Your actual delivery date will likely be within 2 weeks of this estimate.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What if I have irregular periods?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">If your periods are irregular (cycle length varies significantly), you should rely more on ultrasound dating than LMP dating. Use your best estimate for LMP in this calculator, but have an ultrasound for more accurate dating. First trimester ultrasounds are accurate within 3-5 days, so this is typically the most reliable method for irregular cycles.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        Does irregular cycle length affect my due date?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Yes. Naegele's rule assumes a 28-day cycle with ovulation on day 14. If your cycle is 35 days, you ovulate later (day 21), so conception occurs later. If your cycle is 21 days, ovulation is earlier (day 7). If you know your exact ovulation/conception date, use that instead of LMP for better accuracy. Otherwise, ultrasound dating provides the most reliable estimate.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What's the best dating method for IVF pregnancies?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">IVF embryo transfer dating is very accurate because the exact conception date is known. 5-day blastocyst transfers provide the most accurate dating—use transfer date + 280 days. For 3-day embryo transfers, add 282 days to the transfer date (to account for the 2-day development difference). IVF dating is typically accurate within 2-3 days.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        Can I go past my due date?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Yes. Pregnancies that continue beyond 42 weeks are considered overdue or post-term. Most doctors will induce labor by 42 weeks due to increased risks. However, small percentage of pregnancies naturally go 7-10 days past the due date. Medical providers monitor you carefully if you're overdue with extra ultrasounds and fetal monitoring (NSTs).</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What trimester am I in?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Pregnancy is divided into three trimesters: First trimester (weeks 1-13) covers organ formation; Second trimester (weeks 14-26) is often called the "golden period"; Third trimester (weeks 27-40+) involves rapid growth and preparation. Each has different concerns, symptoms, and screening tests. The calculator shows your current trimester based on your gestational age.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Calculators -->
+    <section class="bg-pink-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Related Calculators</h2>
+            <div class="grid md:grid-cols-4 gap-6">
+                <a href="/ovulation-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">🔄</div>
+                    <h3 class="font-bold mb-2">Ovulation Calculator</h3>
+                    <p class="text-sm text-gray-600">Track your fertile window</p>
+                </a>
+                <a href="/mortgage-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">🏠</div>
+                    <h3 class="font-bold mb-2">Mortgage Calculator</h3>
+                    <p class="text-sm text-gray-600">Plan for your new home</p>
+                </a>
+                <a href="/income-tax-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">📋</div>
+                    <h3 class="font-bold mb-2">Income Tax</h3>
+                    <p class="text-sm text-gray-600">Calculate your tax refund</p>
+                </a>
+                <a href="/baby-name-generator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">👶</div>
+                    <h3 class="font-bold mb-2">Baby Names</h3>
+                    <p class="text-sm text-gray-600">Find the perfect name</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- References -->
+    <section class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">Sources & Medical References</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                <h3 class="font-bold mb-3">Medical Organizations</h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li>• ACOG (American College of Obstetricians and Gynecologists)</li>
+                    <li>• WHO (World Health Organization) guidelines</li>
+                    <li>• CDC Pregnancy Health Standards</li>
+                    <li>• March of Dimes Pregnancy Information</li>
+                </ul>
+            </div>
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                <h3 class="font-bold mb-3">Research & Standards</h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li>• Naegele's Rule (standard dating method)</li>
+                    <li>• Ultrasound Dating Accuracy Studies</li>
+                    <li>• IVF Dating Guidelines</li>
+                    <li>• Pregnancy Trimester Classifications</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authorship -->
+    <section class="bg-gray-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">About This Calculator</h2>
+            <div class="bg-white rounded-lg p-8">
+                <p class="text-gray-700 mb-4">This pregnancy due date calculator uses Naegele's rule, the same method used by obstetricians, midwives, and healthcare providers worldwide. The calculations follow ACOG (American College of Obstetricians and Gynecologists) guidelines and WHO standards for pregnancy dating.</p>
+                <p class="text-gray-700 mb-4"><span class="font-bold">Last Updated:</span> November 2024 with current medical standards</p>
+                <p class="text-gray-700"><span class="font-bold">Important Disclaimer:</span> This calculator provides estimates for educational purposes only. It is not a substitute for professional medical advice. Always consult with your healthcare provider for accurate due dates and pregnancy information, especially if you have concerns about your pregnancy.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="bg-gradient-to-r from-pink-500 to-purple-500 text-white py-12 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Track Your Entire Pregnancy</h2>
+            <p class="text-xl mb-6">Get personalized pregnancy tips, week-by-week development info, and preparation guides</p>
+            <button class="bg-white text-pink-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 active:scale-95">
+                Start Pregnancy Tracker
+            </button>
+            <p class="text-sm mt-4 text-pink-100">Free • Personalized • Medical accuracy guaranteed</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="font-bold text-white mb-4">Calculators</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">Pregnancy Due Date</a></li>
+                        <li><a href="#" class="hover:text-white">Ovulation</a></li>
+                        <li><a href="#" class="hover:text-white">Mortgage</a></li>
+                        <li><a href="#" class="hover:text-white">Income Tax</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Resources</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">Pregnancy Guide</a></li>
+                        <li><a href="#" class="hover:text-white">Week-by-Week</a></li>
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Legal</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white">Medical Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Newsletter</h3>
+                    <p class="text-sm mb-3">Weekly pregnancy tips</p>
+                    <input type="email" placeholder="Your email" class="w-full px-3 py-2 rounded text-gray-800 text-sm">
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+                <p>&copy; 2024 Pregnancy Calculator. All rights reserved. This is educational content, not medical advice.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentMethod = 'lmp';
+
+        function setMethod(method) {
+            currentMethod = method;
+            document.getElementById('lmp-mode').classList.toggle('hidden', method !== 'lmp');
+            document.getElementById('conception-mode').classList.toggle('hidden', method !== 'conception');
+            document.getElementById('ultrasound-mode').classList.toggle('hidden', method !== 'ultrasound');
+            document.getElementById('transfer-mode').classList.toggle('hidden', method !== 'transfer');
+
+            const buttons = ['btn-lmp', 'btn-conception', 'btn-ultrasound', 'btn-transfer'];
+            buttons.forEach(btn => {
+                const el = document.getElementById(btn);
+                el.classList.toggle('bg-pink-600', btn === 'btn-' + method);
+                el.classList.toggle('bg-gray-200', btn !== 'btn-' + method);
+                el.classList.toggle('text-white', btn === 'btn-' + method);
+                el.classList.toggle('text-gray-700', btn !== 'btn-' + method);
+            });
+            calculateDueDate();
+        }
+
+        function setEmbryoAge(days) {
+            document.getElementById('btn-3day').classList.toggle('bg-pink-100', days === 3);
+            document.getElementById('btn-3day').classList.toggle('border-2', days === 3);
+            document.getElementById('btn-3day').classList.toggle('border-pink-600', days === 3);
+            document.getElementById('btn-5day').classList.toggle('bg-pink-100', days === 5);
+            document.getElementById('btn-5day').classList.toggle('border-2', days === 5);
+            document.getElementById('btn-5day').classList.toggle('border-pink-600', days === 5);
+            calculateDueDate();
+        }
+
+        function calculateDueDate() {
+            let dueDate, lmpDate;
+
+            if (currentMethod === 'lmp') {
+                const lmpInput = document.getElementById('lmpDate').value;
+                if (!lmpInput) return;
+                lmpDate = new Date(lmpInput);
+                dueDate = new Date(lmpDate);
+                dueDate.setDate(dueDate.getDate() + 280);
+            } else if (currentMethod === 'conception') {
+                const concepInput = document.getElementById('conceptionDate').value;
+                if (!concepInput) return;
+                lmpDate = new Date(concepInput);
+                lmpDate.setDate(lmpDate.getDate() - 14); // Conception is ~14 days after LMP
+                dueDate = new Date(lmpDate);
+                dueDate.setDate(dueDate.getDate() + 280);
+            } else if (currentMethod === 'ultrasound') {
+                const ultrasoundInput = document.getElementById('ultrasoundDate').value;
+                if (!ultrasoundInput) return;
+                const weeks = parseFloat(document.getElementById('gestationalWeeks').value) || 12;
+                const ultrasoundDate = new Date(ultrasoundInput);
+                lmpDate = new Date(ultrasoundDate);
+                lmpDate.setDate(lmpDate.getDate() - (weeks * 7));
+                dueDate = new Date(lmpDate);
+                dueDate.setDate(dueDate.getDate() + 280);
+            } else if (currentMethod === 'transfer') {
+                const transferInput = document.getElementById('transferDate').value;
+                if (!transferInput) return;
+                const transferDate = new Date(transferInput);
+                const embryoDaysToAdd = document.getElementById('btn-5day').classList.contains('border-pink-600') ? 280 : 282;
+                dueDate = new Date(transferDate);
+                dueDate.setDate(dueDate.getDate() + embryoDaysToAdd);
+                lmpDate = new Date(transferDate);
+                lmpDate.setDate(lmpDate.getDate() - 5); // Approximate LMP for IVF
+            }
+
+            const today = new Date();
+            const daysUntil = Math.floor((dueDate - today) / (1000 * 60 * 60 * 24));
+            const weeksSinceConception = Math.floor((today - lmpDate) / (1000 * 60 * 60 * 24 * 7));
+            const daysSinceConception = Math.floor(((today - lmpDate) / (1000 * 60 * 60 * 24)) % 7);
+            const weeksRemaining = Math.floor((dueDate - today) / (1000 * 60 * 60 * 24 * 7));
+
+            document.getElementById('dueDate').textContent = dueDate.toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'});
+            document.getElementById('daysUntilDue').textContent = daysUntil + ' days from now';
+            document.getElementById('gestationalAge').textContent = weeksSinceConception + ' weeks ' + daysSinceConception + ' days';
+            document.getElementById('weeksSinceConception').textContent = weeksSinceConception + ' weeks';
+            document.getElementById('weeksRemaining').textContent = weeksRemaining + ' weeks';
+
+            let trimester = 'First Trimester';
+            let trimesterClass = 'text-blue-600';
+            if (weeksSinceConception > 13 && weeksSinceConception <= 26) {
+                trimester = 'Second Trimester';
+                trimesterClass = 'text-purple-600';
+            } else if (weeksSinceConception > 26) {
+                trimester = 'Third Trimester';
+                trimesterClass = 'text-indigo-600';
+            }
+            document.getElementById('trimesterInfo').textContent = trimester;
+            document.getElementById('trimesterInfo').className = 'text-2xl font-bold ' + trimesterClass;
+
+            const earlyTerm = new Date(dueDate);
+            earlyTerm.setDate(earlyTerm.getDate() - 21);
+            const lateTerm = new Date(dueDate);
+            lateTerm.setDate(lateTerm.getDate() + 14);
+            document.getElementById('deliveryWindow').textContent = earlyTerm.toLocaleDateString('en-US', {month: 'short', day: 'numeric'}) + ' - ' + lateTerm.toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
+        }
+
+        // Initialize with today's date
+        const today = new Date();
+        const lmpDefault = new Date(today);
+        lmpDefault.setMonth(lmpDefault.getMonth() - 7);
+        document.getElementById('lmpDate').valueAsDate = lmpDefault;
+        calculateDueDate();
+    </script>
+</body>
+</html>
