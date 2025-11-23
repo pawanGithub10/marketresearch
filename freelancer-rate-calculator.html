@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer Rate Calculator | Calculate Your Hourly & Project Rates</title>
+    <meta name="description" content="Free freelancer rate calculator. Calculate competitive hourly rates, project-based pricing, and annual income. Compare to market rates by profession and experience.">
+    <meta name="keywords" content="freelancer rate calculator, hourly rate calculator, freelance pricing, project rate calculator, freelance income calculator">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Calculator",
+        "name": "Freelancer Rate Calculator",
+        "description": "Calculate competitive freelance hourly rates, project pricing, and annual income",
+        "url": "https://yoursite.com/freelancer-rate-calculator"
+    }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-green-50 to-teal-50">
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-green-600">Freelancer Calc</div>
+            <div class="hidden md:flex gap-8">
+                <a href="#calculator" class="text-gray-700 hover:text-green-600">Calculator</a>
+                <a href="#guide" class="text-gray-700 hover:text-green-600">Guide</a>
+                <a href="#faq" class="text-gray-700 hover:text-green-600">FAQ</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="bg-gradient-to-r from-green-600 to-teal-600 text-white py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Freelancer Rate Calculator</h1>
+            <p class="text-xl text-green-100 mb-4">Calculate competitive hourly rates, project pricing, and annual income based on your skills and experience</p>
+            <div class="flex gap-4 flex-wrap">
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">Market rate data</p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">25+ professions</p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">Pricing strategies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator" class="max-w-6xl mx-auto px-4 py-12">
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Calculator</h2>
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Profession</label>
+                        <select id="profession" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" onchange="calculateRate()">
+                            <option value="web-developer">Web Developer</option>
+                            <option value="graphic-designer">Graphic Designer</option>
+                            <option value="writer-content">Content Writer/Copywriter</option>
+                            <option value="virtual-assistant">Virtual Assistant</option>
+                            <option value="social-media">Social Media Manager</option>
+                            <option value="video-editor">Video Editor</option>
+                            <option value="data-analyst">Data Analyst</option>
+                            <option value="accountant">Accountant/Bookkeeper</option>
+                            <option value="translator">Translator</option>
+                            <option value="seo-specialist">SEO Specialist</option>
+                            <option value="digital-marketer">Digital Marketer</option>
+                            <option value="photographer">Photographer</option>
+                            <option value="consultant">Business Consultant</option>
+                            <option value="developer-mobile">Mobile App Developer</option>
+                            <option value="ux-designer">UX/UI Designer</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Years of Experience</label>
+                        <div class="grid grid-cols-4 gap-2 mb-3">
+                            <button onclick="setExperience(1)" class="py-2 text-sm bg-gray-100 rounded-lg hover:bg-gray-200">1</button>
+                            <button onclick="setExperience(3)" class="py-2 text-sm bg-gray-100 rounded-lg hover:bg-gray-200">3</button>
+                            <button onclick="setExperience(5)" class="py-2 text-sm bg-green-100 rounded-lg border-2 border-green-600 font-semibold">5</button>
+                            <button onclick="setExperience(10)" class="py-2 text-sm bg-gray-100 rounded-lg hover:bg-gray-200">10+</button>
+                        </div>
+                        <input type="number" id="experience" value="5" min="0" max="50" step="1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" onchange="calculateRate()">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Specialization Level</label>
+                        <select id="specialization" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" onchange="calculateRate()">
+                            <option value="general">General Skills (can do multiple things)</option>
+                            <option value="focused">Focused Skills (specialize in specific area)</option>
+                            <option value="niche">Niche Expertise (highly specialized)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Billable Hours Per Week</label>
+                        <input type="number" id="billableHours" value="30" min="5" max="50" step="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" onchange="calculateRate()">
+                        <p class="text-xs text-gray-500 mt-1">Exclude admin, marketing, time off (typical: 25-35 hours)</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Target Annual Income</label>
+                        <input type="number" id="targetIncome" value="75000" min="30000" max="500000" step="5000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" onchange="calculateRate()">
+                        <p class="text-xs text-gray-500 mt-1">What you want to earn per year</p>
+                    </div>
+
+                    <button onclick="calculateRate()" class="w-full bg-green-600 text-white py-3 rounded-lg font-bold text-lg hover:bg-green-700 active:scale-95">Calculate Your Rate</button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Your Rate</h2>
+
+                <div class="space-y-4">
+                    <div class="bg-green-50 rounded-lg p-4 border-l-4 border-green-600">
+                        <p class="text-gray-600 text-sm">Recommended Hourly Rate</p>
+                        <p id="recommendedRate" class="text-4xl font-bold text-green-600">$65</p>
+                        <p class="text-xs text-gray-500 mt-1">Based on market data + experience</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <p class="text-gray-600 text-sm">Market Range</p>
+                            <p id="marketRange" class="text-lg font-bold text-gray-800">$50-$80</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <p class="text-gray-600 text-sm">Annual at Full Utilization</p>
+                            <p id="annualAtRate" class="text-lg font-bold text-gray-800">$101,400</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-teal-50 rounded-lg p-4 border-l-4 border-teal-600">
+                        <p class="text-gray-600 text-sm">Your Target Annual Income</p>
+                        <p id="requiredRate" class="text-2xl font-bold text-teal-600">$62/hour</p>
+                        <p class="text-xs text-gray-500 mt-1">Needed to hit your goal</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <p class="text-gray-600">Daily Rate</p>
+                            <p id="dailyRate" class="font-bold text-gray-800">$520</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <p class="text-gray-600">Project Average (1 week)</p>
+                            <p id="projectRate" class="font-bold text-gray-800">$2,600</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 mt-8">
+            <h3 class="text-xl font-bold mb-4 text-gray-800">Income at Different Utilization Rates</h3>
+            <div class="space-y-3">
+                <div class="flex items-center gap-4">
+                    <p class="w-32 text-sm font-semibold">50% Utilization</p>
+                    <div class="flex-1 bg-gray-200 rounded-full h-3">
+                        <div id="util50" class="bg-green-500 h-3 rounded-full" style="width: 50%"></div>
+                    </div>
+                    <p id="income50" class="text-sm font-bold w-24">$50,700</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <p class="w-32 text-sm font-semibold">70% Utilization</p>
+                    <div class="flex-1 bg-gray-200 rounded-full h-3">
+                        <div id="util70" class="bg-green-600 h-3 rounded-full" style="width: 70%"></div>
+                    </div>
+                    <p id="income70" class="text-sm font-bold w-24">$70,980</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <p class="w-32 text-sm font-semibold">85% Utilization</p>
+                    <div class="flex-1 bg-gray-200 rounded-full h-3">
+                        <div id="util85" class="bg-green-700 h-3 rounded-full" style="width: 85%"></div>
+                    </div>
+                    <p id="income85" class="text-sm font-bold w-24">$86,190</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <p class="w-32 text-sm font-semibold">100% Utilization</p>
+                    <div class="flex-1 bg-gray-200 rounded-full h-3">
+                        <div id="util100" class="bg-green-800 h-3 rounded-full" style="width: 100%"></div>
+                    </div>
+                    <p id="income100" class="text-sm font-bold w-24">$101,400</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white py-12 px-4 mt-12">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Why Proper Pricing Matters</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-6 bg-green-50 rounded-lg">
+                    <div class="text-4xl mb-3">💰</div>
+                    <h3 class="font-bold text-lg mb-2">Avoid Underpricing</h3>
+                    <p class="text-gray-700">Underpricing attracts low-quality clients and eliminates profitability. Proper rates attract serious clients.</p>
+                </div>
+                <div class="p-6 bg-teal-50 rounded-lg">
+                    <div class="text-4xl mb-3">⚡</div>
+                    <h3 class="font-bold text-lg mb-2">Sustainable Income</h3>
+                    <p class="text-gray-700">Market-based rates ensure you can sustain your business, cover taxes, and save for retirement.</p>
+                </div>
+                <div class="p-6 bg-green-100 rounded-lg">
+                    <div class="text-4xl mb-3">📈</div>
+                    <h3 class="font-bold text-lg mb-2">Business Growth</h3>
+                    <p class="text-gray-700">Proper pricing funds marketing, training, and tools that help you grow your business.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">How Freelancer Rates Work</h2>
+            <div class="bg-white rounded-lg p-8 space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-green-600 mb-3">What: Hourly vs Project-Based Pricing</h3>
+                    <p class="text-gray-700 mb-4">Two primary pricing models:</p>
+                    <div class="bg-green-50 p-4 rounded-lg space-y-3">
+                        <div>
+                            <p class="font-semibold">Hourly Rate: $X/hour</p>
+                            <p class="text-sm text-gray-700">Bill for actual time spent. Requires time tracking. Best for ongoing work, unclear scope.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Project Rate: $X total</p>
+                            <p class="text-sm text-gray-700">Fixed fee for complete project. Benefits: Clients know cost, you control efficiency. Better for experienced freelancers.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Retainer: $X/month</p>
+                            <p class="text-sm text-gray-700">Monthly fee for ongoing availability. Most profitable. 10-15 hours/month typical. Builds client relationships.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-green-600 mb-3">Why: Market Rates by Experience</h3>
+                    <p class="text-gray-700 mb-3">Rates scale dramatically with experience:</p>
+                    <div class="bg-teal-50 p-4 rounded-lg space-y-2 text-sm">
+                        <p><span class="font-semibold">Beginner (0-2 years):</span> $20-40/hour - Building portfolio, competing on price</p>
+                        <p><span class="font-semibold">Intermediate (3-5 years):</span> $50-80/hour - Solid skills, proven results, specialization</p>
+                        <p><span class="font-semibold">Advanced (6-10 years):</span> $100-150/hour - Expert level, niche expertise, high-value clients</p>
+                        <p><span class="font-semibold">Expert (10+ years):</span> $150-300+/hour - Industry leaders, thought leaders, retainer-based</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-green-600 mb-3">How: Calculating Your Rate</h3>
+                    <p class="text-gray-700 mb-3">Formula: Target Income ÷ Billable Hours/Year</p>
+                    <div class="bg-green-50 p-4 rounded-lg font-mono text-sm space-y-2 overflow-x-auto">
+                        <p>Target Annual Income: $75,000</p>
+                        <p>Billable Hours/Week: 30 hours</p>
+                        <p>Work Weeks/Year: 50 (2 weeks vacation)</p>
+                        <p>Total Billable Hours: 30 × 50 = 1,500 hours</p>
+                        <p>Hourly Rate: $75,000 ÷ 1,500 = $50/hour</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-green-600 mb-3">Global Context: Freelancer Market</h3>
+                    <p class="text-gray-700 mb-3">59M+ freelancers in US; rates vary globally:</p>
+                    <div class="bg-yellow-50 p-4 rounded-lg space-y-2 text-sm">
+                        <p><span class="font-semibold">USA/Canada:</span> $50-150/hour typical (high cost of living)</p>
+                        <p><span class="font-semibold">Europe:</span> $40-120/hour (varies by country)</p>
+                        <p><span class="font-semibold">India/Philippines:</span> $5-30/hour (lower living costs)</p>
+                        <p><span class="font-semibold">Platform competition:</span> Upwork, Fiverr, local rates pressure downward</p>
+                        <p><span class="font-semibold">Specialization premium:</span> Niche skills command 2-3x higher rates</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">Pricing Strategy Guide</h2>
+        <div class="bg-white rounded-lg p-8 space-y-6">
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-green-600">Start with Market Research</h3>
+                <div class="bg-gray-100 p-4 rounded-lg text-sm space-y-2">
+                    <p>• Check Glassdoor for employee salaries in your field</p>
+                    <p>• Review Upwork, Fiverr, Toptal for freelancer rates</p>
+                    <p>• Ask peers what they charge (confidentially)</p>
+                    <p>• Subscribe to industry reports ($50-200/report)</p>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-green-600">Hourly Rate Progression</h3>
+                <div class="bg-green-50 p-4 rounded-lg text-sm space-y-2">
+                    <p><span class="font-semibold">Year 1:</span> Start 20% below market to build portfolio</p>
+                    <p><span class="font-semibold">Year 2:</span> Match market rate as portfolio strengthens</p>
+                    <p><span class="font-semibold">Year 3-5:</span> Move toward top of range with specialization</p>
+                    <p><span class="font-semibold">Year 5+:</span> Premium rates, retainer-heavy business model</p>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-green-600">Project-Based Formula</h3>
+                <div class="bg-teal-50 p-4 rounded-lg text-sm space-y-2">
+                    <p>Step 1: Estimate hours needed (realistic, with buffer)</p>
+                    <p>Step 2: Multiply by hourly rate + 20-30% profit margin</p>
+                    <p>Step 3: Check against client budget expectations</p>
+                    <p>Example: 40 hours × $65/hour × 1.25 = $3,250 project fee</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="guide" class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">How to Use This Calculator</h2>
+        <div class="space-y-6">
+            <div class="bg-white rounded-lg p-6 border-l-4 border-green-600">
+                <h3 class="font-bold text-lg mb-2">Step 1: Select Your Profession</h3>
+                <p class="text-gray-700">Choose the closest match to your main services. If multiple skills, choose primary focus. Different roles have different market rates.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-teal-600">
+                <h3 class="font-bold text-lg mb-2">Step 2: Enter Your Experience</h3>
+                <p class="text-gray-700">Years of professional experience in your field. This is the biggest rate multiplier. 5 years typical means solid intermediate freelancer.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-green-400">
+                <h3 class="font-bold text-lg mb-2">Step 3: Choose Specialization Level</h3>
+                <p class="text-gray-700">General = multiple skills, competing on price. Niche = highly specialized expert, can command premium rates (2-3x higher).</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-teal-400">
+                <h3 class="font-bold text-lg mb-2">Step 4: Set Billable Hours</h3>
+                <p class="text-gray-700">Hours available for client work per week. Exclude admin, marketing, meetings. Most freelancers: 20-35 billable hours weekly.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-green-600">
+                <h3 class="font-bold text-lg mb-2">Step 5: Enter Target Annual Income</h3>
+                <p class="text-gray-700">What you want to earn yearly. This determines required hourly rate. Be realistic with living costs + taxes.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-teal-600">
+                <h3 class="font-bold text-lg mb-2">Step 6: Review Your Recommended Rate</h3>
+                <p class="text-gray-700">See hourly rate, project rates, and income at different utilization levels. Start at recommended rate, adjust up/down based on client feedback.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="bg-white py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What if I can't find clients at my recommended rate?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Common issue means: (1) Portfolio isn't strong enough yet, (2) Targeting wrong client type, (3) Marketing weak. Solutions: Build stronger portfolio with one low-priced project, target mid-market clients (less price-sensitive), improve LinkedIn/website, get referrals from existing clients. Don't undercut rate; fix positioning instead.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        Should I compete on price or value?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">ALWAYS compete on value (results/outcomes) not price (hourly rate). Price competition is race to bottom. Value competition = "I'll generate $50K revenue for $5K fee" (10:1 ROI). Build portfolio showing client results, case studies, testimonials. Target clients who care about results, not lowest bid.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        How do I handle clients who want to negotiate down?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Price negotiation signals: (1) Client doesn't understand value, or (2) It's not right client fit. Options: Reduce scope instead of rate ("I can do X for $Y, or full project for $Y+$Z"), explain value ("This generates $100K for you"), walk away (fire bad-fit clients). Never reduce hourly rate—reduce hours/scope instead.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        When should I raise my rates?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Raise rates: (1) After strong portfolio growth, (2) When clients ask "Can you fit me in?" (demand > supply), (3) After major certifications/achievements, (4) Every 1-2 years of experience (standard is 5-10% annual increase). New clients at new rate; existing clients can stay at old rate or give 30-day notice. Retainer clients: build 5-10% annual increases into contracts.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        Hourly vs Project-Based Pricing: Which is better?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Hourly: Better for undefined scope, ongoing work, new clients. Downside: Incentivizes slowness. Project: Better for defined scope, experienced freelancers, recurring clients. Upside: Rewards efficiency, predictable client budget. Hybrid: Retainer (monthly fee) for ongoing availability + hourly for extra. For income stability: Retainer is best—recurring revenue is most profitable.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        How do I account for taxes, benefits, and retirement?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Key expenses to budget: Self-employment tax (15.3%, split with employer-equivalent), health insurance ($200-400/month), retirement savings (15% of gross for security). Example: $75K gross revenue need = Actual take-home only ~$45-50K after taxes + insurance + retirement. Use our calculator's target income as net amount needed, then add 50-60% for expenses.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What about discounts for long-term contracts?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Yes, offer 10-15% discount for 6-month+ retainers (reduces acquisition cost, provides stability). Example: $65/hour regular rate; $55/hour for retainer (10-12 hours/month = $660/month guaranteed). Discount comes from reduced admin/sales overhead, not reduced service quality. Always structure: "Standard rate $X; retainer rate $Y for 12-month commitment."</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        How can I increase my rates beyond market average?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Premium rates (2-3x market) require: (1) Proven results/ROI (case studies, testimonials), (2) Niche expertise (rare skills), (3) Thought leadership (recognized authority), (4) Premium positioning (high-end clients). Example: General copywriter $60/hr; Expert conversion copywriter $150-200/hr (proven revenue impact). Build positioning before raising rates.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-green-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Related Calculators</h2>
+            <div class="grid md:grid-cols-4 gap-6">
+                <a href="/income-tax-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">📋</div>
+                    <h3 class="font-bold mb-2">Income Tax</h3>
+                    <p class="text-sm text-gray-600">Calculate quarterly taxes</p>
+                </a>
+                <a href="/personal-loan-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">💰</div>
+                    <h3 class="font-bold mb-2">Personal Loan</h3>
+                    <p class="text-sm text-gray-600">Financing for equipment</p>
+                </a>
+                <a href="/business-budget-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">📊</div>
+                    <h3 class="font-bold mb-2">Budget Planner</h3>
+                    <p class="text-sm text-gray-600">Monthly business budget</p>
+                </a>
+                <a href="/profit-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">📈</div>
+                    <h3 class="font-bold mb-2">Profit Margin</h3>
+                    <p class="text-sm text-gray-600">Calculate profitability</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gradient-to-r from-green-600 to-teal-600 text-white py-12 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to Raise Your Rates?</h2>
+            <p class="text-xl mb-6">Join thousands of freelancers earning sustainable income</p>
+            <button class="bg-white text-green-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 active:scale-95">
+                Create Your Rate Card
+            </button>
+            <p class="text-sm mt-4 text-green-100">Free templates • Pricing strategies • Client scripts</p>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="font-bold text-white mb-4">Calculators</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">Freelancer Rates</a></li>
+                        <li><a href="#" class="hover:text-white">Income Tax</a></li>
+                        <li><a href="#" class="hover:text-white">Profit Margins</a></li>
+                        <li><a href="#" class="hover:text-white">Budget Planner</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Resources</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">Pricing Guide</a></li>
+                        <li><a href="#" class="hover:text-white">Contract Templates</a></li>
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Legal</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">Privacy</a></li>
+                        <li><a href="#" class="hover:text-white">Terms</a></li>
+                        <li><a href="#" class="hover:text-white">Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Newsletter</h3>
+                    <p class="text-sm mb-3">Pricing & business tips</p>
+                    <input type="email" placeholder="Your email" class="w-full px-3 py-2 rounded text-gray-800 text-sm">
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+                <p>&copy; 2024 Freelancer Rate Calculator. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const professionRates = {
+            'web-developer': {min: 50, mid: 75, max: 120, junior: 35},
+            'graphic-designer': {min: 40, mid: 65, max: 100, junior: 25},
+            'writer-content': {min: 35, mid: 55, max: 95, junior: 20},
+            'virtual-assistant': {min: 20, mid: 35, max: 60, junior: 15},
+            'social-media': {min: 35, mid: 55, max: 85, junior: 20},
+            'video-editor': {min: 45, mid: 75, max: 120, junior: 30},
+            'data-analyst': {min: 60, mid: 90, max: 150, junior: 40},
+            'accountant': {min: 50, mid: 80, max: 130, junior: 30},
+            'translator': {min: 30, mid: 50, max: 85, junior: 20},
+            'seo-specialist': {min: 45, mid: 75, max: 120, junior: 30},
+            'digital-marketer': {min: 50, mid: 80, max: 125, junior: 35},
+            'photographer': {min: 40, mid: 65, max: 110, junior: 25},
+            'consultant': {min: 80, mid: 120, max: 250, junior: 50},
+            'developer-mobile': {min: 60, mid: 95, max: 150, junior: 40},
+            'ux-designer': {min: 55, mid: 85, max: 135, junior: 35}
+        };
+
+        function setExperience(years) {
+            document.getElementById('experience').value = years;
+            calculateRate();
+        }
+
+        function calculateRate() {
+            const profession = document.getElementById('profession').value;
+            const experience = parseFloat(document.getElementById('experience').value) || 5;
+            const specialization = document.getElementById('specialization').value;
+            const billableHours = parseFloat(document.getElementById('billableHours').value) || 30;
+            const targetIncome = parseFloat(document.getElementById('targetIncome').value) || 75000;
+
+            const rates = professionRates[profession] || {min: 50, mid: 65, max: 100, junior: 30};
+
+            // Base rate calculation
+            let baseRate = rates.junior;
+            if (experience >= 1) baseRate = rates.min;
+            if (experience >= 5) baseRate = rates.mid;
+            if (experience >= 10) baseRate = rates.max;
+
+            // Specialization bonus
+            let specialBonus = 1.0;
+            if (specialization === 'focused') specialBonus = 1.15;
+            if (specialization === 'niche') specialBonus = 1.35;
+
+            const recommendedRate = Math.round(baseRate * specialBonus);
+            const requiredRate = Math.round(targetIncome / (billableHours * 50));
+
+            // Display rates
+            document.getElementById('recommendedRate').textContent = '$' + recommendedRate;
+            document.getElementById('marketRange').textContent = '$' + rates.min + '-$' + rates.max;
+            document.getElementById('requiredRate').textContent = '$' + requiredRate + '/hour';
+
+            // Calculate income at different rates
+            const annualAtRecommended = recommendedRate * billableHours * 50;
+            document.getElementById('annualAtRate').textContent = '$' + annualAtRecommended.toLocaleString('en-US', {maximumFractionDigits: 0});
+
+            // Daily and project rates
+            const dailyRate = recommendedRate * 8;
+            document.getElementById('dailyRate').textContent = '$' + dailyRate.toLocaleString('en-US', {maximumFractionDigits: 0});
+            const projectRate = recommendedRate * 40;
+            document.getElementById('projectRate').textContent = '$' + projectRate.toLocaleString('en-US', {maximumFractionDigits: 0});
+
+            // Utilization rates
+            const income50 = annualAtRecommended * 0.5;
+            const income70 = annualAtRecommended * 0.7;
+            const income85 = annualAtRecommended * 0.85;
+            const income100 = annualAtRecommended;
+
+            document.getElementById('income50').textContent = '$' + income50.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('income70').textContent = '$' + income70.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('income85').textContent = '$' + income85.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('income100').textContent = '$' + income100.toLocaleString('en-US', {maximumFractionDigits: 0});
+        }
+
+        // Initial calculation
+        calculateRate();
+    </script>
+</body>
+</html>
