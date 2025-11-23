@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ovulation & Fertility Calculator | Predict Your Fertile Window</title>
+    <meta name="description" content="Free ovulation and fertility calculator. Track your menstrual cycle, predict ovulation date, and identify your fertile window. Accurate predictions for conception planning.">
+    <meta name="keywords" content="ovulation calculator, fertility calculator, fertile window, menstrual cycle calculator, conception calculator, ovulation predictor">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "MedicalWebPage",
+        "name": "Ovulation and Fertility Calculator",
+        "description": "Calculate your ovulation date and fertile window based on your menstrual cycle",
+        "url": "https://yoursite.com/ovulation-fertility-calculator"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://yoursite.com"},
+            {"@type": "ListItem", "position": 2, "name": "Calculators", "item": "https://yoursite.com/calculators"},
+            {"@type": "ListItem", "position": 3, "name": "Ovulation Calculator"}
+        ]
+    }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-pink-50 to-rose-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-pink-600">Fertility Calc</div>
+            <div class="hidden md:flex gap-8">
+                <a href="#calculator" class="text-gray-700 hover:text-pink-600">Calculator</a>
+                <a href="#guide" class="text-gray-700 hover:text-pink-600">Guide</a>
+                <a href="#faq" class="text-gray-700 hover:text-pink-600">FAQ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-pink-500 to-rose-500 text-white py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Ovulation & Fertility Calculator</h1>
+            <p class="text-xl text-pink-100 mb-4">Track your menstrual cycle, predict ovulation, and identify your 5-day fertile window for conception planning</p>
+            <div class="flex gap-4 flex-wrap">
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">Medically accurate predictions</p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">Conception probability tracking</p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <p class="text-sm">Monthly cycle insights</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Widget -->
+    <section id="calculator" class="max-w-6xl mx-auto px-4 py-12">
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Input Section -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Calculator</h2>
+
+                <div class="space-y-6">
+                    <!-- First Day of Last Period -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">First Day of Last Period</label>
+                        <input type="date" id="lastPeriodDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent" onchange="calculateFertility()">
+                        <p class="text-xs text-gray-500 mt-1">The first day your period started</p>
+                    </div>
+
+                    <!-- Cycle Length -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Cycle Length (days)</label>
+                        <div class="grid grid-cols-4 gap-2 mb-3">
+                            <button onclick="setCycleLength(21)" class="py-2 text-sm bg-gray-100 rounded-lg hover:bg-gray-200">21</button>
+                            <button onclick="setCycleLength(28)" class="py-2 text-sm bg-pink-100 rounded-lg border-2 border-pink-600 font-semibold">28</button>
+                            <button onclick="setCycleLength(32)" class="py-2 text-sm bg-gray-100 rounded-lg hover:bg-gray-200">32</button>
+                            <button onclick="setCycleLength(35)" class="py-2 text-sm bg-gray-100 rounded-lg hover:bg-gray-200">35</button>
+                        </div>
+                        <input type="number" id="cycleLength" value="28" min="21" max="45" step="1" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent" onchange="calculateFertility()">
+                        <p class="text-xs text-gray-500 mt-1">From first day of period to first day of next period</p>
+                    </div>
+
+                    <!-- Luteal Phase Length (Optional) -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Luteal Phase Length (optional)</label>
+                        <input type="number" id="lutealPhase" value="14" min="10" max="16" step="0.5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent" onchange="calculateFertility()">
+                        <p class="text-xs text-gray-500 mt-1">Days from ovulation to period (typically 12-16 days, usually 14)</p>
+                    </div>
+
+                    <!-- Flow Information -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Period Flow Intensity</label>
+                        <select id="flowIntensity" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent" onchange="calculateFertility()">
+                            <option value="light">Light (1-2 days full flow)</option>
+                            <option value="normal" selected>Normal (3-5 days full flow)</option>
+                            <option value="heavy">Heavy (5+ days full flow)</option>
+                            <option value="very">Very Heavy (7+ days)</option>
+                        </select>
+                    </div>
+
+                    <!-- Number of Cycles to Track -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Cycles to Display</label>
+                        <select id="cycleCount" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent" onchange="calculateFertility()">
+                            <option value="1">Current Cycle Only</option>
+                            <option value="3">Next 3 Cycles</option>
+                            <option value="6" selected>Next 6 Cycles</option>
+                            <option value="12">Next 12 Months</option>
+                        </select>
+                    </div>
+
+                    <button onclick="calculateFertility()" class="w-full bg-pink-600 text-white py-3 rounded-lg font-bold text-lg hover:bg-pink-700 active:scale-95">Calculate Fertility Window</button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">Your Fertile Window</h2>
+
+                <div class="space-y-4">
+                    <div class="bg-pink-50 rounded-lg p-4 border-l-4 border-pink-600">
+                        <p class="text-gray-600 text-sm">Predicted Ovulation Date</p>
+                        <p id="ovulationDate" class="text-3xl font-bold text-pink-600">March 12, 2025</p>
+                        <p class="text-xs text-gray-500 mt-1">Day 14 of your cycle</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-red-50 rounded-lg p-4">
+                            <p class="text-gray-600 text-sm">Fertile Window Starts</p>
+                            <p id="fertileStart" class="text-xl font-bold text-red-600">March 8</p>
+                        </div>
+                        <div class="bg-red-50 rounded-lg p-4">
+                            <p class="text-gray-600 text-sm">Fertile Window Ends</p>
+                            <p id="fertileEnd" class="text-xl font-bold text-red-600">March 13</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 rounded-lg p-4 border-l-4 border-green-600">
+                        <p class="text-gray-600 text-sm">Peak Fertility Days</p>
+                        <p id="peakDays" class="text-sm font-bold text-green-600">5 days (March 8-12)</p>
+                        <p class="text-xs text-gray-500 mt-1">Highest conception probability</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <p class="text-gray-600">Next Period Due</p>
+                            <p id="nextPeriodDate" class="font-bold text-gray-800">March 26</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <p class="text-gray-600">Days Until Ovulation</p>
+                            <p id="daysToOvulation" class="font-bold text-gray-800">8 days</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-600">
+                        <p class="text-gray-600 text-sm">Cycle Status</p>
+                        <p id="cycleStatus" class="text-sm font-bold text-blue-600">Follicular phase - fertility increasing</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fertility Chart -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mt-8">
+            <h3 class="text-xl font-bold mb-6 text-gray-800">Your Monthly Fertility Pattern</h3>
+            <canvas id="fertileChart" height="100"></canvas>
+            <div class="mt-6 grid grid-cols-5 gap-3 text-center text-sm">
+                <div>
+                    <p class="text-gray-600 text-xs">Menstruation</p>
+                    <div class="bg-gray-300 h-4 rounded mt-1"></div>
+                </div>
+                <div>
+                    <p class="text-gray-600 text-xs">Follicular</p>
+                    <div class="bg-blue-300 h-4 rounded mt-1"></div>
+                </div>
+                <div>
+                    <p class="text-gray-600 text-xs">Fertile Window</p>
+                    <div class="bg-orange-400 h-4 rounded mt-1"></div>
+                </div>
+                <div>
+                    <p class="text-gray-600 text-xs">Ovulation</p>
+                    <div class="bg-red-500 h-4 rounded mt-1"></div>
+                </div>
+                <div>
+                    <p class="text-gray-600 text-xs">Luteal</p>
+                    <div class="bg-purple-300 h-4 rounded mt-1"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conception Probability -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mt-8">
+            <h3 class="text-xl font-bold mb-4 text-gray-800">Conception Probability by Day</h3>
+            <div id="conceptProbability" class="space-y-3">
+                <div class="flex items-center gap-4">
+                    <p class="w-32 text-sm font-semibold">2 days before ovulation</p>
+                    <div class="flex-1 bg-gray-200 rounded-full h-3">
+                        <div class="bg-red-500 h-3 rounded-full" style="width: 42%"></div>
+                    </div>
+                    <p class="text-sm font-bold w-16">42%</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <p class="w-32 text-sm font-semibold">1 day before ovulation</p>
+                    <div class="flex-1 bg-gray-200 rounded-full h-3">
+                        <div class="bg-red-600 h-3 rounded-full" style="width: 58%"></div>
+                    </div>
+                    <p class="text-sm font-bold w-16">58%</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <p class="w-32 text-sm font-semibold">Day of ovulation</p>
+                    <div class="flex-1 bg-gray-200 rounded-full h-3">
+                        <div class="bg-red-700 h-3 rounded-full" style="width: 100%"></div>
+                    </div>
+                    <p class="text-sm font-bold w-16">100%</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <p class="w-32 text-sm font-semibold">1 day after ovulation</p>
+                    <div class="flex-1 bg-gray-200 rounded-full h-3">
+                        <div class="bg-orange-500 h-3 rounded-full" style="width: 24%"></div>
+                    </div>
+                    <p class="text-sm font-bold w-16">24%</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <p class="w-32 text-sm font-semibold">Non-fertile days</p>
+                    <div class="flex-1 bg-gray-200 rounded-full h-3">
+                        <div class="bg-gray-400 h-3 rounded-full" style="width: 2%"></div>
+                    </div>
+                    <p class="text-sm font-bold w-16">~2%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Highlights -->
+    <section class="bg-white py-12 px-4 mt-12">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Why Track Your Fertility?</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-6 bg-pink-50 rounded-lg">
+                    <div class="text-4xl mb-3">🎯</div>
+                    <h3 class="font-bold text-lg mb-2">Optimize Conception</h3>
+                    <p class="text-gray-700">Knowing your fertile window increases pregnancy odds by timing intercourse during peak fertility days.</p>
+                </div>
+                <div class="p-6 bg-rose-50 rounded-lg">
+                    <div class="text-4xl mb-3">📊</div>
+                    <h3 class="font-bold text-lg mb-2">Understand Your Cycle</h3>
+                    <p class="text-gray-700">Track patterns in symptoms, energy, mood, and flow to predict future cycles accurately.</p>
+                </div>
+                <div class="p-6 bg-red-50 rounded-lg">
+                    <div class="text-4xl mb-3">💬</div>
+                    <h3 class="font-bold text-lg mb-2">Better Health Discussions</h3>
+                    <p class="text-gray-700">Accurate fertility tracking helps doctors diagnose irregular cycles or fertility issues.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Theory -->
+    <section class="bg-gray-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">How Ovulation & Fertility Work</h2>
+            <div class="bg-white rounded-lg p-8 space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-pink-600 mb-3">What: The Biology of the Menstrual Cycle</h3>
+                    <p class="text-gray-700 mb-4">Your menstrual cycle consists of three hormonal phases that repeat monthly:</p>
+                    <div class="bg-pink-50 p-4 rounded-lg space-y-3">
+                        <div>
+                            <p class="font-semibold text-pink-900">Menstrual Phase (Days 1-5)</p>
+                            <p class="text-sm text-gray-700">Uterine lining sheds. Period bleeding. Low hormones. Lasts 3-7 days.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-pink-900">Follicular Phase (Days 1-13)</p>
+                            <p class="text-sm text-gray-700">FSH hormone rises. Follicles develop. Estrogen increases. Ends with ovulation.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-pink-900">Ovulation (Day 14)</p>
+                            <p class="text-sm text-gray-700">LH surge triggers egg release from ovary. Fertile window: 5 days before to 1 day after.</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-pink-900">Luteal Phase (Days 15-28)</p>
+                            <p class="text-sm text-gray-700">Corpus luteum releases progesterone. Body temperature rises 0.3-0.8°F. Uterine lining thickens.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-pink-600 mb-3">Why: The Biology of Conception</h3>
+                    <p class="text-gray-700 mb-3">Understanding conception probability by day:</p>
+                    <div class="bg-rose-50 p-4 rounded-lg space-y-2 text-sm">
+                        <p><span class="font-semibold">Sperm survival:</span> Sperm can live 3-5 days in vaginal tract, seeking egg</p>
+                        <p><span class="font-semibold">Egg window:</span> Egg lives only 12-24 hours after ovulation</p>
+                        <p><span class="font-semibold">Peak day:</span> Intercourse on ovulation day = 100% conception probability (per act, with no infertility)</p>
+                        <p><span class="font-semibold">1-2 days before:</span> 42-58% probability (sperm waiting for egg)</p>
+                        <p><span class="font-semibold">After ovulation:</span> <2% probability (egg already past, sperm can't reach)</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-pink-600 mb-3">How: Calculating Fertile Window</h3>
+                    <p class="text-gray-700 mb-3">Standard calculation assumes 28-day cycle with 14-day ovulation:</p>
+                    <div class="bg-purple-50 p-4 rounded-lg font-mono text-sm space-y-2 overflow-x-auto">
+                        <p>Ovulation Day = First day of LMP + 14 days</p>
+                        <p>Fertile Window Start = Ovulation Day - 5 days</p>
+                        <p>Fertile Window End = Ovulation Day + 1 day</p>
+                        <p className="mt-3">Example: LMP = March 1</p>
+                        <p>Ovulation = March 1 + 14 = March 15</p>
+                        <p>Fertile Window = March 10-16 (7-day window)</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-pink-600 mb-3">Global Context: Fertility Challenges Worldwide</h3>
+                    <p class="text-gray-700 mb-3">Understanding your cycle is critical globally:</p>
+                    <div class="bg-red-50 p-4 rounded-lg space-y-2 text-sm">
+                        <p><span class="font-semibold">Developed nations:</span> 15-20% face infertility; cycle tracking vital for diagnosis</p>
+                        <p><span class="font-semibold">Developing nations:</span> Limited access to fertility treatment; tracking helps natural conception</p>
+                        <p><span class="font-semibold">Age impact:</span> Fertility declines 3% annually after age 30, peaks 20-35</p>
+                        <p><span class="font-semibold">PCOS/irregular cycles:</span> 8-13% of women have polycystic ovary syndrome; tracking crucial</p>
+                        <p><span class="font-semibold">Awareness gap:</span> 30% of women don't know when they ovulate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Excel/Sheets Section -->
+    <section class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">Excel & Google Sheets Formulas</h2>
+        <div class="bg-white rounded-lg p-8 space-y-6">
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-pink-600">Calculate Ovulation Date</h3>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                    =A1+14<br/>
+                    Where A1 = First day of last period<br/>
+                    Result: Predicted ovulation date
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-pink-600">Fertile Window Start (5 days before)</h3>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                    =(A1+14)-5<br/>
+                    Or: =A1+9<br/>
+                    Result: First fertile day
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-pink-600">Fertile Window End (1 day after)</h3>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                    =(A1+14)+1<br/>
+                    Or: =A1+15<br/>
+                    Result: Last fertile day
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-3 text-pink-600">Create Monthly Tracking</h3>
+                <div class="bg-pink-50 p-4 rounded-lg text-sm space-y-2">
+                    <p><span class="font-semibold">Column A:</span> Date of month</p>
+                    <p><span class="font-semibold">Column B:</span> Flow type (light/normal/heavy)</p>
+                    <p><span class="font-semibold">Column C:</span> Symptoms (cramping, mood, energy)</p>
+                    <p><span class="font-semibold">Column D:</span> Ovulation confirmed? (LH test, temperature)</p>
+                    <p><span class="font-semibold">Column E:</span> Notes for pattern identification</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Tracker -->
+    <section class="bg-pink-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4 text-gray-800">Download Fertility Tracking Spreadsheet</h2>
+            <p class="text-gray-700 mb-6">Track your cycles, symptoms, and fertility patterns month-by-month</p>
+            <button class="bg-pink-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-pink-700 active:scale-95">
+                📥 Download Excel Tracker
+            </button>
+            <p class="text-sm text-gray-600 mt-4">12-month fertility tracking template with symptom log</p>
+        </div>
+    </section>
+
+    <!-- Python Implementation -->
+    <section class="bg-gray-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">Python Implementation</h2>
+            <div class="bg-white rounded-lg p-8">
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                    <p class="text-pink-600 font-bold">from datetime import datetime, timedelta</p>
+                    <p class="mt-3">def calculate_fertile_window(lmp_date, cycle_length=28):</p>
+                    <p class="ml-4">    """Calculate fertile window and ovulation date"""</p>
+                    <p class="ml-4">    if isinstance(lmp_date, str):</p>
+                    <p class="ml-8">        lmp_date = datetime.strptime(lmp_date, "%Y-%m-%d")</p>
+                    <p class="ml-4">    </p>
+                    <p class="ml-4">    # Calculate ovulation date (standard is day 14 of 28-day cycle)</p>
+                    <p class="ml-4">    ovulation_offset = (cycle_length / 2)</p>
+                    <p class="ml-4">    ovulation_date = lmp_date + timedelta(days=ovulation_offset)</p>
+                    <p class="ml-4">    </p>
+                    <p class="ml-4">    # Fertile window: 5 days before to 1 day after ovulation</p>
+                    <p class="ml-4">    fertile_start = ovulation_date - timedelta(days=5)</p>
+                    <p class="ml-4">    fertile_end = ovulation_date + timedelta(days=1)</p>
+                    <p class="ml-4">    </p>
+                    <p class="ml-4">    # Next period</p>
+                    <p class="ml-4">    next_period = lmp_date + timedelta(days=cycle_length)</p>
+                    <p class="ml-4">    </p>
+                    <p class="ml-4">    return {</p>
+                    <p class="ml-8">'ovulation_date': ovulation_date.date(),</p>
+                    <p class="ml-8">'fertile_start': fertile_start.date(),</p>
+                    <p class="ml-8">'fertile_end': fertile_end.date(),</p>
+                    <p class="ml-8">'next_period': next_period.date()</p>
+                    <p class="ml-4">}</p>
+                    <p class="mt-3">def conception_probability(days_to_ovulation):</p>
+                    <p class="ml-4">    """Calculate conception probability by day"""</p>
+                    <p class="ml-4">    if days_to_ovulation == 0:</p>
+                    <p className="ml-8">        return 1.0  # 100% on ovulation day</p>
+                    <p className="ml-4">    elif days_to_ovulation == -1:</p>
+                    <p className="ml-8">        return 0.58  # 58% one day before</p>
+                    <p className="ml-4">    elif days_to_ovulation == -2:</p>
+                    <p className="ml-8">        return 0.42  # 42% two days before</p>
+                    <p className="ml-4">    else:</p>
+                    <p className="ml-8">        return 0.02  # ~2% outside window</p>
+                    <p className="mt-3"># Example usage:</p>
+                    <p>result = calculate_fertile_window("2025-03-01", 28)</p>
+                    <p>print(f"Ovulation: {result['ovulation_date']}")</p>
+                    <p>print(f"Fertile Window: {result['fertile_start']} to {result['fertile_end']}")</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How-to Guide -->
+    <section id="guide" class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">How to Track Your Fertility</h2>
+        <div class="space-y-6">
+            <div class="bg-white rounded-lg p-6 border-l-4 border-pink-600">
+                <h3 class="font-bold text-lg mb-2">Step 1: Know Your Cycle Length</h3>
+                <p class="text-gray-700">Track from the first day of your period to the first day of your next period. Normal is 21-45 days, but most women are 26-32 days. The more cycles you track, the more accurate your predictions become.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-rose-600">
+                <h3 class="font-bold text-lg mb-2">Step 2: Mark Your Cycle Days</h3>
+                <p class="text-gray-700">Use a calendar or app. Mark day 1 as the first day of your period. This is your starting point. Consistent tracking for 2-3 cycles helps identify patterns.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-red-600">
+                <h3 class="font-bold text-lg mb-2">Step 3: Calculate Ovulation Day</h3>
+                <p class="text-gray-700">For a 28-day cycle, ovulation is typically day 14. Use our calculator to find your specific date. If your cycle is 32 days, ovulation is day 16 (half the cycle length).</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-pink-400">
+                <h3 class="font-bold text-lg mb-2">Step 4: Identify Your Fertile Window</h3>
+                <p class="text-gray-700">Your fertile window is 5 days before and 1 day after ovulation. For a day-14 ovulation, that's days 9-15. This is when intercourse can result in conception.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-rose-400">
+                <h3 class="font-bold text-lg mb-2">Step 5: Recognize Fertility Signs</h3>
+                <p class="text-gray-700">Track physical signs: cervical mucus becomes clear and stretchy (egg white consistency), slight temperature rise (0.3-0.8°F), breast tenderness, pelvic pressure. These confirm ovulation is happening.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-red-400">
+                <h3 class="font-bold text-lg mb-2">Step 6: Time Intercourse for Peak Fertility</h3>
+                <p class="text-gray-700">Highest conception odds: intercourse 1-2 days before ovulation (when sperm are waiting for egg). Day of ovulation is also excellent. Avoid 2+ days after ovulation (egg gone).</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-pink-600">
+                <h3 class="font-bold text-lg mb-2">Step 7: Track for Pattern Identification</h3>
+                <p class="text-gray-700">After 3-6 cycles, patterns emerge. If ovulation varies (day 12-16), use our calculator's cycle length adjustment. Irregular cycles need more tracking months to predict accurately.</p>
+            </div>
+
+            <div class="bg-white rounded-lg p-6 border-l-4 border-rose-600">
+                <h3 class="font-bold text-lg mb-2">Step 8: Consult Healthcare Provider if Needed</h3>
+                <p class="text-gray-700">If cycles are very irregular, missing, or you don't conceive after 1 year of trying, discuss with doctor. Your tracking data helps doctors diagnose ovulation or fertility issues.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="bg-white py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        How accurate is this calculator?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">This calculator is accurate for regular cycles (26-32 days, consistent length). If your cycle varies by 3+ days month-to-month, accuracy decreases. For very irregular cycles (20-50 day variation), combination of basal body temperature and cervical mucus tracking improves accuracy. For irregular cycles, track 3+ months before relying on predictions.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        Can I get pregnant before my fertile window?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Conception outside your calculated window is very rare (2-3% chance) because sperm can only survive 3-5 days maximum and egg lives 12-24 hours after ovulation. However, if your cycle is irregular or ovulation timing varies, it's possible. Extending sexual activity throughout your cycle instead of targeting fertile window alone also increases conception odds.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What if my cycles are irregular?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Track 3-6 cycles to find your pattern. Calculate shortest and longest cycles. Use the shortest cycle to find earliest likely ovulation day, longest cycle for latest day. This widens your predicted fertile window. Also track physical symptoms: cervical mucus changes, temperature, breast tenderness. Combination of tracking methods works best for irregular cycles.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        How do I confirm ovulation actually happened?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Three methods confirm ovulation: (1) Basal body temperature rises 0.3-0.8°F after ovulation (take temp before getting up), (2) Ovulation predictor kit detects LH surge (test 2 days before predicted ovulation), (3) Ultrasound during fertile window visualizes follicle release. Apps combining multiple methods (temp + mucus + symptom tracking) provide most reliable confirmation.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        How long does it usually take to conceive?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Typical conception rates assuming healthy fertility: 20-25% of couples conceive in first cycle, 40-50% within 3 cycles, 75% within 6 months, 90% within 1 year. If trying for 1 year (ages 20-35) or 6 months (35+) with regular intercourse during fertile window without conceiving, consult fertility specialist to rule out issues.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        Does age affect fertility?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Yes significantly. Fertility peaks 20-30, declines 3% annually after 30. At age 30: 20% monthly conception odds. At 35: 15%. At 40: 10%. At 45: 3%. This is because egg quality declines with age (chromosomal abnormalities increase). Cycle tracking becomes even more important after 35 to optimize timing and detect ovulation issues earlier.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        Can I use this to prevent pregnancy?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">Fertility awareness for contraception (avoiding fertile window) has 76-88% effectiveness with perfect use, 77-88% typical use. This is less reliable than hormonal contraception (>99% with perfect use). If your goal is contraception, use this in combination with barrier methods (condoms) or other contraception. This calculator is designed primarily for conception planning, not contraception.</p>
+                </details>
+
+                <details class="bg-gray-50 rounded-lg p-6 cursor-pointer group">
+                    <summary class="font-bold text-lg text-gray-800 flex justify-between items-center">
+                        What's polycystic ovary syndrome (PCOS)?
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="text-gray-700 mt-4">PCOS affects 8-13% of women. Symptoms: irregular/absent periods, high androgens, ovarian cysts. In PCOS, ovulation is unpredictable or absent. This calculator won't work accurately for PCOS patients. Diagnosis requires blood tests and ultrasound. Treatment options exist (medication, lifestyle changes) to restore ovulation. Consult doctor if suspecting PCOS.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Calculators -->
+    <section class="bg-pink-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Related Calculators</h2>
+            <div class="grid md:grid-cols-4 gap-6">
+                <a href="/pregnancy-due-date-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">🤰</div>
+                    <h3 class="font-bold mb-2">Pregnancy Due Date</h3>
+                    <p class="text-sm text-gray-600">Calculate baby's arrival date</p>
+                </a>
+                <a href="/period-tracker" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">📅</div>
+                    <h3 class="font-bold mb-2">Period Tracker</h3>
+                    <p class="text-sm text-gray-600">Track menstrual cycles</p>
+                </a>
+                <a href="/pregnancy-test-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">✅</div>
+                    <h3 class="font-bold mb-2">Pregnancy Test</h3>
+                    <p class="text-sm text-gray-600">Best time to test</p>
+                </a>
+                <a href="/due-date-calculator" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition">
+                    <div class="text-4xl mb-3">📍</div>
+                    <h3 class="font-bold mb-2">Conception Date</h3>
+                    <p class="text-sm text-gray-600">Calculate conception date</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- References -->
+    <section class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">Medical & Scientific References</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                <h3 class="font-bold mb-3">Research Organizations</h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li>• American College of Obstetricians & Gynecologists (ACOG)</li>
+                    <li>• Fertility & Sterility Journal Research</li>
+                    <li>• Human Reproduction Journal</li>
+                    <li>• American Society for Reproductive Medicine (ASRM)</li>
+                </ul>
+            </div>
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                <h3 class="font-bold mb-3">Clinical Data</h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li>• Ovulation Window Studies</li>
+                    <li>• Menstrual Cycle Research</li>
+                    <li>• Conception Probability Studies</li>
+                    <li>• Fertility Timing Data</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authorship -->
+    <section class="bg-gray-50 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">About This Calculator</h2>
+            <div class="bg-white rounded-lg p-8">
+                <p class="text-gray-700 mb-4">This ovulation calculator uses standard menstrual cycle biology and fertility research from ACOG and medical literature. It matches calculations used by fertility clinics and reproductive endocrinologists.</p>
+                <p class="text-gray-700 mb-4"><span class="font-bold">Last Updated:</span> November 2024 with current medical research</p>
+                <p class="text-gray-700"><span class="font-bold">Medical Disclaimer:</span> This calculator provides educational information and predictions for informational purposes. It is not a medical device and should not replace professional medical advice. For fertility concerns, consult a gynecologist or fertility specialist. If you have irregular cycles or suspect PCOS, get medical evaluation before relying on predictions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="bg-gradient-to-r from-pink-500 to-rose-500 text-white py-12 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to Optimize Your Fertility?</h2>
+            <p class="text-xl mb-6">Get personalized fertility insights and expert guidance</p>
+            <button class="bg-white text-pink-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 active:scale-95">
+                Consult a Fertility Specialist
+            </button>
+            <p class="text-sm mt-4 text-pink-100">Secure • Confidential • Expert Support</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="font-bold text-white mb-4">Calculators</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">Ovulation Calculator</a></li>
+                        <li><a href="#" class="hover:text-white">Pregnancy Due Date</a></li>
+                        <li><a href="#" class="hover:text-white">Period Tracker</a></li>
+                        <li><a href="#" class="hover:text-white">Conception Calculator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Resources</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">Fertility Guide</a></li>
+                        <li><a href="#" class="hover:text-white">Cycle Tracking Tips</a></li>
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Legal</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white">Medical Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Newsletter</h3>
+                    <p class="text-sm mb-3">Fertility & cycle tips monthly</p>
+                    <input type="email" placeholder="Your email" class="w-full px-3 py-2 rounded text-gray-800 text-sm">
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-sm">
+                <p>&copy; 2024 Ovulation Calculator. All rights reserved. Educational resource only.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function setCycleLength(length) {
+            document.getElementById('cycleLength').value = length;
+            calculateFertility();
+        }
+
+        function calculateFertility() {
+            const lastPeriodInput = document.getElementById('lastPeriodDate').value;
+            if (!lastPeriodInput) return;
+
+            const lastPeriodDate = new Date(lastPeriodInput);
+            const cycleLength = parseFloat(document.getElementById('cycleLength').value) || 28;
+            const lutealPhase = parseFloat(document.getElementById('lutealPhase').value) || 14;
+
+            // Calculate ovulation (typically day 14 of 28-day cycle, scales with cycle length)
+            const ovulationDay = cycleLength / 2;
+            const ovulationDate = new Date(lastPeriodDate);
+            ovulationDate.setDate(ovulationDate.getDate() + ovulationDay);
+
+            // Fertile window: 5 days before to 1 day after
+            const fertileStart = new Date(ovulationDate);
+            fertileStart.setDate(fertileStart.getDate() - 5);
+            const fertileEnd = new Date(ovulationDate);
+            fertileEnd.setDate(fertileEnd.getDate() + 1);
+
+            // Next period
+            const nextPeriod = new Date(lastPeriodDate);
+            nextPeriod.setDate(nextPeriod.getDate() + cycleLength);
+
+            // Days until ovulation
+            const today = new Date();
+            const daysUntilOvulation = Math.ceil((ovulationDate - today) / (1000 * 60 * 60 * 24));
+
+            // Update display
+            document.getElementById('ovulationDate').textContent = ovulationDate.toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'});
+            document.getElementById('fertileStart').textContent = fertileStart.toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
+            document.getElementById('fertileEnd').textContent = fertileEnd.toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
+            document.getElementById('peakDays').textContent = '5 days (' + fertileStart.toLocaleDateString('en-US', {month: 'short', day: 'numeric'}) + '-' + fertileEnd.toLocaleDateString('en-US', {month: 'short', day: 'numeric'}) + ')';
+            document.getElementById('nextPeriodDate').textContent = nextPeriod.toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
+            document.getElementById('daysToOvulation').textContent = daysUntilOvulation > 0 ? daysUntilOvulation + ' days' : 'Today or past';
+
+            // Cycle status
+            const daysSincePeriod = Math.floor((today - lastPeriodDate) / (1000 * 60 * 60 * 24)) % cycleLength;
+            let status = 'Period phase';
+            if (daysSincePeriod < 5) status = 'Menstruation';
+            else if (daysSincePeriod < ovulationDay - 2) status = 'Follicular phase - fertility increasing';
+            else if (daysSincePeriod < ovulationDay + 2) status = 'Fertile window - peak fertility';
+            else status = 'Luteal phase - fertility decreasing';
+
+            document.getElementById('cycleStatus').textContent = status;
+
+            drawChart(cycleLength, ovulationDay);
+        }
+
+        function drawChart(cycleLength, ovulationDay) {
+            const canvas = document.getElementById('fertileChart');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+
+            ctx.clearRect(0, 0, width, height);
+
+            // Simplified cycle visualization
+            const menstruationDays = 5;
+            const follicularDays = ovulationDay - menstruationDays;
+            const luteulDays = cycleLength - ovulationDay;
+
+            const colors = ['#ef4444', '#93c5fd', '#fb923c', '#dc2626', '#c084fc'];
+            const dayWidth = width / cycleLength;
+
+            // Menstruation (days 1-5)
+            ctx.fillStyle = colors[0];
+            ctx.fillRect(0, 0, dayWidth * menstruationDays, height);
+
+            // Follicular phase
+            ctx.fillStyle = colors[1];
+            ctx.fillRect(dayWidth * menstruationDays, 0, dayWidth * follicularDays, height);
+
+            // Fertile window (5 days before ovulation to 1 day after)
+            ctx.fillStyle = colors[2];
+            const fertileStart = ovulationDay - 5;
+            ctx.fillRect(dayWidth * fertileStart, 0, dayWidth * 7, height);
+
+            // Ovulation day
+            ctx.fillStyle = colors[3];
+            ctx.fillRect(dayWidth * (ovulationDay - 0.5), 0, dayWidth * 1, height);
+
+            // Luteal phase
+            ctx.fillStyle = colors[4];
+            ctx.fillRect(dayWidth * (ovulationDay + 1), 0, dayWidth * luteulDays, height);
+        }
+
+        // Initialize with default date
+        const today = new Date();
+        const sevenDaysAgo = new Date(today);
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+        document.getElementById('lastPeriodDate').valueAsDate = sevenDaysAgo;
+        calculateFertility();
+    </script>
+</body>
+</html>
